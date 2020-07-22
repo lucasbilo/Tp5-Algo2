@@ -3,4 +3,4 @@ project(Tp5_Algo2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Tp5_Algo2 main.cpp vuelo.cpp vuelo.h)
+add_executable(Tp5_Algo2 main.cpp vuelo.cpp)
