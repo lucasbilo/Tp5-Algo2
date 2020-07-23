@@ -10,7 +10,8 @@ Carga::Carga(string nombre_archivo_aeropuertos, string nombre_archivo_vuelos)
 {
 	ifstream archivo_aeropuerto(nombre_archivo_aeropuertos);
 	ifstream archivo_vuelos(nombre_archivo_vuelos);
-	
+	diccionario_aeropuerto = NULL;
+	grafo_vuelos = NULL;
 }
 
 bool Carga::existe_archivo(ifstream& archivo)
@@ -24,7 +25,13 @@ bool Carga::existe_archivo(ifstream& archivo)
 
 ABB* Carga::obtener_diccionario_aeropuerto()
 {
-	return diccionario
+	return diccionario_aeropuerto;
+}
+
+Grafo* Carga::obtener_grafo_vuelos()
+{
+	return grafo_vuelos;
+}
 
 
 //FALTA
