@@ -1,5 +1,6 @@
-#ifndef TP4_ALGO2_LISTA_H
-#define TP4_ALGO2_LISTA_H
+#ifndef TP5_ALGO2_LISTA_H
+#define TP5_ALGO2_LISTA_H
+
 
 # include <iostream>
 # include "nodo.h"
@@ -7,49 +8,49 @@
 template < typename Dato >
 class Lista{
 
-private:
-    Nodo<Dato>* primero; // Primer elemento de la lista
-    unsigned tam; // Tamaño de la lista
+    private:
+        Nodo<Dato>* primero; // Primer elemento de la lista
+        unsigned tam; // Tamaño de la lista
 
-public:
-    // Constructor
-    // PRE: Ninguna
-    // POST: construye una lista vacía
-    // primero apunta a nulo y tam = 0
-    Lista();
+    public:
+        // Constructor
+        // PRE: Ninguna
+        // POST: construye una lista vacía
+        // primero apunta a nulo y tam = 0
+        Lista();
 
-    // Destructor
-    // PRE: Lista creada
-    // POST: Libera todos los recursos de la lista
-    ~Lista();
+        // Destructor
+        // PRE: Lista creada
+        // POST: Libera todos los recursos de la lista
+        ~Lista();
 
-    // PRE: lista creada y d puntero que apunta a memoria dinamica.
-    // POST: agrega un dato dentro de un nodo al principio
-    // - modifica el primero
-    // - tam se incrementa en 1
-    void insertar(Dato* d);
+        // PRE: lista creada y d puntero que apunta a memoria dinamica.
+        // POST: agrega un dato dentro de un nodo al principio
+        // - modifica el primero
+        // - tam se incrementa en 1
+        void insertar(Dato* d);
 
-    // PRE: Lista creada
-    // POST: devuelve el tamaño de la lista (cantidad de nodos)
-    unsigned obtener_tam();
+        // PRE: Lista creada
+        // POST: devuelve el tamaño de la lista (cantidad de nodos)
+        unsigned obtener_tam();
 
-    // PRE: - lista creada y no vacía
-    // - 0 < pos <= tam
-    // POST: devuelve un puntero al dato que está en la posición pos (se toma 1 como el primero)
-    Dato* obtener_dato(unsigned pos);
+        // PRE: - lista creada y no vacía
+        // - 0 < pos <= tam
+        // POST: devuelve un puntero al dato que está en la posición pos (se toma 1 como el primero)
+        Dato* obtener_dato(unsigned pos);
 
-    // PRE: Lista creada
-    // POST: TRUE si es vacia (tam == 0), False en caso contrario
-    bool lista_vacia();
+        // PRE: Lista creada
+        // POST: TRUE si es vacia (tam == 0), False en caso contrario
+        bool lista_vacia();
 
-    // PRE: - lista creada y no vacía
-    // - 0 < pos <= tam
-    // POST: libera el nodo que está en la posición pos (se toma 1 como el primero)
-    void eliminar_dato(unsigned pos);
+        // PRE: - lista creada y no vacía
+        // - 0 < pos <= tam
+        // POST: libera el nodo que está en la posición pos (se toma 1 como el primero)
+        void eliminar_dato(unsigned pos);
 
-    //POST: Copia los datos del puntero recibido en la lista.
+        //POST: Copia los datos del puntero recibido en la lista.
 
-    void copiar(Lista<Dato>*);
+        void copiar(Lista<Dato>*);
 
 };
 
@@ -127,6 +128,4 @@ void Lista<Dato>::copiar(Lista<Dato>* lista){
     }
 }
 
-
-
-#endif //TP4_ALGO2_LISTA_H
+#endif //TP5_ALGO2_LISTA_H
