@@ -1,27 +1,22 @@
 #include "vuelo.h"
 using namespace std;
 
-Vuelo::Vuelo(string cod_partida, string cod_destino, int costo, float horas){
+Arista::Arista(std::string cod_partida, std::string cod_destino, Lista<double>* pesos){
     this->cod_partida = cod_partida;
     this->cod_destino = cod_destino;
-    costo_vuelo = costo;
-    horas_vuelo = horas;
+    this->pesos = pesos;
 }
 
-Vuelo::~Vuelo() {}
+Arista::~Arista() {}
 
-string Vuelo::obtener_cod_partida(){
+string Arista::obtener_cod_partida(){
     return cod_partida;
 }
 
-string Vuelo::obtener_cod_destino(){
+string Arista::obtener_cod_destino(){
     return cod_destino;
 }
 
-int Vuelo::obtener_costo(){
-    return costo_vuelo;
-}
-
-float Vuelo::obtener_horas(){
-    return horas_vuelo;
+double Arista::obtener_peso(int posicion){
+    return *(pesos->obtener_dato(posicion));
 }
