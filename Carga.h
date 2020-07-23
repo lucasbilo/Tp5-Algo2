@@ -35,7 +35,7 @@ public:
     //Constructor
     //PRE: Nombres de archivo .txt en string.
     //POST: Variables de archivo ifstream creadas.
-    Carga(){string nombre_archivo_aeropuerto, string nombre_archivo_vuelos};
+    Carga(string nombre_archivo_aeropuerto, string nombre_archivo_vuelos);
 	
     //Destructor
     //PRE: Objeto archivo creado.
@@ -53,11 +53,11 @@ public:
 	
 	//PRE: -.
 	//POST: Devuelve un puntero al diccionario.
-	ABB* obtener_diccionario_aeropuerto(){};
+	ABB* obtener_diccionario_aeropuerto();
 	
 	//PRE: -.
 	//POST: Devuelve puntero al grafo de vuelos.
-	Grafo* obtener_grafo_vuelos(){};
+	Grafo* obtener_grafo_vuelos();
 };
 
 #endif /* carga_h */
