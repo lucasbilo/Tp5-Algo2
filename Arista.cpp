@@ -7,7 +7,9 @@ Arista::Arista(std::string cod_partida, std::string cod_destino, Lista<double>* 
     this->pesos = pesos;
 }
 
-Arista::~Arista() {}
+Arista::~Arista() {
+    delete pesos;
+}
 
 string Arista::obtener_cod_partida(){
     return cod_partida;
