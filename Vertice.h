@@ -2,6 +2,7 @@
 #define TP5_ALGO2_VERTICE_H
 
 #include "Arista.h"
+#include <string>
 
 
 class Vertice {

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "vuelo.h"
+#include "Grafo.h"
 #include "lista.h"
 
 int main() {

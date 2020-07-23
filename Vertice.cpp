@@ -1,6 +1,5 @@
 #include "Vertice.h"
 
-
 Vertice::Vertice(std::string clave){
     this->clave = clave;
     aristas_adyacentes = new ABB<Arista>;
