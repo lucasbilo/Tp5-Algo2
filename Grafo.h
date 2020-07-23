@@ -35,6 +35,10 @@ class Grafo {
         // POST: Agrega un vertice vacio en el ABB de vertices.
         void agregar_vertice(std::string clave_vertice);
 
+        // PRE: Ambas claves estan en el ABB de vertices.
+        // POST: devuelve el peso de la arista dirigida: origen -> destino. El peso es evaluado segun la posicion recibida(peso tipo1, tipo2,etc...)
+        double obtener_peso(std::string origen, std::string destino, int posicion);
+
 };
 
 

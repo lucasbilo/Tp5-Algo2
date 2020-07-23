@@ -1,6 +1,9 @@
 #include "Grafo.h"
 
+
 using namespace std;
+
+const double INFINITO = 1e100;
 
 //CONSTRUCTOR
 Grafo::Grafo(){
@@ -15,13 +18,15 @@ Grafo::~Grafo(){
 
 //Agrega la arista al conjunto de aristas del vertice de salida.
 void Grafo::agregar_arista(Arista* arista){
-    Vertice* aux = vertices->consultar(arista->obtener_cod_destino());
+    string origen = arista->obtener_cod_partida();
+    string destino = arista->obtener_cod_destino();
+    Vertice* aux = vertices->consultar(destino);
     if(aux == NULL)
-        agregar_vertice(arista->obtener_cod_destino());
-    aux = vertices->consultar(arista->obtener_cod_partida());
+        agregar_vertice(destino);
+    aux = vertices->consultar(partida);
     if(aux == NULL){
-        agregar_vertice(arista->cod_partida);
-        aux = vertices->consultar(arista->obtener_cod_partida());
+        agregar_vertice(partida);
+        aux = vertices->consultar(partida);
     }
     aux->agregar_arista(arista);
 }
@@ -31,6 +36,15 @@ void Grafo::agregar_vertice(string clave_vertice){
     Vertice* aux = new Vertice(clave_vertice);
     vertices->agregar(clave_vertice, aux);
 }
+
+double Grafo::obtener_peso(string origen, string destino, int posicion){
+    Vertice* aux = vertices->consultar(origen);
+    Arista* edge = aux->consultar_arista(destino);
+    if(edge == NULL)
+        return INFINITO;
+    return edge->obtener_peso(posicion);
+}
+
 
 /*FALTA IMPLEMENTAR*/
 

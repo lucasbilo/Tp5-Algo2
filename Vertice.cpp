@@ -13,3 +13,6 @@ void Vertice::agregar_arista(Arista* arista){
     aristas_adyacentes->agregar(arista->obtener_cod_destino(), arista);
 }
 
+Arista* Vertice::consultar_arista(std::string destino){
+    return aristas_adyacentes->consultar(destino);
+}

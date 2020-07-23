@@ -17,7 +17,7 @@ class Vertice {
         //PRE: No hay otra arista con el mismo destino. La partida de la arista es igual a la clave.
         // POST: Se agrega la arista al diccionario de aristas_adyacentes. Su clave es el destino, y el dato, la arista.
         void agregar_arista(Arista* arista);
-
+        Arista* consultar_arista(std::string destino);
 };
 
 
