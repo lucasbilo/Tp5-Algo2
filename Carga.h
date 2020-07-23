@@ -1,5 +1,5 @@
-#ifndef archivo_h
-#define archivo_h
+#ifndef carga_h
+#define carga_h
 
 #include <stdio.h>
 #include <fstream>
@@ -35,12 +35,12 @@ public:
     //Constructor
     //PRE: Nombres de archivo .txt en string.
     //POST: Variables de archivo ifstream creadas.
-    Archivo(){string nombre_archivo_aeropuerto, string nombre_archivo_vuelos};
+    Carga(){string nombre_archivo_aeropuerto, string nombre_archivo_vuelos};
 	
     //Destructor
     //PRE: Objeto archivo creado.
     //Libera recursos, memoria, etc.
-    ~Archivo(){};
+    ~Carga(){};
 	
     
     //PRE: -.
@@ -60,4 +60,4 @@ public:
 	Grafo* obtener_grafo_vuelos(){};
 };
 
-#endif /* archivo_hpp */
+#endif /* carga_h */
