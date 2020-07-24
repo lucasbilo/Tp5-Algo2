@@ -26,20 +26,9 @@ bool Carga::existe_archivo(ifstream& archivo)
 	return false;
 }
 
-ABB* Carga::obtener_diccionario_aeropuerto()
-{
-	return diccionario_aeropuerto;
-}
-
-Grafo* Carga::obtener_grafo_vuelos()
-{
-	return grafo_vuelos;
-}
-
-
 //FALTA
 
-void Carga::cargar_diccionario_aeropuerto();
+//void Carga::cargar_diccionario_aeropuerto();
 
 
 bool Carga::cargar_grafo_vuelos()
@@ -70,6 +59,17 @@ bool Carga::cargar_grafo_vuelos()
 		cout << "El archivo " << nombre_archivo_vuelos << " no se pudo abrir, por favor comprobar que exista." << endl;
 		return false
 }
+		
+ABB* Carga::obtener_diccionario_aeropuerto()
+{
+	return diccionario_aeropuerto;
+}
+
+Grafo* Carga::obtener_grafo_vuelos()
+{
+	return grafo_vuelos;
+}
+
 	
 
 
