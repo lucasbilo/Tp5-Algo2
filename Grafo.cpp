@@ -1,6 +1,5 @@
 #include "Grafo.h"
 
-
 using namespace std;
 
 const double INFINITO = 1e100;
@@ -47,7 +46,8 @@ double Grafo::obtener_peso(string origen, string destino, int posicion){
 
 
 /*FALTA IMPLEMENTAR*/
-
+/*
 void Grafo::buscar_camino_minimo(Vertice origen, Vertice destino); // hay que ver bien desps que es lo que devolveria
 //podria ser una lista de listas de sucesiones de aristas. Porque vieron que puede haber mas de un camino bueno. No se hay que pensarlo
 void Grafo::imprimir_camino(Lista<Arista>);
+ */
