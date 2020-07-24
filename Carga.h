@@ -44,12 +44,12 @@ public:
 	
     
     //PRE: -.
-    //POST: Arbol diccionario de aeropuertos creado mediante la lectura del aeropuerto.
+    //POST: Arbol diccionario de aeropuertos creado mediante la lectura del aeropuerto. Devuelve bool determinando si se pudo cargar o no.
     bool cargar_diccionario_aeropuerto(){};
 	
     //PRE: -.
-    //POST: Grafo de vuelos creado mediante la lectura del archivo de vuelos.
-    void cargar_grafo_vuelos(){};
+    //POST: Grafo de vuelos creado mediante la lectura del archivo de vuelos. Devuelve bool determinando si se pudo cargar o no.
+    bool cargar_grafo_vuelos(){};
 	
 	//PRE: -.
 	//POST: Devuelve un puntero al diccionario.
