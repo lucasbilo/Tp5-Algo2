@@ -41,6 +41,9 @@ class ABB{
         // POST: Busca la clave pasado por parametro en el ABB. Si la clave esta en el ABB devuelve TRUE, en caso contrario FALSE.
         bool buscar(C Clave);
 
+        //POST: Si la clave no esta en el Diccionario, devuelve NULL, sino devuelve un puntero al dato almacenado.
+        T* consultar(C clave);
+
         // Devuelve la clave minima que existe en el ABB
         C encontrar_min();
 
@@ -262,6 +265,14 @@ ABBNodo<T,C>* ABB<T,C>::obtener_raiz(){
 template <class T, class C>
 bool ABB<T,C>::vacio(){
     return this->raiz == NULL;
+}
+
+template <class T, class C>
+T* consultar(C clave){
+    ABBNodo<T,C>* resultado = buscar(this->raiz, clave);
+    if(resultado == NULL)
+        return NULL;
+    return resultado->obtener_dato();
 }
 
 
