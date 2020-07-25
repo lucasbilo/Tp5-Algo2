@@ -4,32 +4,23 @@
 #include "ABBNodo.h"
 #include<iostream>
 
-template <class T>
-
+template <class T, class C> // T para el dato, C para la clave
 class ABB{
 
     private:
-        // attributes
-        ABBNodo<T>* raiz;
+        // atributos
+        ABBNodo<T,C>* raiz;
 
-        // methods
-        ABBNodo<T>* insertar(ABBNodo<T>* nodo, T dato);
-
-        void imprimir_en_orden(ABBNodo<T> * nodo);
-
-        ABBNodo<T>* buscar(ABBNodo<T>* nodo, T dato);
-
-        T encontrar_min(ABBNodo<T>* nodo);
-
-        T encontrar_max(ABBNodo<T>* nodo);
-
-        T sucesor(ABBNodo<T>* nodo);
-
-        T predecesor(ABBNodo<T>* nodo);
-
-        ABBNodo<T>* borrar(ABBNodo<T>* nodo, T dato);
-
-        void borrar_todo(ABBNodo<T>* nodo);
+        // metodos
+        ABBNodo<T,C>* insertar(ABBNodo<T,C>* nodo, T dato, C clave);
+        void imprimir_en_orden(ABBNodo<T,C> * nodo);
+        ABBNodo<T,C>* buscar(ABBNodo<T,C>* nodo, C clave);
+        C encontrar_min(ABBNodo<T,C>* nodo);
+        C encontrar_max(ABBNodo<T,C>* nodo);
+        C sucesor(ABBNodo<T,C>* nodo);
+        C predecesor(ABBNodo<T,C>* nodo);
+        ABBNodo<T,C>* borrar(ABBNodo<T,C>* nodo, C clave);
+        void borrar_todo(ABBNodo<T,C>* nodo);
 
     public:
 
@@ -37,264 +28,261 @@ class ABB{
         // POST: Inicializa un ABB vacio
         ABB();
 
-        // POST: Agrega un nuevo nodo al ABB. Si es el árbol está vacío el nodo insertado será la raíz
-        void insertar(T dato);
+        // POST: Agrega un nuevo nodo al ABB. Si el árbol está vacío el nodo insertado será la raíz
+        void insertar(T dato, C clave);
 
-        // Prints all the dato stored in the BST, sorted from the
-        // smallest value to the greatest value.
+        // Imprime todas las claves del ABB, ordenadas desde el menor al mayor
         void imprimir_en_orden();
 
-        // POST: Busca al dato pasado por parametro en el ABB. Si el dato esta en el ABB devuelve TRUE, en caso contrario FALSE.
-        bool buscar(T dato);
+        // POST: Busca la clave pasado por parametro en el ABB. Si la clave esta en el ABB devuelve TRUE, en caso contrario FALSE.
+        bool buscar(C Clave);
 
-        // Devuelve el valor minimo que existe en el ABB
-        T encontrar_min();
+        // Devuelve la clave minima que existe en el ABB
+        C encontrar_min();
 
-        // POST: Devuelve el valor maximo que existe en el ABB
-        T encontrar_max();
+        // POST: Devuelve la clave maxima que existe en el ABB
+        C encontrar_max();
 
-        // POST: Devuelve el sucesor del dato pasado por parametro
-        T sucesor(T dato);
+        // POST: Devuelve una clave que es el sucesor de la clave pasada por parametro
+        C sucesor(C clave);
 
-        // POST: Devuelve el predecesor del dato pasado por parametro
-        T predecesor(T dato);
+        // POST: Devuelve una clave que es el predecesor de la clave pasada por parametro
+        C predecesor(C clave);
 
-        // POST: Borra el dato recibido por parametro del ABB
-        void borrar(T dato);
+        // POST: Borra del ABB la clave pasada por parametro y su dato correspondiente
+        void borrar(C clave);
 
-        ABBNodo<T>* obtener_raiz();
+        ABBNodo<T,C>* obtener_raiz();
 
         bool vacio();
 
         // POST: Borra todos los nodos del ABB
         void borrar_todo();
 
-        ~ABB<T>();
+        ~ABB<T,C>();
 
     };
 
-template <class T>
-ABB<T>::ABB(){
+template <class T, class C>
+ABB<T,C>::ABB(){
     this->raiz = NULL;
 }
 
-template <class T>
-ABBNodo<T>* ABB<T>::insertar(ABBNodo<T>* nodo, T dato) {
-    if (nodo == NULL) {
-        nodo = new ABBNodo<T>(dato);
+template <class T, class C>
+ABBNodo<T,C>* ABB<T,C>::insertar(ABBNodo<T,C>* nodo, T dato, C clave){
+    if (nodo == NULL){
+        nodo = new ABBNodo<T,C>(dato, clave);
     }
-    else if (dato > nodo->obtener_dato()) {
-        nodo->modificar_derecho(insertar(nodo->obtener_derecho(), dato), nodo);
+    else if (dato > nodo->obtener_dato()){
+        nodo->modificar_derecho(insertar(nodo->obtener_derecho(), dato, clave), nodo);
     }
-    else {
-        nodo->modificar_derecho(insertar(nodo->obtener_izquierdo(), dato), nodo);
+    else{
+        nodo->modificar_izquierdo(insertar(nodo->obtener_izquierdo(), dato, clave), nodo);
     }
     return nodo;
 }
 
-template <class T>
-void ABB<T>::insertar(T dato){
-    this->raiz = insertar(this->raiz, dato);
+template <class T, class C>
+void ABB<T,C>::insertar(T dato, C clave){
+    this->raiz = insertar(this->raiz, dato, clave);
 }
 
-template <class T>
-void ABB<T>::imprimir_en_orden(ABBNodo<T>* nodo){
+template <class T, class C>
+void ABB<T,C>::imprimir_en_orden(ABBNodo<T,C>* nodo){
     if (nodo != NULL){
         imprimir_en_orden(nodo->obtener_izquierdo());
-        std::cout<<nodo->get_data()<<' ';
-        imprimir_en_orden(nodo->obtener_izquierdo());
+        std::cout << nodo->obtener_clave() <<' ';
+        imprimir_en_orden(nodo->obtener_derecho());
     }
 }
 
-template <class T>
-void ABB<T>::imprimir_en_orden(){
+template <class T, class C>
+void ABB<T,C>::imprimir_en_orden(){
     this->imprimir_in_order(this->raiz);
 }
 
-template <class T>
-ABBNodo<T>* ABB<T>::buscar(ABBNodo<T>* nodo, T dato){
-    if (nodo == NULL || nodo->obtener_dato() == dato)
+template <class T, class C>
+ABBNodo<T,C>* ABB<T,C>::buscar(ABBNodo<T,C>* nodo, C clave){
+    if (nodo == NULL || nodo->obtener_clave() == clave)
         return nodo;
 
-    if (dato > nodo->obtener_dato())
-        return buscar(nodo->obtener_derecho(), dato);
+    if (clave > nodo->obtener_clave())
+        return buscar(nodo->obtener_derecho(), clave);
 
-    return buscar(nodo->obtener_izquierdo(), dato);
+    return buscar(nodo->obtener_izquierdo(), clave);
 }
 
-template <class T>
-bool ABB<T>::buscar(T dato){
-    ABBNodo<T>* resultado = buscar(this->raiz, dato);
+template <class T, class C>
+bool ABB<T,C>::buscar(C clave){
+    ABBNodo<T,C>* resultado = buscar(this->raiz, clave);
 
     return resultado != NULL;
 }
 
-template <class T>
-T ABB<T>::encontrar_min(ABBNodo<T>* nodo){
+template <class T, class C>
+C ABB<T,C>::encontrar_min(ABBNodo<T,C>* nodo){
     if(nodo == NULL)
         return -1;
     else if(nodo->obtener_izquierdo() == NULL)
-        return nodo->obtener_dato();
+        return nodo->obtener_clave();
     else
         return encontrar_min(nodo->obtener_izquierdo());
 }
 
-template <class T>
-T ABB<T>::encontrar_min(){
+template <class T, class C>
+C ABB<T,C>::encontrar_min(){
     return encontrar_min(this->raiz);
 }
 
-template <class T>
-T ABB<T>::encontrar_max(ABBNodo<T>* nodo){
+template <class T, class C>
+C ABB<T,C>::encontrar_max(ABBNodo<T,C>* nodo){
     if(nodo == NULL)
         return -1;
     else if(nodo->obtener_derecho() == NULL)
-        return nodo->obtener_dato();
+        return nodo->obtener_clave();
     else
         return encontrar_max(nodo->obtener_derecho());
 }
 
-template <class T>
-T ABB<T>::encontrar_max(){
+template <class T, class C>
+C ABB<T,C>::encontrar_max(){
     return encontrar_max(this->raiz);
 }
 
-template <class T>
-T ABB<T>::sucesor(ABBNodo<T>* nodo){
+template <class T, class C>
+C ABB<T,C>::sucesor(ABBNodo<T,C>* nodo){
     if (nodo->obtener_derecho() != NULL){
         return encontrar_min(nodo->obtener_derecho());
     }
-    ABBNodo<T>* sucesor = NULL;
-    ABBNodo<T>* ancestro = this->raiz;
-    while(ancestro != nodo) {
-        if(nodo->obtener_dato() < ancestro->obtener_dato()) {
+    ABBNodo<T,C>* sucesor = NULL;
+    ABBNodo<T,C>* ancestro = this->raiz;
+    while(ancestro != nodo){
+        if(nodo->obtener_clave() < ancestro->obtener_clave()){
             sucesor = ancestro;
             ancestro = ancestro->obtener_izquierdo();
         }
         else
             ancestro = ancestro->obtener_derecho();
     }
-    return sucesor->obtener_dato();
+    return sucesor->obtener_clave();
 }
 
-template <class T>
-T ABB<T>::sucesor(T dato)
-{
-    ABBNodo<T>* dato_nodo = this->buscar(this->raiz, dato);
-    // Return the key. If the key is not found or successor is not found, return -1
-    if(dato_nodo == NULL)
+template <class T, class C>
+C ABB<T,C>::sucesor(C clave){
+    ABBNodo<T,C>* clave_nodo = this->buscar(this->raiz, clave);
+    // Devuelve la clave. Si no se encuentra la clave o no se encuentra el sucesor, devuelva -1
+    if(clave_nodo == NULL)
         return -1;
     else
-        return sucesor(dato_nodo);
+        return sucesor(clave_nodo);
 }
 
-template <class T>
-T ABB<T>::predecesor(ABBNodo<T> * nodo){
+template <class T, class C>
+C ABB<T,C>::predecesor(ABBNodo<T,C> * nodo){
     if (nodo->obtener_izquierdo() != NULL){
         return encontrar_max(nodo->obtener_izquierdo());
     }
 
-    ABBNodo<T>* sucesor = NULL;
-    ABBNodo<T>* ancestro = this->raiz;
-    while(ancestro != nodo) {
-        if(nodo->obtener_dato() > ancestro->obtener_dato()) {
-            sucesor = ancestro; // so far this is the deepest nodo for which current nodo is in left
+    ABBNodo<T,C>* sucesor = NULL;
+    ABBNodo<T,C>* ancestro = this->raiz;
+    while(ancestro != nodo){
+        if(nodo->obtener_clave() > ancestro->obtener_clave()){
+            sucesor = ancestro;
             ancestro = ancestro->obtener_derecho();
         }
         else
             ancestro = ancestro->obtener_izquierdo();
     }
-    return sucesor->obtener_dato();
+    return sucesor->obtener_clave();
 }
 
-template <class T>
-T ABB<T>::predecesor(T dato){
-    ABBNodo<T> * dato_nodo = this->buscar(this->raiz, dato);
-    if(dato_nodo == NULL)
+template <class T, class C>
+C ABB<T,C>::predecesor(C clave){
+    ABBNodo<T,C> * clave_nodo = this->buscar(this->raiz, clave);
+    if(clave_nodo == NULL)
         return -1;
     else
-        return predecesor(dato_nodo);
+        return predecesor(clave_nodo);
 }
 
-template <class T>
-ABBNodo<T> * ABB<T>::borrar(ABBNodo<T>* nodo, T dato){
-    // The given nodo is not found in ABB
-    if (nodo == NULL)
+template <class T, class C>
+ABBNodo<T,C> * ABB<T,C>::borrar(ABBNodo<T,C>* nodo, C clave){
+    if (nodo == NULL) // El nodo no se encuentra en el ABB
         return NULL;
 
-    if (nodo->obtener_dato() == dato){
-        if (nodo->es_hoja())
+    if (nodo->obtener_clave() == clave){
+        if (nodo->es_hoja()) {
+            delete nodo->obtener_dato();
             delete nodo;
+        }
         else if (nodo->solo_hijo_derecho()){
-            // The only child will be connected to the parent's of nodo directly
             nodo->obtener_derecho()->modificar_padre(nodo->obtener_padre());
-            // Bypass nodo
-            ABBNodo<T>* aux = nodo;
+            ABBNodo<T,C>* aux = nodo;
             nodo = nodo->obtener_derecho();
+            delete aux->obtener_dato();
             delete aux;
         }
         else if (nodo->solo_hijo_izquierdo()){
-            // The only child will be connected to the parent's of nodo directly
             nodo->obtener_izquierdo()->modificar_padre(nodo->obtener_padre());
-            // Bypass nodo
-            ABBNodo<T>* aux = nodo;
+            ABBNodo<T,C>* aux = nodo;
             nodo = nodo->obtener_izquierdo();
+            delete aux->obtener_dato();
             delete aux;
         }
-
-            // The nodo has two children (left and right)
+        //El nodo tiene dos hijos (izquierdo y derecho)
         else{
-            // Find successor or predecessor to avoid quarrel
-            T sucesor_dato = this->sucesor(dato);
+            // Encuentra sucesora o predecesora para evitar disputas
+            C sucesor_clave = this->sucesor(clave);
 
-            // Replace nodo's key with successor's key
-            nodo->modificar_dato(sucesor_dato);
+            //Copiar los datos del nodo sucesor a los del nodo actual
+            nodo = buscar(nodo, sucesor_clave);
 
-            // Delete the old successor's key
-            nodo->modificar_derecho(borrar(nodo->obtener_derecho(), sucesor_dato));
+            //Elimina el antiguo nodo del sucesor
+            nodo->modificar_derecho(borrar(nodo->obtener_derecho(), sucesor_clave));
         }
     }
 
-    else if (nodo->get_data() < dato)
-        nodo->modificar_derecho(borrar(nodo->obtener_derecho(), dato));
+    else if (nodo->obtener_clave() < clave)
+        nodo->modificar_derecho(borrar(nodo->obtener_derecho(), clave));
     else
-        nodo->modificar_izquierdo(borrar(nodo->obtener_izquierdo(), dato));
+        nodo->modificar_izquierdo(borrar(nodo->obtener_izquierdo(), clave));
 
     return nodo;
 }
 
-template <class T>
-void ABB<T>::borrar(T dato){
-    this->raiz = borrar(this->raiz, dato);
+template <class T, class C>
+void ABB<T,C>::borrar(C clave){
+    this->raiz = borrar(this->raiz, clave);
 }
 
-template <class T>
-ABBNodo<T>* ABB<T>::obtener_raiz(){
+template <class T, class C>
+ABBNodo<T,C>* ABB<T,C>::obtener_raiz(){
     return this->raiz;
 }
 
-template <class T>
-bool ABB<T>::vacio(){
+template <class T, class C>
+bool ABB<T,C>::vacio(){
     return this->raiz == NULL;
 }
 
 
-template <class T>
-void ABB<T>::borrar_todo(ABBNodo<T>* nodo){
+template <class T, class C>
+void ABB<T,C>::borrar_todo(ABBNodo<T,C>* nodo){
     if(nodo == NULL)
         return;
     this->borrar_todo(nodo->obtener_izquierdo());
     this->borrar_todo(nodo->obtener_derecho());
+    delete nodo->obtener_dato();
     delete nodo;
 }
 
-template <class T>
-void ABB<T>::borrar_todo(){
+template <class T, class C>
+void ABB<T,C>::borrar_todo(){
     this->borrar_todo(this->raiz);
 }
 
-template <class T>
-ABB<T>::~ABB<T>(){
+template <class T, class C>
+ABB<T,C>::~ABB<T,C>(){
     this->borrar_todo();
 }
 
