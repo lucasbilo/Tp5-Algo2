@@ -7,7 +7,7 @@ const double INFINITO = 1e100;
 //CONSTRUCTOR
 Grafo::Grafo(){
     cantidad_vertices = 0;
-    vertices = new ABB<Vertice>;
+    vertices = new ABB<Vertice, string>;
 }
 
 //DESTRUCTOR
@@ -17,7 +17,7 @@ Grafo::~Grafo(){
 
 //Agrega la arista al conjunto de aristas del vertice de salida.
 void Grafo::agregar_arista(Arista* arista){
-    string origen = arista->obtener_cod_partida();
+    string partida = arista->obtener_cod_partida();
     string destino = arista->obtener_cod_destino();
     Vertice* aux = vertices->consultar(destino);
     if(aux == NULL)
@@ -33,7 +33,8 @@ void Grafo::agregar_arista(Arista* arista){
 //Agrega un vertice vacio al grafo.
 void Grafo::agregar_vertice(string clave_vertice){
     Vertice* aux = new Vertice(clave_vertice);
-    vertices->agregar(clave_vertice, aux);
+    vertices->insertar(clave_vertice, aux);
+    cantidad_vertices++;
 }
 
 double Grafo::obtener_peso(string origen, string destino, int posicion){

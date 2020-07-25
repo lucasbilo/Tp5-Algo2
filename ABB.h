@@ -33,7 +33,7 @@ class ABB{
         ~ABB<T,C>();
 
         // POST: Agrega un nuevo nodo al ABB. Si el árbol está vacío el nodo insertado será la raíz
-        void insertar(T* dato, C clave);
+        void insertar(C clave, T* dato);
 
         // Imprime todas las claves del ABB, ordenadas desde el menor al mayor
         void imprimir_en_orden();
@@ -88,7 +88,7 @@ ABBNodo<T,C>* ABB<T,C>::insertar(ABBNodo<T,C>* nodo, T* dato, C clave){
 }
 
 template <class T, class C>
-void ABB<T,C>::insertar(T* dato, C clave){
+void ABB<T,C>::insertar(C clave, T* dato){
     this->raiz = insertar(this->raiz, dato, clave);
 }
 
@@ -268,7 +268,7 @@ bool ABB<T,C>::vacio(){
 }
 
 template <class T, class C>
-T* consultar(C clave){
+T* ABB<T,C>::consultar(C clave){
     ABBNodo<T,C>* resultado = buscar(this->raiz, clave);
     if(resultado == NULL)
         return NULL;

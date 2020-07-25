@@ -1,6 +1,8 @@
 #ifndef TP5_ALGO2_ABBNODO_H
 #define TP5_ALGO2_ABBNODO_H
 
+#include <cstddef>
+
 template <class T, class C> // T para el dato, C para la clave
 class ABBNodo{
 

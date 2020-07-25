@@ -9,7 +9,7 @@
 class Grafo {
     private:
         int cantidad_vertices;
-        ABB<Vertice>* vertices;
+        ABB<Vertice, std::string>* vertices;
 
     public:
         // CONSTRUCTOR
