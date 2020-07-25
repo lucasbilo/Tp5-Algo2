@@ -7,7 +7,7 @@ const double INFINITO = 1e100;
 //CONSTRUCTOR
 Grafo::Grafo(){
     cantidad_vertices = 0;
-    vertices = new ABB<Vertice, string>;
+    vertices = new Diccionario<Vertice>;
 }
 
 //DESTRUCTOR

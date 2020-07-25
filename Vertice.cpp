@@ -4,7 +4,7 @@ using namespace std;
 
 Vertice::Vertice(std::string clave){
     this->clave = clave;
-    aristas_adyacentes = new ABB<Arista, string>;
+    aristas_adyacentes = new Diccionario<Arista>;
 }
 
 Vertice::~Vertice(){

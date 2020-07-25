@@ -9,7 +9,7 @@ class Vertice {
 
     private:
         std::string clave;
-        ABB<Arista, std::string>* aristas_adyacentes;
+        Diccionario<Arista>* aristas_adyacentes;
     public:
         Vertice(std::string clave);
         ~Vertice();

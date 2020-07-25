@@ -1,30 +1,31 @@
-#ifndef TP5_ALGO2_ABBNODO_H
-#define TP5_ALGO2_ABBNODO_H
+#ifndef TP5_ALGO2_Nodo_dic_H
+#define TP5_ALGO2_Nodo_dic_H
 
 #include <cstddef>
+#include <string>
 
-template <class T, class C> // T para el dato, C para la clave
-class ABBNodo{
+template <class T> // T para el dato, C para la clave
+class Nodo_dic{
 
     private:
         T* dato;
-        C clave;
-        ABBNodo<T,C>* izquierdo; // Hijo izquierdo
-        ABBNodo<T,C>* derecho; //Hijo derecho
-        ABBNodo<T,C>* padre;
+        std::string clave;
+        Nodo_dic<T>* izquierdo; // Hijo izquierdo
+        Nodo_dic<T>* derecho; //Hijo derecho
+        Nodo_dic<T>* padre;
 
     public:
         //Constructor
-        // POST: Se inicializa un ABBNodo con el atributo dato igual al dato recibido por parametro.
+        // POST: Se inicializa un Nodo_dic con el atributo dato igual al dato recibido por parametro.
         // Los demas atributos apuntan a NULL
-        ABBNodo(T* dato, C clave);
+        Nodo_dic(T* dato, std::string clave);
 
         //Destructor
         //POST: Elimina la memoria a la que apunta dato.
-        ~ABBNodo();
+        ~Nodo_dic();
 
         //POST: Devuelve un dato de tipo C que es el atributo clave
-        C obtener_clave();
+        std::string obtener_clave();
 
         //POST: Devuelve un dato de tipo C que es el atributo dato
         T* obtener_dato();
@@ -35,33 +36,33 @@ class ABBNodo{
         // POST: Modifica 2 atributos, derecho y padre.
         // derecho = derecho(parametro)
         // padre = padre(parametro)
-        void modificar_derecho(ABBNodo<T,C>* derecho, ABBNodo<T,C>* padre);
+        void modificar_derecho(Nodo_dic<T>* derecho, Nodo_dic<T>* padre);
 
         // POST: Modifica 2 atributos, izquierdo y padre.
         // izquierdo = izquierdo(parametro)
         // padre = padre(parametro)
-        void modificar_izquierdo(ABBNodo<T,C>* izquierdo, ABBNodo<T,C>* padre);
+        void modificar_izquierdo(Nodo_dic<T>* izquierdo, Nodo_dic<T>* padre);
 
         // POST: Modifica el atributo derecho:
         // // derecho = derecho(parametro)
-        void modificar_derecho(ABBNodo<T,C>* derecho);
+        void modificar_derecho(Nodo_dic<T>* derecho);
 
         // POST: Modifica el atributo izquierdo:
         // izquierdo = izquierdo(parametro)
-        void modificar_izquierdo(ABBNodo<T,C>* izquierdo);
+        void modificar_izquierdo(Nodo_dic<T>* izquierdo);
 
         // POST: Modifica el atributo padre:
         // padre = padre(parametro)
-        void modificar_padre(ABBNodo<T,C>* padre);
+        void modificar_padre(Nodo_dic<T>* padre);
 
         //POST: Devuelve el atributo derecho
-        ABBNodo<T,C>* obtener_derecho();
+        Nodo_dic<T>* obtener_derecho();
 
         //POST: Devuelve el atributo izquierdo
-        ABBNodo<T,C>* obtener_izquierdo();
+        Nodo_dic<T>* obtener_izquierdo();
 
         //POST: Devuelve el atributo padre
-        ABBNodo<T,C>* obtener_padre();
+        Nodo_dic<T>* obtener_padre();
 
         // POST: Unicamente devuelve true si se verifica:
         // izquierdo == NULL y derecho == NULL
@@ -76,8 +77,8 @@ class ABBNodo{
         bool solo_hijo_izquierdo();
 };
 
-template <class T, class C>
-ABBNodo<T,C>::ABBNodo(T* dato, C clave){
+template <class T>
+Nodo_dic<T>::Nodo_dic(T* dato, std::string clave){
     this->clave = clave;
     this->dato = dato;
     this->izquierdo = NULL;
@@ -86,85 +87,85 @@ ABBNodo<T,C>::ABBNodo(T* dato, C clave){
 }
 
 
-template <class T, class C>
-ABBNodo<T, C>::~ABBNodo(){
+template <class T>
+Nodo_dic<T>::~Nodo_dic(){
     if( dato != NULL)
         delete dato;
 }
 
-template <class T, class C>
-C ABBNodo<T,C>::obtener_clave(){
+template <class T>
+std::string Nodo_dic<T>::obtener_clave(){
     return this->clave;
 }
 
-template <class T, class C>
-T* ABBNodo<T,C>::obtener_dato(){
+template <class T>
+T* Nodo_dic<T>::obtener_dato(){
     return this->dato;
 }
 
-template <class T, class C>
-void ABBNodo<T,C>::modificar_derecho(ABBNodo<T,C>* derecho, ABBNodo<T,C>* padre){
+template <class T>
+void Nodo_dic<T>::modificar_derecho(Nodo_dic<T>* derecho, Nodo_dic<T>* padre){
     this->derecho = derecho;
     this->padre = padre;
 }
 
-template <class T, class C>
-void ABBNodo<T,C>::modificar_derecho(ABBNodo<T,C>* derecho){
+template <class T>
+void Nodo_dic<T>::modificar_derecho(Nodo_dic<T>* derecho){
     this->derecho = derecho;
 }
 
-template <class T, class C>
-void ABBNodo<T,C>::modificar_izquierdo(ABBNodo<T,C>* izquierdo, ABBNodo<T,C>* padre){
+template <class T>
+void Nodo_dic<T>::modificar_izquierdo(Nodo_dic<T>* izquierdo, Nodo_dic<T>* padre){
     this->izquierdo = izquierdo;
     this->padre = padre;
 }
 
-template <class T, class C>
-void ABBNodo<T,C>::modificar_padre(ABBNodo<T,C> *padre) {
+template <class T>
+void Nodo_dic<T>::modificar_padre(Nodo_dic<T> *padre) {
     this->padre = padre;
 }
 
-template <class T, class C>
-void ABBNodo<T,C>::modificar_dato(T* dato) {
+template <class T>
+void Nodo_dic<T>::modificar_dato(T* dato) {
     if(dato != NULL)
         delete dato;
     this->dato = dato;
 }
 
 
-template <class T, class C>
-void ABBNodo<T,C>::modificar_izquierdo(ABBNodo<T,C>* izquierdo){
+template <class T>
+void Nodo_dic<T>::modificar_izquierdo(Nodo_dic<T>* izquierdo){
     this->izquierdo = izquierdo;
 }
 
-template <class T, class C>
-ABBNodo<T,C>* ABBNodo<T,C>::obtener_derecho(){
+template <class T>
+Nodo_dic<T>* Nodo_dic<T>::obtener_derecho(){
     return this->derecho;
 }
 
-template <class T, class C>
-ABBNodo<T,C>* ABBNodo<T,C>::obtener_izquierdo(){
+template <class T>
+Nodo_dic<T>* Nodo_dic<T>::obtener_izquierdo(){
     return this->izquierdo;
 }
 
-template <class T, class C>
-ABBNodo<T,C>* ABBNodo<T,C>::obtener_padre(){
+template <class T>
+Nodo_dic<T>* Nodo_dic<T>::obtener_padre(){
     return this->padre;
 }
 
-template <class T, class C>
-bool ABBNodo<T,C>::es_hoja(){
+template <class T>
+bool Nodo_dic<T>::es_hoja(){
     return (this->obtener_izquierdo() == NULL && this->obtener_derecho() == NULL);
 }
 
-template <class T, class C>
-bool ABBNodo<T,C>::solo_hijo_derecho(){
+template <class T>
+bool Nodo_dic<T>::solo_hijo_derecho(){
     return (this->obtener_izquierdo() == NULL && this->obtener_derecho() != NULL);
 }
 
-template <class T, class C>
-bool ABBNodo<T,C>::solo_hijo_izquierdo(){
+template <class T>
+bool Nodo_dic<T>::solo_hijo_izquierdo(){
     return (this->obtener_izquierdo() != NULL && this->obtener_derecho() == NULL);
 }
 
-#endif //TP5_ALGO2_ABBNODO_H
+#endif //TP5_ALGO2_Nodo_dic_H

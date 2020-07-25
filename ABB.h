@@ -1,82 +1,82 @@
-#ifndef TP5_ALGO2_ABB_H
-#define TP5_ALGO2_ABB_H
+#ifndef TP5_ALGO2_Diccionario_H
+#define TP5_ALGO2_Diccionario_H
 
 #include "ABBNodo.h"
 #include<iostream>
 
-template <class T, class C> // T para el dato, C para la clave
-class ABB{
+template <class T> // T para el dato
+class Diccionario{
 
     private:
         // atributos
-        ABBNodo<T,C>* raiz;
+        Nodo_dic<T>* raiz;
 
         // metodos
-        ABBNodo<T,C>* insertar(ABBNodo<T,C>* nodo, T* dato, C clave);
-        void imprimir_en_orden(ABBNodo<T,C> * nodo);
-        ABBNodo<T,C>* buscar(ABBNodo<T,C>* nodo, C clave);
-        C encontrar_min(ABBNodo<T,C>* nodo);
-        C encontrar_max(ABBNodo<T,C>* nodo);
-        C sucesor(ABBNodo<T,C>* nodo);
-        C predecesor(ABBNodo<T,C>* nodo);
-    ABBNodo<T,C>* borrar(ABBNodo<T,C>* nodo, C clave);
-        void borrar_todo(ABBNodo<T,C>* nodo);
+        Nodo_dic<T>* insertar(Nodo_dic<T>* nodo, T* dato, std::string clave);
+        void imprimir_en_orden(Nodo_dic<T> * nodo);
+        Nodo_dic<T>* buscar(Nodo_dic<T>* nodo, std::string clave);
+        std::string encontrar_min(Nodo_dic<T>* nodo);
+        std::string encontrar_max(Nodo_dic<T>* nodo);
+        std::string sucesor(Nodo_dic<T>* nodo);
+        std::string predecesor(Nodo_dic<T>* nodo);
+        Nodo_dic<T>* borrar(Nodo_dic<T>* nodo, std::string clave);
+        void borrar_todo(Nodo_dic<T>* nodo);
 
     public:
 
         //CONSTRUCTOR
-        // POST: Inicializa un ABB vacio
-        ABB();
+        // POST: Inicializa un Diccionario vacio
+        Diccionario();
 
         //DESTRUCTOR
         //POST: Elimina la memoria pedida para cada nodo.
-        ~ABB<T,C>();
+        ~Diccionario<T>();
 
-        // POST: Agrega un nuevo nodo al ABB. Si el árbol está vacío el nodo insertado será la raíz
-        void insertar(C clave, T* dato);
+        // POST: Agrega un nuevo nodo al Diccionario. Si el árbol está vacío el nodo insertado será la raíz
+        void insertar(std::string clave, T* dato);
 
-        // Imprime todas las claves del ABB, ordenadas desde el menor al mayor
+        // Imprime todas las claves del Diccionario, ordenadas desde el menor al mayor
         void imprimir_en_orden();
 
-        // POST: Busca la clave pasado por parametro en el ABB. Si la clave esta en el ABB devuelve TRUE, en caso contrario FALSE.
-        bool buscar(C Clave);
+        // POST: Busca la clave pasado por parametro en el Diccionario. Si la clave esta en el Diccionario devuelve TRUE, en caso contrario FALSE.
+        bool buscar(std::string Clave);
 
         //POST: Si la clave no esta en el Diccionario, devuelve NULL, sino devuelve un puntero al dato almacenado.
-        T* consultar(C clave);
+        T* consultar(std::string clave);
 
-        // Devuelve la clave minima que existe en el ABB
-        C encontrar_min();
+        // Devuelve la clave minima que existe en el Diccionario
+        std::string encontrar_min();
 
-        // POST: Devuelve la clave maxima que existe en el ABB
-        C encontrar_max();
+        // POST: Devuelve la clave maxima que existe en el Diccionario
+        std::string encontrar_max();
 
         // POST: Devuelve una clave que es el sucesor de la clave pasada por parametro
-        C sucesor(C clave);
+        std::string sucesor(std::string clave);
 
         // POST: Devuelve una clave que es el predecesor de la clave pasada por parametro
-        C predecesor(C clave);
+        std::string predecesor(std::string clave);
 
-        // POST: Borra del ABB la clave pasada por parametro y su dato correspondiente
-        void borrar(C clave);
+        // POST: Borra del Diccionario la clave pasada por parametro y su dato correspondiente
+        void borrar(std::string clave);
 
-        ABBNodo<T,C>* obtener_raiz();
+        Nodo_dic<T>* obtener_raiz();
 
         bool vacio();
 
-        // POST: Borra todos los nodos del ABB
+        // POST: Borra todos los nodos del Diccionario
         void borrar_todo();
 
     };
 
-template <class T, class C>
-ABB<T,C>::ABB(){
+template <class T>
+Diccionario<T>::Diccionario(){
     this->raiz = NULL;
 }
 
-template <class T, class C>
-ABBNodo<T,C>* ABB<T,C>::insertar(ABBNodo<T,C>* nodo, T* dato, C clave){
+template <class T>
+Nodo_dic<T>* Diccionario<T>::insertar(Nodo_dic<T>* nodo, T* dato, std::string clave){
     if (nodo == NULL){
-        nodo = new ABBNodo<T,C>(dato, clave);
+        nodo = new Nodo_dic<T>(dato, clave);
     }
     else if (clave > nodo->obtener_clave()){
         nodo->modificar_derecho(insertar(nodo->obtener_derecho(), dato, clave), nodo);
@@ -87,13 +87,13 @@ ABBNodo<T,C>* ABB<T,C>::insertar(ABBNodo<T,C>* nodo, T* dato, C clave){
     return nodo;
 }
 
-template <class T, class C>
-void ABB<T,C>::insertar(C clave, T* dato){
+template <class T>
+void Diccionario<T>::insertar(std::string clave, T* dato){
     this->raiz = insertar(this->raiz, dato, clave);
 }
 
-template <class T, class C>
-void ABB<T,C>::imprimir_en_orden(ABBNodo<T,C>* nodo){
+template <class T>
+void Diccionario<T>::imprimir_en_orden(Nodo_dic<T>* nodo){
     if (nodo != NULL){
         imprimir_en_orden(nodo->obtener_izquierdo());
         std::cout << nodo->obtener_clave() <<' ';
@@ -101,13 +101,13 @@ void ABB<T,C>::imprimir_en_orden(ABBNodo<T,C>* nodo){
     }
 }
 
-template <class T, class C>
-void ABB<T,C>::imprimir_en_orden(){
+template <class T>
+void Diccionario<T>::imprimir_en_orden(){
     this->imprimir_in_order(this->raiz);
 }
 
-template <class T, class C>
-ABBNodo<T,C>* ABB<T,C>::buscar(ABBNodo<T,C>* nodo, C clave){
+template <class T>
+Nodo_dic<T>* Diccionario<T>::buscar(Nodo_dic<T>* nodo, std::string clave){
     if (nodo == NULL || nodo->obtener_clave() == clave)
         return nodo;
 
@@ -117,50 +117,50 @@ ABBNodo<T,C>* ABB<T,C>::buscar(ABBNodo<T,C>* nodo, C clave){
     return buscar(nodo->obtener_izquierdo(), clave);
 }
 
-template <class T, class C>
-bool ABB<T,C>::buscar(C clave){
-    ABBNodo<T,C>* resultado = buscar(this->raiz, clave);
+template <class T>
+bool Diccionario<T>::buscar(std::string clave){
+    Nodo_dic<T>* resultado = buscar(this->raiz, clave);
 
     return resultado != NULL;
 }
 
-template <class T, class C>
-C ABB<T,C>::encontrar_min(ABBNodo<T,C>* nodo){
+template <class T>
+std::string Diccionario<T>::encontrar_min(Nodo_dic<T>* nodo){
     if(nodo == NULL)
-        return -1;
+        return "\0";
     else if(nodo->obtener_izquierdo() == NULL)
         return nodo->obtener_clave();
     else
         return encontrar_min(nodo->obtener_izquierdo());
 }
 
-template <class T, class C>
-C ABB<T,C>::encontrar_min(){
+template <class T>
+std::string Diccionario<T>::encontrar_min(){
     return encontrar_min(this->raiz);
 }
 
-template <class T, class C>
-C ABB<T,C>::encontrar_max(ABBNodo<T,C>* nodo){
+template <class T>
+std::string Diccionario<T>::encontrar_max(Nodo_dic<T>* nodo){
     if(nodo == NULL)
-        return -1;
+        return "\0";
     else if(nodo->obtener_derecho() == NULL)
         return nodo->obtener_clave();
     else
         return encontrar_max(nodo->obtener_derecho());
 }
 
-template <class T, class C>
-C ABB<T,C>::encontrar_max(){
+template <class T>
+std::string Diccionario<T>::encontrar_max(){
     return encontrar_max(this->raiz);
 }
 
-template <class T, class C>
-C ABB<T,C>::sucesor(ABBNodo<T,C>* nodo){
+template <class T>
+std::string Diccionario<T>::sucesor(Nodo_dic<T>* nodo){
     if (nodo->obtener_derecho() != NULL){
         return encontrar_min(nodo->obtener_derecho());
     }
-    ABBNodo<T,C>* sucesor = NULL;
-    ABBNodo<T,C>* ancestro = this->raiz;
+    Nodo_dic<T>* sucesor = NULL;
+    Nodo_dic<T>* ancestro = this->raiz;
     while(ancestro != nodo){
         if(nodo->obtener_clave() < ancestro->obtener_clave()){
             sucesor = ancestro;
@@ -172,9 +172,9 @@ C ABB<T,C>::sucesor(ABBNodo<T,C>* nodo){
     return sucesor->obtener_clave();
 }
 
-template <class T, class C>
-C ABB<T,C>::sucesor(C clave){
-    ABBNodo<T,C>* clave_nodo = this->buscar(this->raiz, clave);
+template <class T>
+std::string Diccionario<T>::sucesor(std::string clave){
+    Nodo_dic<T>* clave_nodo = this->buscar(this->raiz, clave);
     // Devuelve la clave. Si no se encuentra la clave o no se encuentra el sucesor, devuelva -1
     if(clave_nodo == NULL)
         return -1;
@@ -182,14 +182,14 @@ C ABB<T,C>::sucesor(C clave){
         return sucesor(clave_nodo);
 }
 
-template <class T, class C>
-C ABB<T,C>::predecesor(ABBNodo<T,C> * nodo){
+template <class T>
+std::string Diccionario<T>::predecesor(Nodo_dic<T> * nodo){
     if (nodo->obtener_izquierdo() != NULL){
         return encontrar_max(nodo->obtener_izquierdo());
     }
 
-    ABBNodo<T,C>* sucesor = NULL;
-    ABBNodo<T,C>* ancestro = this->raiz;
+    Nodo_dic<T>* sucesor = NULL;
+    Nodo_dic<T>* ancestro = this->raiz;
     while(ancestro != nodo){
         if(nodo->obtener_clave() > ancestro->obtener_clave()){
             sucesor = ancestro;
@@ -201,18 +201,18 @@ C ABB<T,C>::predecesor(ABBNodo<T,C> * nodo){
     return sucesor->obtener_clave();
 }
 
-template <class T, class C>
-C ABB<T,C>::predecesor(C clave){
-    ABBNodo<T,C> * clave_nodo = this->buscar(this->raiz, clave);
+template <class T>
+std::string Diccionario<T>::predecesor(std::string clave){
+    Nodo_dic<T> * clave_nodo = this->buscar(this->raiz, clave);
     if(clave_nodo == NULL)
-        return -1;
+        return "\0";
     else
         return predecesor(clave_nodo);
 }
 
-template <class T, class C>
-ABBNodo<T,C> * ABB<T,C>::borrar(ABBNodo<T,C>* nodo, C clave){
-    if (nodo == NULL) // El nodo no se encuentra en el ABB
+template <class T>
+Nodo_dic<T> * Diccionario<T>::borrar(Nodo_dic<T>* nodo, std::string clave){
+    if (nodo == NULL) // El nodo no se encuentra en el Diccionario
         return NULL;
 
     if (nodo->obtener_clave() == clave){
@@ -221,20 +221,20 @@ ABBNodo<T,C> * ABB<T,C>::borrar(ABBNodo<T,C>* nodo, C clave){
         }
         else if (nodo->solo_hijo_derecho()){
             nodo->obtener_derecho()->modificar_padre(nodo->obtener_padre());
-            ABBNodo<T,C>* aux = nodo;
+            Nodo_dic<T>* aux = nodo;
             nodo = nodo->obtener_derecho();
             delete aux;
         }
         else if (nodo->solo_hijo_izquierdo()){
             nodo->obtener_izquierdo()->modificar_padre(nodo->obtener_padre());
-            ABBNodo<T,C>* aux = nodo;
+            Nodo_dic<T>* aux = nodo;
             nodo = nodo->obtener_izquierdo();
             delete aux;
         }
         //El nodo tiene dos hijos (izquierdo y derecho)
         else{
             // Encuentra sucesora o predecesora para evitar disputas
-            C sucesor_clave = this->sucesor(clave);
+            std::string sucesor_clave = this->sucesor(clave);
 
             //Copiar los datos del nodo sucesor a los del nodo actual
             nodo = buscar(nodo, sucesor_clave);
@@ -252,32 +252,32 @@ ABBNodo<T,C> * ABB<T,C>::borrar(ABBNodo<T,C>* nodo, C clave){
     return nodo;
 }
 
-template <class T, class C>
-void ABB<T,C>::borrar(C clave){
+template <class T>
+void Diccionario<T>::borrar(std::string clave){
     this->raiz = borrar(this->raiz, clave);
 }
 
-template <class T, class C>
-ABBNodo<T,C>* ABB<T,C>::obtener_raiz(){
+template <class T>
+Nodo_dic<T>* Diccionario<T>::obtener_raiz(){
     return this->raiz;
 }
 
-template <class T, class C>
-bool ABB<T,C>::vacio(){
+template <class T>
+bool Diccionario<T>::vacio(){
     return this->raiz == NULL;
 }
 
-template <class T, class C>
-T* ABB<T,C>::consultar(C clave){
-    ABBNodo<T,C>* resultado = buscar(this->raiz, clave);
+template <class T>
+T* Diccionario<T>::consultar(std::string clave){
+    Nodo_dic<T>* resultado = buscar(this->raiz, clave);
     if(resultado == NULL)
         return NULL;
     return resultado->obtener_dato();
 }
 
 
-template <class T, class C>
-void ABB<T,C>::borrar_todo(ABBNodo<T,C>* nodo){
+template <class T>
+void Diccionario<T>::borrar_todo(Nodo_dic<T>* nodo){
     if(nodo == NULL)
         return;
     this->borrar_todo(nodo->obtener_izquierdo());
@@ -285,14 +285,14 @@ void ABB<T,C>::borrar_todo(ABBNodo<T,C>* nodo){
     delete nodo;
 }
 
-template <class T, class C>
-void ABB<T,C>::borrar_todo(){
+template <class T>
+void Diccionario<T>::borrar_todo(){
     this->borrar_todo(this->raiz);
 }
 
-template <class T, class C>
-ABB<T,C>::~ABB<T,C>(){
+template <class T>
+Diccionario<T>::~Diccionario<T>(){
     this->borrar_todo();
 }
 
-#endif //TP5_ALGO2_ABB_H
+#endif //TP5_ALGO2_Diccionario_H
