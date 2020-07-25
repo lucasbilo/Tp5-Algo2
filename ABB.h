@@ -12,14 +12,14 @@ class ABB{
         ABBNodo<T,C>* raiz;
 
         // metodos
-        ABBNodo<T,C>* insertar(ABBNodo<T,C>* nodo, T dato, C clave);
+        ABBNodo<T,C>* insertar(ABBNodo<T,C>* nodo, T* dato, C clave);
         void imprimir_en_orden(ABBNodo<T,C> * nodo);
         ABBNodo<T,C>* buscar(ABBNodo<T,C>* nodo, C clave);
         C encontrar_min(ABBNodo<T,C>* nodo);
         C encontrar_max(ABBNodo<T,C>* nodo);
         C sucesor(ABBNodo<T,C>* nodo);
         C predecesor(ABBNodo<T,C>* nodo);
-        ABBNodo<T,C>* borrar(ABBNodo<T,C>* nodo, C clave);
+    ABBNodo<T,C>* borrar(ABBNodo<T,C>* nodo, C clave);
         void borrar_todo(ABBNodo<T,C>* nodo);
 
     public:
@@ -28,8 +28,12 @@ class ABB{
         // POST: Inicializa un ABB vacio
         ABB();
 
+        //DESTRUCTOR
+        //POST: Elimina la memoria pedida para cada nodo.
+        ~ABB<T,C>();
+
         // POST: Agrega un nuevo nodo al ABB. Si el árbol está vacío el nodo insertado será la raíz
-        void insertar(T dato, C clave);
+        void insertar(T* dato, C clave);
 
         // Imprime todas las claves del ABB, ordenadas desde el menor al mayor
         void imprimir_en_orden();
@@ -59,8 +63,6 @@ class ABB{
         // POST: Borra todos los nodos del ABB
         void borrar_todo();
 
-        ~ABB<T,C>();
-
     };
 
 template <class T, class C>
@@ -69,11 +71,11 @@ ABB<T,C>::ABB(){
 }
 
 template <class T, class C>
-ABBNodo<T,C>* ABB<T,C>::insertar(ABBNodo<T,C>* nodo, T dato, C clave){
+ABBNodo<T,C>* ABB<T,C>::insertar(ABBNodo<T,C>* nodo, T* dato, C clave){
     if (nodo == NULL){
         nodo = new ABBNodo<T,C>(dato, clave);
     }
-    else if (dato > nodo->obtener_dato()){
+    else if (clave > nodo->obtener_clave()){
         nodo->modificar_derecho(insertar(nodo->obtener_derecho(), dato, clave), nodo);
     }
     else{
@@ -83,7 +85,7 @@ ABBNodo<T,C>* ABB<T,C>::insertar(ABBNodo<T,C>* nodo, T dato, C clave){
 }
 
 template <class T, class C>
-void ABB<T,C>::insertar(T dato, C clave){
+void ABB<T,C>::insertar(T* dato, C clave){
     this->raiz = insertar(this->raiz, dato, clave);
 }
 
@@ -212,21 +214,18 @@ ABBNodo<T,C> * ABB<T,C>::borrar(ABBNodo<T,C>* nodo, C clave){
 
     if (nodo->obtener_clave() == clave){
         if (nodo->es_hoja()) {
-            delete nodo->obtener_dato();
             delete nodo;
         }
         else if (nodo->solo_hijo_derecho()){
             nodo->obtener_derecho()->modificar_padre(nodo->obtener_padre());
             ABBNodo<T,C>* aux = nodo;
             nodo = nodo->obtener_derecho();
-            delete aux->obtener_dato();
             delete aux;
         }
         else if (nodo->solo_hijo_izquierdo()){
             nodo->obtener_izquierdo()->modificar_padre(nodo->obtener_padre());
             ABBNodo<T,C>* aux = nodo;
             nodo = nodo->obtener_izquierdo();
-            delete aux->obtener_dato();
             delete aux;
         }
         //El nodo tiene dos hijos (izquierdo y derecho)
@@ -272,7 +271,6 @@ void ABB<T,C>::borrar_todo(ABBNodo<T,C>* nodo){
         return;
     this->borrar_todo(nodo->obtener_izquierdo());
     this->borrar_todo(nodo->obtener_derecho());
-    delete nodo->obtener_dato();
     delete nodo;
 }
 

@@ -5,7 +5,7 @@ template <class T, class C> // T para el dato, C para la clave
 class ABBNodo{
 
     private:
-        T dato;
+        T* dato;
         C clave;
         ABBNodo<T,C>* izquierdo; // Hijo izquierdo
         ABBNodo<T,C>* derecho; //Hijo derecho
@@ -15,16 +15,20 @@ class ABBNodo{
         //Constructor
         // POST: Se inicializa un ABBNodo con el atributo dato igual al dato recibido por parametro.
         // Los demas atributos apuntan a NULL
-        ABBNodo(T dato, C clave);
+        ABBNodo(T* dato, C clave);
+
+        //Destructor
+        //POST: Elimina la memoria a la que apunta dato.
+        ~ABBNodo();
 
         //POST: Devuelve un dato de tipo C que es el atributo clave
         C obtener_clave();
 
         //POST: Devuelve un dato de tipo C que es el atributo dato
-        T obtener_dato();
+        T* obtener_dato();
 
         // POST: Modifica al atributo dato, por el dato que se recibe como parametro
-        void modificar_dato(T dato);
+        void modificar_dato(T* dato);
 
         // POST: Modifica 2 atributos, derecho y padre.
         // derecho = derecho(parametro)
@@ -71,13 +75,19 @@ class ABBNodo{
 };
 
 template <class T, class C>
-ABBNodo<T,C>::ABBNodo(T dato, C clave){
+ABBNodo<T,C>::ABBNodo(T* dato, C clave){
     this->clave = clave;
-    this->dato = new T;
     this->dato = dato;
     this->izquierdo = NULL;
     this->derecho = NULL;
     this->padre = NULL;
+}
+
+
+template <class T, class C>
+ABBNodo<T, C>::~ABBNodo(){
+    if( dato != NULL)
+        delete dato;
 }
 
 template <class T, class C>
@@ -86,7 +96,7 @@ C ABBNodo<T,C>::obtener_clave(){
 }
 
 template <class T, class C>
-T ABBNodo<T,C>::obtener_dato(){
+T* ABBNodo<T,C>::obtener_dato(){
     return this->dato;
 }
 
@@ -113,7 +123,9 @@ void ABBNodo<T,C>::modificar_padre(ABBNodo<T,C> *padre) {
 }
 
 template <class T, class C>
-void ABBNodo<T,C>::modificar_dato(T dato) {
+void ABBNodo<T,C>::modificar_dato(T* dato) {
+    if(dato != NULL)
+        delete dato;
     this->dato = dato;
 }
 
