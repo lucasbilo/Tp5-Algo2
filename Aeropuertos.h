@@ -1,10 +1,8 @@
-#ifndef TP5_ALGO2_AEROPUERTOS_H
-#define TP5_ALGO2_AEROPUERTOS_H
-
 #ifndef TP5_ALGO2_AEROPUERTO_H
 #define TP5_ALGO2_AEROPUERTO_H
 
 #include <string>
+#include <iostream>
 
 class Aeropuerto{
     private:
@@ -21,15 +19,15 @@ class Aeropuerto{
         //CONSTRUCTOR SIN PARAMETROS
         //PRE:
         //POST: Inicializa a Aeropuerto.
-        Aeropuertos();
+        Aeropuerto();
 
         //CONSTRUCTOR CON PARAMETROS
         //PRE:
         //POST: Inicializa a Aeropuerto y se asigna cada parametro al atributo correspondiente.
-        Aeropuertos(std::string iata, std::string aeropuerto, std::string ciudad, std::string pais, float superficie, unsigned int cant_terminales, unsigned int d_nacionales, unsigned int d_internacionales);
+        Aeropuerto(std::string iata, std::string aeropuerto, std::string ciudad, std::string pais, float superficie, unsigned int cant_terminales, unsigned int d_nacionales, unsigned int d_internacionales);
 
         //DESTRUCTOR
-        ~Aeropuertos();
+        ~Aeropuerto();
 
         //GETTERS
         //POST: Devuelve el codigo iata
@@ -57,7 +55,7 @@ class Aeropuerto{
         unsigned int obtener_d_internacionales();
 
         //POST: Muestra los datos de un aeropuerto.
-        void mostrar_datos()
+        void mostrar_datos();
 };
 
 #endif //TP5_ALGO2_AEROPUERTOS_H
