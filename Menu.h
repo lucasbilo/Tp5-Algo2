@@ -3,12 +3,14 @@
 
 #include <string>
 #include "Aeropuertos.h"
-#include "ABB.h"
+#include "Diccionario.h"
 #include "Grafo.h"
+#include "Validacion.h"
 
 class Menu{
     private:
         Diccionario<Aeropuerto>* ABB;
+        Validacion validaciones;
 
     public:
         //CONSTRUCTOR SIN PARAMETROS:
@@ -27,6 +29,15 @@ class Menu{
 
         //POST: Devuelve el codigo IATA que desea buscar.
         std::string solicitar_clave();
+
+        //POST: Devuelve la informacion de un aeropuerto.
+        void consultar_aeropuerto();
+
+        //POST: Da de baja un aeropuerto.
+        void baja_aeropuerto();
+
+        //POST: Da de alta un aeropuerto.
+        void alta_aeropuerto();
 
 };
 

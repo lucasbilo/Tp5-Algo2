@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Tp5_Algo2.dir/Carga.cpp.o"
   "CMakeFiles/Tp5_Algo2.dir/Grafo.cpp.o"
   "CMakeFiles/Tp5_Algo2.dir/Menu.cpp.o"
+  "CMakeFiles/Tp5_Algo2.dir/Validacion.cpp.o"
   "CMakeFiles/Tp5_Algo2.dir/Vertice.cpp.o"
   "CMakeFiles/Tp5_Algo2.dir/main.cpp.o"
   "Tp5_Algo2"

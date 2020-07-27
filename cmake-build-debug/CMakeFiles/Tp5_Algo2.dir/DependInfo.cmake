@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/Carga.cpp" "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Carga.cpp.o"
   "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/Grafo.cpp" "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Grafo.cpp.o"
   "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/Menu.cpp" "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Menu.cpp.o"
+  "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/Validacion.cpp" "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Validacion.cpp.o"
   "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/Vertice.cpp" "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Vertice.cpp.o"
   "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/main.cpp" "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/main.cpp.o"
   )

@@ -21,27 +21,13 @@ void Menu::menu_abb() {
 void Menu::opcion_abb(int opcion) {
     switch (opcion) {
         case 1: {
-            string iata = solicitar_clave();
-            if(ABB->buscar(iata))
-                ABB -> consultar(iata) -> mostrar_datos();
-            else
-                cout << "El código IATA ingresado no es correcto." << endl;
+            consultar_aeropuerto();
         };
-        /*case 2: {
-            string iata = solicitar_clave();
-            if(ABB->buscar(iata))
-                Aeropuerto* aeropuerto = new Aeropuerto(string iata, string aeropuerto, string ciudad, string pais, float superficie, unsigned int cant_terminales, unsigned int d_nacionales, unsigned int d_internacionales);
-                ABB ->insertar(iata, );
-        };*/
+        case 2: {
+          alta_aeropuerto();
+        }
         case 3:{
-            string iata = solicitar_clave();
-            if(ABB->buscar(iata))
-            {
-                ABB->borrar(iata);
-                cout << "El aeropuerto fue borrado exitosamente" << endl;
-            }
-            else
-                cout << "El codigo IATA ingresoda no es correcto." << endl;
+            baja_aeropuerto();
         }
         case 4:{
             ABB->imprimir_en_orden();
@@ -49,11 +35,41 @@ void Menu::opcion_abb(int opcion) {
     }
 };
 
-string Menu::solicitar_clave() {
-    string iata;
-    cout << "Ingrese el codigo IATA que desea utilizar: ";
-    cin >> iata;
-    return iata;
+void Menu::alta_aeropuerto() {
+    string iata = validaciones.pedir_string("Ingrese el codigo IATA: ");
+    while (ABB -> buscar(iata)){
+        cout << "El código IATA ingresado ya pertenece a un aeropuerto." << endl;
+        iata = validaciones.pedir_string("Ingrese el codigo IATA: ");
+    }
+    string n_aeropuerto = validaciones.pedir_string("Ingrese el nombre del aeropuerto: ");
+    string ciudad = validaciones.pedir_string("Ingrese el nombre de la ciudad: ");
+    string pais = validaciones.pedir_string("Ingrese el nombre del país: ");
+    int superficie = validaciones.pedir_entero("Ingrese la superficie: ");
+    int cant_terminales = validaciones.pedir_entero("Ingrese la cantidad de terminales: ");
+    int d_nacionales = validaciones.pedir_entero("Ingrese la cantidad de destinos nacionales: ");
+    int d_internacionales = validaciones.pedir_entero("Ingrese la cantidad de destinos internacionales: ");
+    Aeropuerto *aeropuerto = new Aeropuerto(iata, n_aeropuerto, ciudad, pais, superficie, cant_terminales,
+                                                d_nacionales, d_internacionales);
+    ABB->insertar(iata, aeropuerto);
+}
+
+void Menu::baja_aeropuerto() {
+    string iata = validaciones.pedir_string("Ingrese el codigo IATA: ");
+    if(ABB->buscar(iata))
+    {
+        ABB->borrar(iata);
+        cout << "El aeropuerto fue borrado exitosamente" << endl;
+    }
+    else
+        cout << "El codigo IATA ingresado no es correcto." << endl;
+}
+
+void Menu::consultar_aeropuerto() {
+    string iata = validaciones.pedir_string("Ingrese el codigo IATA: ");
+    if(ABB->buscar(iata))
+        ABB -> consultar(iata) -> mostrar_datos();
+    else
+        cout << "El código IATA ingresado no es correcto." << endl;
 }
 
 

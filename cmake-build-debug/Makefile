@@ -258,6 +258,33 @@ Menu.cpp.s:
 	$(MAKE) -f CMakeFiles/Tp5_Algo2.dir/build.make CMakeFiles/Tp5_Algo2.dir/Menu.cpp.s
 .PHONY : Menu.cpp.s
 
+Validacion.o: Validacion.cpp.o
+
+.PHONY : Validacion.o
+
+# target to build an object file
+Validacion.cpp.o:
+	$(MAKE) -f CMakeFiles/Tp5_Algo2.dir/build.make CMakeFiles/Tp5_Algo2.dir/Validacion.cpp.o
+.PHONY : Validacion.cpp.o
+
+Validacion.i: Validacion.cpp.i
+
+.PHONY : Validacion.i
+
+# target to preprocess a source file
+Validacion.cpp.i:
+	$(MAKE) -f CMakeFiles/Tp5_Algo2.dir/build.make CMakeFiles/Tp5_Algo2.dir/Validacion.cpp.i
+.PHONY : Validacion.cpp.i
+
+Validacion.s: Validacion.cpp.s
+
+.PHONY : Validacion.s
+
+# target to generate assembly for a file
+Validacion.cpp.s:
+	$(MAKE) -f CMakeFiles/Tp5_Algo2.dir/build.make CMakeFiles/Tp5_Algo2.dir/Validacion.cpp.s
+.PHONY : Validacion.cpp.s
+
 Vertice.o: Vertice.cpp.o
 
 .PHONY : Vertice.o
@@ -336,6 +363,9 @@ help:
 	@echo "... Menu.o"
 	@echo "... Menu.i"
 	@echo "... Menu.s"
+	@echo "... Validacion.o"
+	@echo "... Validacion.i"
+	@echo "... Validacion.s"
 	@echo "... Vertice.o"
 	@echo "... Vertice.i"
 	@echo "... Vertice.s"
