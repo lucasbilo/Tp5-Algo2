@@ -5,7 +5,7 @@ using namespace std;
 
 int Validacion::opcion_entre_rangos(int min, int max) {
     int numero;
-    cout << "Ingrese un numero entre el" << min << "y " << max << ": ";
+    cout << "Ingrese la opcion que desee realizar: ";
     cin >> numero;
     while (numero < min || numero > max)
     {

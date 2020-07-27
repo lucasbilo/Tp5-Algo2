@@ -1,8 +1,12 @@
 #include <iostream>
 #include "lista.h"
 #include "Diccionario.h"
+#include "Menu.h"
+#include "Validacion.h"
+
+
+using namespace std;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+  cout << "Hola mundo" <<endl;
 }

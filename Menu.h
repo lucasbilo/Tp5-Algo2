@@ -23,6 +23,9 @@ class Menu{
         //POST: Muestra el menu del Arbol binario.
         void menu_abb();
 
+        //POST: Muestra el menu del programa.
+        void menu_completo();
+
         //PRE: La opcion debe ser una opcion valida.
         //POST: Ejecuta la accion correspondiente a la opcion elegida.
         void opcion_abb(int opcion);

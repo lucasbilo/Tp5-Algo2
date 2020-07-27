@@ -8,6 +8,26 @@ Menu::Menu(Diccionario<Aeropuerto> * ABB){
     this -> ABB = ABB;
 };
 
+void Menu::menu_completo() {
+    int opcion, eleccion1, eleccion2;
+    do {
+        cout << "1. Menu aeropuertos." << endl;
+        cout << "2. Menu vuelos." << endl;
+        opcion = validaciones.opcion_entre_rangos(1, 3);
+        if (opcion == 1) {
+            do {
+                menu_abb();
+                int eleccion1 = validaciones.opcion_entre_rangos(1, 6);
+                opcion_abb(eleccion1);
+            } while (eleccion1 != 6);
+        }
+        else
+            //ACA FALTA EL CODIGO DEL MENU_GRAFO.
+
+    }while (opcion != 3);
+}
+
+
 void Menu::menu_abb() {
     cout << "Opciones disponibles: " << endl;
     cout << "1. Consultar por un aeropuerto en particular." << endl;
@@ -24,7 +44,7 @@ void Menu::opcion_abb(int opcion) {
             consultar_aeropuerto();
         };
         case 2: {
-          alta_aeropuerto();
+            alta_aeropuerto();
         }
         case 3:{
             baja_aeropuerto();
