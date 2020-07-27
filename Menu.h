@@ -39,6 +39,7 @@ class Menu{
         //POST: Da de baja un aeropuerto.
         void baja_aeropuerto();
 
+        //PRE: El codigo IATA no debe estar en el arbol.
         //POST: Da de alta un aeropuerto.
         void alta_aeropuerto();
 
