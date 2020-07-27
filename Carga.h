@@ -8,9 +8,8 @@
 //Archivos.h
 
 #include "Grafo.h"
-#include "ABB.h"
-
-using namespace std;
+#include "Diccionario.h"
+#include "Aeropuertos.h"
 
 class Carga
 {
@@ -18,16 +17,18 @@ private:
 
 	//Atributos
 	
-	ifstream archivo_aeropuerto;
-	ifstream archivo_vuelos;
-	ABB* diccionario_aeropuerto;
+	std::string nombre_archivo_aeropuertos;
+    std::string nombre_archivo_vuelos;
+	std::ifstream archivo_aeropuerto;
+	std::ifstream archivo_vuelos;
+	Diccionario<Aeropuerto>* diccionario_aeropuerto;
 	Grafo* grafo_vuelos;
 	
 	//Metodos
 	
 	//PRE: Variable archivo de lectura por parametro.
     //POST: Devuelve booleana depende de si se pudo abrir el archivo o no.
-    bool existe_archivo();
+    bool existe_archivo(ifstream& archivo);
 
 
 public:
@@ -35,7 +36,7 @@ public:
     //Constructor
     //PRE: Nombres de archivo .txt en string.
     //POST: Variables de archivo ifstream creadas.
-    Carga(string nombre_archivo_aeropuerto, string nombre_archivo_vuelos);
+    Carga(std::string nombre_archivo_aeropuerto, std::string nombre_archivo_vuelos);
 	
     //Destructor
     //PRE: Objeto archivo creado.
@@ -45,15 +46,15 @@ public:
     
     //PRE: -.
     //POST: Arbol diccionario de aeropuertos creado mediante la lectura del aeropuerto. Devuelve bool determinando si se pudo cargar o no.
-    bool cargar_diccionario_aeropuerto(){};
+    bool cargar_diccionario_aeropuerto();
 	
     //PRE: -.
     //POST: Grafo de vuelos creado mediante la lectura del archivo de vuelos. Devuelve bool determinando si se pudo cargar o no.
-    bool cargar_grafo_vuelos(){};
+    bool cargar_grafo_vuelos();
 	
 	//PRE: -.
 	//POST: Devuelve un puntero al diccionario.
-	ABB* obtener_diccionario_aeropuerto();
+	Diccionario<Aeropuerto>* obtener_diccionario_aeropuerto();
 	
 	//PRE: -.
 	//POST: Devuelve puntero al grafo de vuelos.
