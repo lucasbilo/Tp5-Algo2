@@ -1,18 +1,26 @@
-#include "Carga.h"
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <string>
 
+//Archivos.h
+
+#include "Carga.h"
+#include "Grafo.h"
+#include "Diccionario.h"
+#include "NodoDic.h"
+#include "Aeropuertos.h"
+
 using namespace std;
 
 Carga::Carga(string nombre_archivo_aeropuertos, string nombre_archivo_vuelos)
 {
-	this -> nombre_archivo_aeropuertos  = nombre_archivo_aeropertos;
+	this -> nombre_archivo_aeropuertos  = nombre_archivo_aeropuertos;
 	this -> nombre_archivo_vuelos = nombre_archivo_vuelos;
 	
 	ifstream archivo_aeropuerto(nombre_archivo_aeropuertos);
 	ifstream archivo_vuelos(nombre_archivo_vuelos);
+	
 	diccionario_aeropuerto = NULL;
 	grafo_vuelos = NULL;
 }
@@ -26,41 +34,74 @@ bool Carga::existe_archivo(ifstream& archivo)
 	return false;
 }
 
-//FALTA
+bool Carga::cargar_diccionario_aeropuerto()
+{
+    if (existe_archivo(archivo_aeropuerto))
+    {
+        Diccionario<Aeropuerto> dicc_aeropuertos; //Objeto vuelos de clase Grafo creado
+        diccionario_aeropuerto = &dicc_aeropuertos;; //el puntero al grafo a punta el grafo propiamente dicho
+        
+        string codigo_IATA, nombre_aeropuerto, ciudad, pais;
+        float superficie;
+        unsigned int cant_terminales, d_nacionales, d_internacionales;
 
-//void Carga::cargar_diccionario_aeropuerto();
-
+        
+        while (archivo_aeropuerto >> codigo_IATA)
+        {
+            archivo_aeropuerto >> nombre_aeropuerto;
+            archivo_aeropuerto >> ciudad;
+            archivo_aeropuerto >> pais;
+            archivo_aeropuerto >> superficie;
+            archivo_aeropuerto >> cant_terminales;
+            archivo_aeropuerto >> d_nacionales;
+            archivo_aeropuerto >> d_internacionales;
+            Aeropuerto* aeropuerto = new Aeropuerto(codigo_IATA, nombre_aeropuerto, ciudad, pais, superficie, cant_terminales, d_nacionales, d_internacionales);
+            dicc_aeropuertos.insertar(codigo_IATA, aeropuerto);
+        }
+        return true;
+    }
+        
+    else
+    {
+        cout << "El archivo " << nombre_archivo_vuelos << " no se pudo abrir, por favor comprobar que exista." << endl;
+        return false;
+    };
+}
 
 bool Carga::cargar_grafo_vuelos()
 {
-	if (existe_archivo(archivo_grafo))
+	if (existe_archivo(archivo_vuelos))
 	{
 		Grafo vuelos; //Objeto vuelos de clase Grafo creado
-		grafo_vuelos -> vuelos; //el puntero al grafo a punta el grafo propiamente dicho
+		grafo_vuelos = &vuelos; //el puntero al grafo a punta el grafo propiamente dicho
 		
 		string codigo_IATA_partida, codigo_IATA_destino;
 		double costo_vuelo, horas_vuelo;
+        double* p_costo_vuelo = NULL;
+        double* p_horas_vuelo = NULL;
 		Lista<double>* aux_pesos = new Lista<double>;
 		
-		while (archivo_grafo >> codigo_IATA_partida)
+		while (archivo_vuelos >> codigo_IATA_partida)
 		{
-			archivo_grafo >> codigo_IATA_destino;
-			archivo_grafo >> costo_vuelo;
-			archivo_grafo >> horas_vuelo;
-			(*aux_pesos).insertar(costo_vuelo);
-			(*aux_pesos).insertar(horas_vuelo);
+			archivo_vuelos >> codigo_IATA_destino;
+			archivo_vuelos >> costo_vuelo;
+			archivo_vuelos >> horas_vuelo;
+			(*aux_pesos).insertar(p_costo_vuelo);
+			(*aux_pesos).insertar(p_horas_vuelo);
 			Arista* vuelo = new Arista(codigo_IATA_partida, codigo_IATA_destino, aux_pesos);
 			vuelos.agregar_arista(vuelo);
 		}
 		return true;
+    }
 		
 	else
 	{
 		cout << "El archivo " << nombre_archivo_vuelos << " no se pudo abrir, por favor comprobar que exista." << endl;
-		return false
+        return false;
+    }
 }
 		
-ABB* Carga::obtener_diccionario_aeropuerto()
+Diccionario<Aeropuerto>* Carga::obtener_diccionario_aeropuerto()
 {
 	return diccionario_aeropuerto;
 }
