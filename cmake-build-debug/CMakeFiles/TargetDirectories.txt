@@ -1,0 +1,3 @@
+/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir
