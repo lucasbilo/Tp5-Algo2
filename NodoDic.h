@@ -1,5 +1,5 @@
-#ifndef TP5_ALGO2_Nodo_dic_H
-#define TP5_ALGO2_Nodo_dic_H
+#ifndef TP5_ALGO2_NodoDic_H
+#define TP5_ALGO2_NodoDic_H
 
 #include <cstddef>
 #include <string>
@@ -168,4 +168,4 @@ bool Nodo_dic<T>::solo_hijo_izquierdo(){
     return (this->obtener_izquierdo() != NULL && this->obtener_derecho() == NULL);
 }
 
-#endif //TP5_ALGO2_Nodo_dic_H
+#endif //TP5_ALGO2_NodoDic_H

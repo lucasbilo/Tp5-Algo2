@@ -1,7 +1,7 @@
 #ifndef TP5_ALGO2_Diccionario_H
 #define TP5_ALGO2_Diccionario_H
 
-#include "ABBNodo.h"
+#include "NodoDic.h"
 #include<iostream>
 
 template <class T> // T para el dato
