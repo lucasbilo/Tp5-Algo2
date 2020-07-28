@@ -26,9 +26,13 @@ private:
 	
 	//Metodos
 	
-	//PRE: Variable archivo de lectura por parametro.
+	//PRE: Variable archivo de lectura por parametro (ifstream).
     //POST: Devuelve booleana depende de si se pudo abrir el archivo o no.
     bool existe_archivo(ifstream& archivo);
+	
+	//PRE: Variable archivo de lectura por parametro (ifstream).
+	//POST: Cierra el archivo ifstream.
+	void cerrar_archivo(ifstream& archivo);
 
 
 public:
@@ -40,8 +44,8 @@ public:
 	
     //Destructor
     //PRE: Objeto archivo creado.
-    //Libera recursos, memoria, etc.
-    ~Carga(){};
+    //POST: Elimina punteros a diccionario y grafo.
+    ~Carga();
 	
     
     //PRE: -.
