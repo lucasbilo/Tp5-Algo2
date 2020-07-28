@@ -3,7 +3,7 @@
 
 #include "Arista.h"
 #include <string>
-#include "ABB.h"
+#include "Diccionario.h"
 
 class Vertice {
 

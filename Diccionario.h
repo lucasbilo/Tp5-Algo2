@@ -103,7 +103,7 @@ void Diccionario<T>::imprimir_en_orden(Nodo_dic<T>* nodo){
 
 template <class T>
 void Diccionario<T>::imprimir_en_orden(){
-    this->imprimir_in_order(this->raiz);
+    this->imprimir_en_orden(this->raiz);
 }
 
 template <class T>
@@ -177,7 +177,7 @@ std::string Diccionario<T>::sucesor(std::string clave){
     Nodo_dic<T>* clave_nodo = this->buscar(this->raiz, clave);
     // Devuelve la clave. Si no se encuentra la clave o no se encuentra el sucesor, devuelva -1
     if(clave_nodo == NULL)
-        return -1;
+        return "F";
     else
         return sucesor(clave_nodo);
 }

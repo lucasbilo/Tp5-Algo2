@@ -1,7 +1,7 @@
 #ifndef TP5_ALGO2_GRAFO_H
 #define TP5_ALGO2_GRAFO_H
 
-#include "ABB.h"
+#include "Diccionario.h"
 #include "lista.h"
 #include "Vertice.h"
 #include "Arista.h"

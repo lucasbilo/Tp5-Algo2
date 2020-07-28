@@ -28,11 +28,11 @@ private:
 	
 	//PRE: Variable archivo de lectura por parametro (ifstream).
     //POST: Devuelve booleana depende de si se pudo abrir el archivo o no.
-    bool existe_archivo(ifstream& archivo);
+    bool existe_archivo(std::ifstream& archivo);
 	
 	//PRE: Variable archivo de lectura por parametro (ifstream).
 	//POST: Cierra el archivo ifstream.
-	void cerrar_archivo(ifstream& archivo);
+	void cerrar_archivo(std::ifstream& archivo);
 
 
 public:

@@ -22,6 +22,7 @@ void Menu::menu_completo() {
             } while (eleccion1 != 6);
         }
         else
+            cout << "Falta el menu del codigo de grafo" <<endl;
             //ACA FALTA EL CODIGO DEL MENU_GRAFO.
 
     }while (opcion != 3);

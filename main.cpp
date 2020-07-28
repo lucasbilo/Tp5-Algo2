@@ -3,6 +3,7 @@
 #include "Diccionario.h"
 #include "Menu.h"
 #include "Validacion.h"
+#include "Carga.h"
 
 using namespace std;
 

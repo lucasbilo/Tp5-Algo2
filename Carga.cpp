@@ -74,7 +74,7 @@ bool Carga::cargar_diccionario_aeropuerto()
         
     else
     {
-        cout << "El archivo " << nombre_archivo_aeropuerto << " no se pudo abrir, por favor comprobar que exista." << endl;
+        cout << "El archivo " << nombre_archivo_aeropuertos << " no se pudo abrir, por favor comprobar que exista." << endl;
         return false;
     };
 }

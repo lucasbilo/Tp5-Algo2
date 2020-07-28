@@ -1,4 +1,5 @@
 #include "Arista.h"
+
 using namespace std;
 
 Arista::Arista(std::string cod_partida, std::string cod_destino, Lista<double>* pesos){
