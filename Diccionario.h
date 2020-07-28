@@ -15,10 +15,10 @@ class Diccionario{
         Nodo_dic<T>* insertar(Nodo_dic<T>* nodo, T* dato, std::string clave);
         void imprimir_en_orden(Nodo_dic<T> * nodo);
         Nodo_dic<T>* buscar(Nodo_dic<T>* nodo, std::string clave);
-        std::string encontrar_min(Nodo_dic<T>* nodo);
-        std::string encontrar_max(Nodo_dic<T>* nodo);
-        std::string sucesor(Nodo_dic<T>* nodo);
-        std::string predecesor(Nodo_dic<T>* nodo);
+        std::string encontrar_min(Nodo_dic<T>* nodo, T* &dato);
+        std::string encontrar_max(Nodo_dic<T>* nodo, T* &dato);
+        std::string sucesor(Nodo_dic<T>* nodo, T* &dato);
+        std::string predecesor(Nodo_dic<T>* nodo, T* &dato);
         Nodo_dic<T>* borrar(Nodo_dic<T>* nodo, std::string clave);
         void borrar_todo(Nodo_dic<T>* nodo);
 
@@ -44,17 +44,17 @@ class Diccionario{
         //POST: Si la clave no esta en el Diccionario, devuelve NULL, sino devuelve un puntero al dato almacenado.
         T* consultar(std::string clave);
 
-        // Devuelve la clave minima que existe en el Diccionario
-        std::string encontrar_min();
+        // Devuelve la clave minima que existe en el Diccionario y remplaza dato por un puntero al dato de la clave
+        std::string encontrar_min(T* &dato);
 
-        // POST: Devuelve la clave maxima que existe en el Diccionario
-        std::string encontrar_max();
+        // POST: Devuelve la clave maxima que existe en el Diccionario y remplaza dato por un puntero al dato de la clave
+        std::string encontrar_max(T* &dato);
 
-        // POST: Devuelve una clave que es el sucesor de la clave pasada por parametro
-        std::string sucesor(std::string clave);
+        // POST: Devuelve una clave que es el sucesor de la clave pasada por parametro y remplaza dato por un puntero al dato de la clave
+        std::string sucesor(std::string clave, T* &dato);
 
-        // POST: Devuelve una clave que es el predecesor de la clave pasada por parametro
-        std::string predecesor(std::string clave);
+        // POST: Devuelve una clave que es el predecesor de la clave pasada por parametro y remplaza dato por un puntero al dato de la clave
+        std::string predecesor(std::string clave, T* &dato);
 
         // POST: Borra del Diccionario la clave pasada por parametro y su dato correspondiente
         void borrar(std::string clave);
@@ -125,39 +125,43 @@ bool Diccionario<T>::buscar(std::string clave){
 }
 
 template <class T>
-std::string Diccionario<T>::encontrar_min(Nodo_dic<T>* nodo){
+std::string Diccionario<T>::encontrar_min(Nodo_dic<T>* nodo, T* &dato){
     if(nodo == NULL)
         return "\0";
-    else if(nodo->obtener_izquierdo() == NULL)
+    else if(nodo->obtener_izquierdo() == NULL){
+        dato = nodo->obtener_dato();
         return nodo->obtener_clave();
+    }
     else
-        return encontrar_min(nodo->obtener_izquierdo());
+        return encontrar_min(nodo->obtener_izquierdo(), dato);
 }
 
 template <class T>
-std::string Diccionario<T>::encontrar_min(){
-    return encontrar_min(this->raiz);
+std::string Diccionario<T>::encontrar_min(T* &dato){
+    return encontrar_min(this->raiz, dato);
 }
 
 template <class T>
-std::string Diccionario<T>::encontrar_max(Nodo_dic<T>* nodo){
+std::string Diccionario<T>::encontrar_max(Nodo_dic<T>* nodo, T* &dato){
     if(nodo == NULL)
         return "\0";
-    else if(nodo->obtener_derecho() == NULL)
+    else if(nodo->obtener_derecho() == NULL){
+        dato = nodo->obtener_dato();
         return nodo->obtener_clave();
+    }
     else
-        return encontrar_max(nodo->obtener_derecho());
+        return encontrar_max(nodo->obtener_derecho(), dato);
 }
 
 template <class T>
-std::string Diccionario<T>::encontrar_max(){
-    return encontrar_max(this->raiz);
+std::string Diccionario<T>::encontrar_max(T* &dato){
+    return encontrar_max(this->raiz, dato);
 }
 
 template <class T>
-std::string Diccionario<T>::sucesor(Nodo_dic<T>* nodo){
+std::string Diccionario<T>::sucesor(Nodo_dic<T>* nodo, T* &dato){
     if (nodo->obtener_derecho() != NULL){
-        return encontrar_min(nodo->obtener_derecho());
+        return encontrar_min(nodo->obtener_derecho(), dato);
     }
     Nodo_dic<T>* sucesor = NULL;
     Nodo_dic<T>* ancestro = this->raiz;
@@ -169,25 +173,27 @@ std::string Diccionario<T>::sucesor(Nodo_dic<T>* nodo){
         else
             ancestro = ancestro->obtener_derecho();
     }
+    dato = sucesor->obtener_dato();
     return sucesor->obtener_clave();
 }
 
 template <class T>
-std::string Diccionario<T>::sucesor(std::string clave){
+std::string Diccionario<T>::sucesor(std::string clave, T* &dato){
     Nodo_dic<T>* clave_nodo = this->buscar(this->raiz, clave);
     // Devuelve la clave. Si no se encuentra la clave o no se encuentra el sucesor, devuelva -1
-    if(clave_nodo == NULL)
-        return "F";
+    if(clave_nodo == NULL){
+        dato = NULL;
+        return "\0";
+    }
     else
-        return sucesor(clave_nodo);
+        return sucesor(clave_nodo, dato);
 }
 
 template <class T>
-std::string Diccionario<T>::predecesor(Nodo_dic<T> * nodo){
+std::string Diccionario<T>::predecesor(Nodo_dic<T> * nodo, T* &dato){
     if (nodo->obtener_izquierdo() != NULL){
-        return encontrar_max(nodo->obtener_izquierdo());
+        return encontrar_max(nodo->obtener_izquierdo(), dato);
     }
-
     Nodo_dic<T>* sucesor = NULL;
     Nodo_dic<T>* ancestro = this->raiz;
     while(ancestro != nodo){
@@ -198,16 +204,19 @@ std::string Diccionario<T>::predecesor(Nodo_dic<T> * nodo){
         else
             ancestro = ancestro->obtener_izquierdo();
     }
+    dato = sucesor->obtener_dato();
     return sucesor->obtener_clave();
 }
 
 template <class T>
-std::string Diccionario<T>::predecesor(std::string clave){
+std::string Diccionario<T>::predecesor(std::string clave, T* &dato){
     Nodo_dic<T> * clave_nodo = this->buscar(this->raiz, clave);
-    if(clave_nodo == NULL)
+    if(clave_nodo == NULL){
+        dato = NULL;
         return "\0";
+    }
     else
-        return predecesor(clave_nodo);
+        return predecesor(clave_nodo, dato);
 }
 
 template <class T>
