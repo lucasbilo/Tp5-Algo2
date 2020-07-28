@@ -25,6 +25,12 @@ Carga::Carga(string nombre_archivo_aeropuertos, string nombre_archivo_vuelos)
 	grafo_vuelos = NULL;
 }
 
+Carga::~Carga()
+{
+    delete diccionario_aeropuerto;
+	delete grafo_vuelos;
+}
+
 bool Carga::existe_archivo(ifstream& archivo)
 {
     if (!archivo.fail())
@@ -34,12 +40,16 @@ bool Carga::existe_archivo(ifstream& archivo)
 	return false;
 }
 
+void Carga::cerrar_archivo(ifstream& archivo)
+{
+    archivo.close();
+}
+
 bool Carga::cargar_diccionario_aeropuerto()
 {
     if (existe_archivo(archivo_aeropuerto))
     {
-        Diccionario<Aeropuerto> dicc_aeropuertos; //Objeto vuelos de clase Grafo creado
-        diccionario_aeropuerto = &dicc_aeropuertos;; //el puntero al grafo a punta el grafo propiamente dicho
+        Diccionario<Aeropuerto>* diccionario_aeropuerto = new Diccionario<Aeropuerto>;//el puntero al grafo a punta el grafo propiamente dicho
         
         string codigo_IATA, nombre_aeropuerto, ciudad, pais;
         float superficie;
@@ -56,14 +66,15 @@ bool Carga::cargar_diccionario_aeropuerto()
             archivo_aeropuerto >> d_nacionales;
             archivo_aeropuerto >> d_internacionales;
             Aeropuerto* aeropuerto = new Aeropuerto(codigo_IATA, nombre_aeropuerto, ciudad, pais, superficie, cant_terminales, d_nacionales, d_internacionales);
-            dicc_aeropuertos.insertar(codigo_IATA, aeropuerto);
+            (*diccionario_aeropuerto).insertar(codigo_IATA, aeropuerto);
         }
+		cerrar_archivo(archivo_aeropuerto);
         return true;
     }
         
     else
     {
-        cout << "El archivo " << nombre_archivo_vuelos << " no se pudo abrir, por favor comprobar que exista." << endl;
+        cout << "El archivo " << nombre_archivo_aeropuerto << " no se pudo abrir, por favor comprobar que exista." << endl;
         return false;
     };
 }
@@ -72,8 +83,7 @@ bool Carga::cargar_grafo_vuelos()
 {
 	if (existe_archivo(archivo_vuelos))
 	{
-		Grafo vuelos; //Objeto vuelos de clase Grafo creado
-		grafo_vuelos = &vuelos; //el puntero al grafo a punta el grafo propiamente dicho
+		grafo_vuelos = new Grafo; //el puntero al grafo a punta el grafo propiamente dicho
 		
 		string codigo_IATA_partida, codigo_IATA_destino;
 		double costo_vuelo, horas_vuelo;
@@ -89,8 +99,9 @@ bool Carga::cargar_grafo_vuelos()
 			(*aux_pesos).insertar(p_costo_vuelo);
 			(*aux_pesos).insertar(p_horas_vuelo);
 			Arista* vuelo = new Arista(codigo_IATA_partida, codigo_IATA_destino, aux_pesos);
-			vuelos.agregar_arista(vuelo);
+			(*grafo_vuelos).agregar_arista(vuelo);
 		}
+		cerrar_archivo(archivo_vuelos);
 		return true;
     }
 		
