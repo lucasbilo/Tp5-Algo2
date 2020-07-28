@@ -1,7 +1,7 @@
-#ifndef carga_h
-#define carga_h
+#ifndef CARGA_H //CAMBIAR
+#define CARGA_H
 
-#include <stdio.h>
+#include <iostream>
 #include <fstream>
 #include <string>
 
@@ -19,21 +19,6 @@ private:
 	
 	std::string nombre_archivo_aeropuertos;
     std::string nombre_archivo_vuelos;
-	std::ifstream archivo_aeropuerto;
-	std::ifstream archivo_vuelos;
-	Diccionario<Aeropuerto>* diccionario_aeropuerto;
-	Grafo* grafo_vuelos;
-	
-	//Metodos
-	
-	//PRE: Variable archivo de lectura por parametro (ifstream).
-    //POST: Devuelve booleana depende de si se pudo abrir el archivo o no.
-    bool existe_archivo(std::ifstream& archivo);
-	
-	//PRE: Variable archivo de lectura por parametro (ifstream).
-	//POST: Cierra el archivo ifstream.
-	void cerrar_archivo(std::ifstream& archivo);
-
 
 public:
 
@@ -44,25 +29,17 @@ public:
 	
     //Destructor
     //PRE: Objeto archivo creado.
-    //POST: Elimina punteros a diccionario y grafo.
+    //POST: -.
     ~Carga();
 	
     
     //PRE: -.
     //POST: Arbol diccionario de aeropuertos creado mediante la lectura del aeropuerto. Devuelve bool determinando si se pudo cargar o no.
-    bool cargar_diccionario_aeropuerto();
+    bool cargar_diccionario_aeropuerto(Diccionario<Aeropuerto>* p_diccionario);
 	
     //PRE: -.
     //POST: Grafo de vuelos creado mediante la lectura del archivo de vuelos. Devuelve bool determinando si se pudo cargar o no.
-    bool cargar_grafo_vuelos();
-	
-	//PRE: -.
-	//POST: Devuelve un puntero al diccionario.
-	Diccionario<Aeropuerto>* obtener_diccionario_aeropuerto();
-	
-	//PRE: -.
-	//POST: Devuelve puntero al grafo de vuelos.
-	Grafo* obtener_grafo_vuelos();
+    bool cargar_grafo_vuelos(Grafo* p_grafo);
 };
 
-#endif /* carga_h */
+#endif /* CARGA_H */
