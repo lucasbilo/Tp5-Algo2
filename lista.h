@@ -49,8 +49,11 @@ class Lista{
         void eliminar_dato(unsigned pos);
 
         //POST: Copia los datos del puntero recibido en la lista.
-
         void copiar(Lista<Dato>*);
+
+        // POST: Borra todos los nodos de la lista.
+
+        void borrar_todo();
 
 };
 
@@ -127,5 +130,13 @@ void Lista<Dato>::copiar(Lista<Dato>* lista){
         insertar(d);
     }
 }
+
+
+template< typename Dato >
+void Lista<Dato>::borrar_todo(){
+    while (!lista_vacia())
+        eliminar_dato(1);
+}
+
 
 #endif //TP5_ALGO2_LISTA_H

@@ -23,3 +23,12 @@ string Arista::obtener_cod_destino(){
 double Arista::obtener_peso(int posicion){
     return *(pesos->obtener_dato(posicion));
 }
+
+Vertice* Arista::obtener_destino(){
+    return destino;
+}
+
+Vertice* Arista::obtener_origen(){
+    return origen;
+}
+

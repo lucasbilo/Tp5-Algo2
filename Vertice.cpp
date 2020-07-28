@@ -18,3 +18,15 @@ void Vertice::agregar_arista(Arista* arista){
 Arista* Vertice::consultar_arista(std::string destino){
     return aristas_adyacentes->consultar(destino);
 }
+
+Arista* Vertice::encontrar_min(string &min){
+    Arista* auxiliar;
+    min = aristas_adyacentes->encontrar_min(auxiliar);
+    return auxiliar;
+}
+
+Arista* Vertice::siguiente_arista(string &clave){
+    Arista* auxiliar;
+    clave = aristas_adyacentes->sucesor(clave, auxiliar);
+    return auxiliar;
+}

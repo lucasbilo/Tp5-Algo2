@@ -3,11 +3,14 @@
 
 #include <string>
 #include "lista.h"
+#include "Vertice.h"
 
 class Arista{
 
     private:
         std::string cod_partida;
+        Vertice* destino;
+        Vertice* origen;
         std::string cod_destino;
         Lista<double>* pesos;
 
@@ -29,6 +32,10 @@ class Arista{
         // PRE: posicion es una posicion valida de la lista.
         // POST: Devuelve el peso que tiene la arista correspondido a la posicion de la lista.
         double obtener_peso(int posicion);
+
+        Vertice* obtener_destino();
+
+        Vertice* obtener_origen();
 
 
 };

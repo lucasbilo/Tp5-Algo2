@@ -87,7 +87,7 @@ void Grafo::buscar_camino_min(Vertice* origen, Vertice* destino, int posicion_pe
                 if(/*hacer funcion comparar distancias*/ distancia[posicion_actual] > distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso)){
                     distancia[posicion_actual] = distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso);
                     if(ultimo_visitado[posicion_actual] != NULL)
-                        ultimo_visitado[posicion_actual]->vaciar();
+                        ultimo_visitado[posicion_actual]->borrar_todo();
                     else
                         ultimo_visitado[posicion_actual] = new Lista<Arista*>;
                     Arista** arista_agregar = new Arista*(arista_actual);
@@ -157,5 +157,6 @@ int Grafo::generar_posicion(Arista* arista_actual, Vertice* vector_vertices[], d
 
 
 
-
+/*
 void Grafo::imprimir_camino(Lista<Arista>);
+*/
