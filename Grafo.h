@@ -27,7 +27,7 @@ class Grafo {
         void agregar_arista(Arista* arista);
 
 
-        void buscar_camino_minimo(Vertice origen, Vertice destino); // hay que ver bien desps que es lo que devolveria
+        void imprimir_camino_minimo(Vertice origen, Vertice destino); // hay que ver bien desps que es lo que devolveria
         //podria ser una lista de listas de sucesiones de aristas. Porque vieron que puede haber mas de un camino bueno. No se hay que pensarlo
         void imprimir_camino(Lista<Arista>);
 
@@ -40,6 +40,17 @@ class Grafo {
         // POST: devuelve el peso de la arista dirigida: origen -> destino. El peso es evaluado segun la posicion recibida(peso tipo1, tipo2,etc...)
         double obtener_peso(std::string origen, std::string destino, int posicion);
 
+        int buscar_pos_min(double distancia[], bool vistos[], int tope);
+
+        bool todos_visitados(bool vistos[], int tope);
+
+        int encontrar_posicion(Vertice* vertice, Vertice* vector_vertices[], int tope);
+
+        int generar_posicion(Arista* arista_actual, Vertice* vector_vertices[], double distancia[], int posicion_peso,
+                                Lista<Arista*>* ultimo_visitado[],bool vistos[], int &tope);
+
+
+        void buscar_camino_min(Vertice* origen, Vertice* destino, int pos_peso);
 };
 
 

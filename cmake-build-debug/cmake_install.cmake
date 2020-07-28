@@ -1,4 +1,4 @@
-# Install script for directory: /home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2
+# Install script for directory: /home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/tomas/Escritorio/Trabajo Practico 5/Tp5-Algo2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
