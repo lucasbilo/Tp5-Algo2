@@ -27,7 +27,7 @@ class Aeropuerto{
         Aeropuerto(std::string iata, std::string aeropuerto, std::string ciudad, std::string pais, float superficie, unsigned int cant_terminales, unsigned int d_nacionales, unsigned int d_internacionales);
 
         //DESTRUCTOR
-        ~Aeropuerto();
+        ~Aeropuerto(){}
 
         //GETTERS
         //POST: Devuelve el codigo iata

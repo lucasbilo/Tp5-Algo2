@@ -6,10 +6,10 @@
 class Validacion{
     public:
         //CONSTRUCTOR SIN PARAMETROS
-        Validacion();
+        Validacion(){}
 
         //DESTRUCTOR
-        ~Validacion();
+        ~Validacion(){}
 
         int opcion_entre_rangos(int min, int max);
 

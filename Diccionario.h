@@ -17,8 +17,8 @@ class Diccionario{
         Nodo_dic<T>* buscar(Nodo_dic<T>* nodo, std::string clave);
         std::string encontrar_min(Nodo_dic<T>* nodo, T* &dato);
         std::string encontrar_max(Nodo_dic<T>* nodo, T* &dato);
-        std::string sucesor(Nodo_dic<T>* nodo, T* &dato);
-        std::string predecesor(Nodo_dic<T>* nodo, T* &dato);
+        std::string sucesor(Nodo_dic<T>* nodo, T* &dato );
+        std::string predecesor(Nodo_dic<T>* nodo, T* &dato );
         Nodo_dic<T>* borrar(Nodo_dic<T>* nodo, std::string clave);
         void borrar_todo(Nodo_dic<T>* nodo);
 
@@ -51,7 +51,7 @@ class Diccionario{
         std::string encontrar_max(T* &dato);
 
         // POST: Devuelve una clave que es el sucesor de la clave pasada por parametro y remplaza dato por un puntero al dato de la clave
-        std::string sucesor(std::string clave, T* &dato);
+        std::string sucesor(std::string clave, T* &dato );
 
         // POST: Devuelve una clave que es el predecesor de la clave pasada por parametro y remplaza dato por un puntero al dato de la clave
         std::string predecesor(std::string clave, T* &dato);
@@ -242,8 +242,9 @@ Nodo_dic<T> * Diccionario<T>::borrar(Nodo_dic<T>* nodo, std::string clave){
         }
         //El nodo tiene dos hijos (izquierdo y derecho)
         else{
+            T* aux;
             // Encuentra sucesora o predecesora para evitar disputas
-            std::string sucesor_clave = this->sucesor(clave);
+            std::string sucesor_clave = sucesor(clave, aux);
 
             //Copiar los datos del nodo sucesor a los del nodo actual
             nodo = buscar(nodo, sucesor_clave);

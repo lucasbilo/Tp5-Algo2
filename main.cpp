@@ -15,9 +15,11 @@ const string NOMBRE_ARCHIVO_AEROPUERTOS = "aeropuertos.txt";
 int main() {
     
     Carga carga(NOMBRE_ARCHIVO_AEROPUERTOS, NOMBRE_ARCHIVO_VUELOS);
-    if(carga.cargar_grafo_vuelos())
+    Grafo* vuelos = new Grafo();
+    if(carga.cargar_grafo_vuelos(vuelos))
     {
         cout << "Se cargo el grafo" << endl;
-        ((carga.obtener_grafo_vuelos())->obtener_vertices())->imprimir_en_orden();
+       // vuelos->obtener_vertices()->imprimir_en_orden();
     }
+    delete vuelos;
 }

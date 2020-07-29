@@ -58,7 +58,7 @@ void Grafo::imprimir_camino_minimo(string origen, string destino, int posicion_p
         Vertice* vector_vertices[cantidad_vertices - 1];
         int tope = 0;
         buscar_camino_min(salida, llegada, posicion_peso, ultimo_visitado, vector_vertices, tope);
-        imprimir_caminos(salida, llegada, ultimo_visitado, tope));
+        imprimir_caminos(salida, llegada, ultimo_visitado, tope);
         liberar_memoria_visitados(ultimo_visitado, tope);
     }else{
         cout << "Ocurrio un problema. Los vertices pedidos no se pudieron encontrar" << endl;
@@ -144,6 +144,7 @@ int Grafo::encontrar_posicion(Vertice* vertice, Vertice* vector_vertices[], int 
     }
     if(!encontrado)
         return POSICION_INVALIDA;
+    return pos;
 }
 
 int Grafo::generar_posicion(Arista* arista_actual, Vertice* vector_vertices[], double distancia[], int posicion_peso,

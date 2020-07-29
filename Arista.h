@@ -5,6 +5,7 @@
 #include "lista.h"
 #include "Vertice.h"
 
+class Vertice; //agrego la futura declaracion de Vertice, para avisarle al compilador.
 class Arista{
 
     private:
