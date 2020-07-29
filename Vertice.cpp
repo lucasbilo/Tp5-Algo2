@@ -11,6 +11,10 @@ Vertice::~Vertice(){
     delete aristas_adyacentes;
 }
 
+std::string Vertice::obtener_clave(){
+    return clave;
+}
+
 void Vertice::agregar_arista(Arista* arista){
     aristas_adyacentes->insertar(arista->obtener_cod_destino(), arista);
 }
@@ -25,8 +29,8 @@ Arista* Vertice::encontrar_min(string &min){
     return auxiliar;
 }
 
-Arista* Vertice::siguiente_arista(string &clave){
+Arista* Vertice::siguiente_arista(string &codigo){
     Arista* auxiliar;
-    clave = aristas_adyacentes->sucesor(clave, auxiliar);
+    codigo = aristas_adyacentes->sucesor(codigo, auxiliar);
     return auxiliar;
 }

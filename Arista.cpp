@@ -13,11 +13,11 @@ Arista::~Arista() {
 }
 
 string Arista::obtener_cod_partida(){
-    return cod_partida;
+    return origen->obtener_clave();
 }
 
 string Arista::obtener_cod_destino(){
-    return cod_destino;
+    return destino->obtener_clave();
 }
 
 double Arista::obtener_peso(int posicion){

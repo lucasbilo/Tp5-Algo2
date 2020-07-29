@@ -26,18 +26,14 @@ class Grafo {
         void agregar_arista(std::string origen, std::string destino, Lista<double>* pesos);
 
 
-        void imprimir_camino_minimo(Vertice origen, Vertice destino); // hay que ver bien desps que es lo que devolveria
-        //podria ser una lista de listas de sucesiones de aristas. Porque vieron que puede haber mas de un camino bueno. No se hay que pensarlo
-        void imprimir_camino(Lista<Arista>);
+        void imprimir_camino_minimo(std::string origen, std::string destino, int posicion_peso);
+
+
 
     private:
 
         // POST: Agrega un vertice vacio en el ABB de vertices.
-        void agregar_vertice(std::string clave_vertice);
-
-        // PRE: Ambas claves estan en el ABB de vertices.
-        // POST: devuelve el peso de la arista dirigida: origen -> destino. El peso es evaluado segun la posicion recibida(peso tipo1, tipo2,etc...)
-        double obtener_peso(std::string origen, std::string destino, int posicion);
+        Vertice* agregar_vertice(std::string clave_vertice);
 
         int buscar_pos_min(double distancia[], bool vistos[], int tope);
 
@@ -49,8 +45,14 @@ class Grafo {
                                 Lista<Arista*>* ultimo_visitado[],bool vistos[], int &tope);
 
 
-        void buscar_camino_min(Vertice* origen, Vertice* destino, int pos_peso);
-};
+        void buscar_camino_min(Vertice* origen, Vertice* destino, int posicion_peso, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int &tope);
+
+        void liberar_memoria_visitados(Lista<Arista*>* ultimo_visitado[], int tope);
+
+        void imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* ultimo_visitado[], int tope);
+
+
+    };
 
 
 

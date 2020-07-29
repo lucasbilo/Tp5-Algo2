@@ -19,58 +19,60 @@ Grafo::~Grafo(){
 //Agrega la arista al conjunto de aristas del vertice de salida.
 void Grafo::agregar_arista(string origen, string destino, Lista<double>* pesos){
     Vertice* salida = vertices->consultar(origen);
-    if(salida == NULL){
-        agregar_vertice(origen);
-        salida = vertices->consultar(origen);
-    }
+    if(salida == NULL)
+        salida = agregar_vertice(origen);
     Vertice* llegada = vertices->consultar(destino);
-    if(llegada == NULL){
-        agregar_vertice(destino);
-        llegada = vertices->consultar(origen);
-    }
+    if(llegada == NULL)
+        llegada = agregar_vertice(destino);
     Arista* arista = new Arista(salida, llegada, pesos);
     salida->agregar_arista(arista);
 }
 
 //Agrega un vertice vacio al grafo.
-void Grafo::agregar_vertice(string clave_vertice){
+Vertice* Grafo::agregar_vertice(string clave_vertice){
     Vertice* aux = new Vertice(clave_vertice);
     vertices->insertar(clave_vertice, aux);
     cantidad_vertices++;
-}
-
-double Grafo::obtener_peso(string origen, string destino, int posicion){
-    Vertice* aux = vertices->consultar(origen);
-    Arista* edge = aux->consultar_arista(destino);
-    if(edge == NULL)
-        return INFINITO;
-    return edge->obtener_peso(posicion);
+    return vertices->consultar(clave_vertice);
 }
 
 
-/*
-void Grafo::imprimir_camino_minimo(Vertice origen, Vertice destino){
-    buscar_camino_min(vertices->consultar(origen), vertices->consultar(destino));//falta verificar que no son NULL
+
+void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* ultimo_visitado[], int tope){
+    //que se impriman los caminos que guarda ultimo_visitado.
 }
-*/
+
+void Grafo::liberar_memoria_visitados(Lista<Arista*>* ultimo_visitado[], int tope){
+    for(int i = 0; i < tope; i++){
+        if(ultimo_visitado[i] != NULL)
+            delete ultimo_visitado[i];
+    }
+}
 
 
-void Grafo::buscar_camino_min(Vertice* origen, Vertice* destino, int posicion_peso){
-    Vertice* vector_vertices[cantidad_vertices - 1];
+void Grafo::imprimir_camino_minimo(string origen, string destino, int posicion_peso){
+    Vertice* salida = vertices->consultar(origen);
+    Vertice* llegada = vertices->consultar(destino);
+    if( salida != NULL && llegada != NULL) {
+        Lista<Arista*>* ultimo_visitado[cantidad_vertices -1];
+        Vertice* vector_vertices[cantidad_vertices - 1];
+        int tope = 0;
+        buscar_camino_min(salida, llegada, posicion_peso, ultimo_visitado, vector_vertices, tope);
+        imprimir_caminos(salida, llegada, ultimo_visitado, tope));
+        liberar_memoria_visitados(ultimo_visitado, tope);
+    }else{
+        cout << "Ocurrio un problema. Los vertices pedidos no se pudieron encontrar" << endl;
+    }
+}
+
+
+void Grafo::buscar_camino_min(Vertice* origen, Vertice* destino, int posicion_peso, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int &tope){
     double distancia[cantidad_vertices -1];
     bool vistos[cantidad_vertices -1];
-    Lista<Arista*>* ultimo_visitado[cantidad_vertices -1];
-    int tope = 0;
     double camino_min_encontrado = INFINITO;
-
     Vertice* vertice_actual;
-    Arista* arista_actual;
     string destino_actual;
-    arista_actual = origen->encontrar_min(destino_actual);
-    if(arista_actual == NULL){
-        // cout << "No existe un camino" << endl;
-        return;
-    }
+    Arista* arista_actual = origen->encontrar_min(destino_actual);
 
     while(arista_actual != NULL){
         generar_posicion(arista_actual, vector_vertices, distancia, posicion_peso, ultimo_visitado, vistos, tope);
@@ -80,30 +82,29 @@ void Grafo::buscar_camino_min(Vertice* origen, Vertice* destino, int posicion_pe
     int pos_minima_distancia = buscar_pos_min(distancia, vistos, tope);
     while(!todos_visitados(vistos, tope) && (camino_min_encontrado > distancia[pos_minima_distancia]) ){
         vistos[pos_minima_distancia] = true;
-            vertice_actual = vector_vertices[pos_minima_distancia];
-            arista_actual = vertice_actual->encontrar_min(destino_actual);
-            int posicion_actual = encontrar_posicion(arista_actual->obtener_destino(), vector_vertices, tope);
-            if(posicion_actual == POSICION_INVALIDA)
-                posicion_actual = generar_posicion(arista_actual, vector_vertices, distancia, posicion_peso, ultimo_visitado, vistos, tope);
+        vertice_actual = vector_vertices[pos_minima_distancia];
+        arista_actual = vertice_actual->encontrar_min(destino_actual);
+        int posicion_actual = encontrar_posicion(arista_actual->obtener_destino(), vector_vertices, tope);
+        if(posicion_actual == POSICION_INVALIDA)
+            posicion_actual = generar_posicion(arista_actual, vector_vertices, distancia, posicion_peso, ultimo_visitado, vistos, tope);
 
-            while(arista_actual != NULL){
-                if(/*hacer funcion comparar distancias*/ distancia[posicion_actual] > distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso)){
-                    distancia[posicion_actual] = distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso);
-                    if(ultimo_visitado[posicion_actual] != NULL)
-                        ultimo_visitado[posicion_actual]->borrar_todo();
-                    else
-                        ultimo_visitado[posicion_actual] = new Lista<Arista*>;
-                    Arista** arista_agregar = new Arista*(arista_actual);
-                    ultimo_visitado[posicion_actual]->insertar(arista_agregar);
+        while(arista_actual != NULL){
+            if(distancia[posicion_actual] > distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso)){
+                distancia[posicion_actual] = distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso);
+                if(ultimo_visitado[posicion_actual] != NULL)
+                    ultimo_visitado[posicion_actual]->borrar_todo();
+                else
+                    ultimo_visitado[posicion_actual] = new Lista<Arista*>;
+                Arista** arista_agregar = new Arista*(arista_actual);
+                ultimo_visitado[posicion_actual]->insertar(arista_agregar);
 
-                }else if(/*hacer funcion comparar distancias*/ distancia[posicion_actual] == distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso)){
-                    Arista** arista_agregar = new Arista*(arista_actual);
-                    ultimo_visitado[posicion_actual]->insertar(arista_agregar);
-                }
-                arista_actual = origen->siguiente_arista(destino_actual);
+            }else if(distancia[posicion_actual] == distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso)){
+                Arista** arista_agregar = new Arista*(arista_actual);
+                ultimo_visitado[posicion_actual]->insertar(arista_agregar);
             }
+            arista_actual = origen->siguiente_arista(destino_actual);
+        }
     }
-
 }
 
 int Grafo::buscar_pos_min(double distancia[], bool vistos[], int tope){
@@ -159,7 +160,3 @@ int Grafo::generar_posicion(Arista* arista_actual, Vertice* vector_vertices[], d
 }
 
 
-
-/*
-void Grafo::imprimir_camino(Lista<Arista>);
-*/
