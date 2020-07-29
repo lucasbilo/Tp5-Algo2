@@ -17,7 +17,7 @@ class Arista{
     public:
         //CONSTRUCTOR
         // POST: Inicializa a Arista, se asigna cada parametro al atributo correspondiente.
-        Arista(std::string cod_partida, std::string cod_destino, Lista<double>* pesos);
+        Arista(Vertice* origen, Vertice* destino, Lista<double>* pesos);
 
         //DESTRUCTOR
         // POST: Elimina la memoria a la que apunta el puntero a la lista.

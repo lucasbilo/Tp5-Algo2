@@ -17,18 +17,19 @@ Grafo::~Grafo(){
 }
 
 //Agrega la arista al conjunto de aristas del vertice de salida.
-void Grafo::agregar_arista(Arista* arista){
-    string partida = arista->obtener_cod_partida();
-    string destino = arista->obtener_cod_destino();
-    Vertice* aux = vertices->consultar(destino);
-    if(aux == NULL)
-        agregar_vertice(destino);
-    aux = vertices->consultar(partida);
-    if(aux == NULL){
-        agregar_vertice(partida);
-        aux = vertices->consultar(partida);
+void Grafo::agregar_arista(string origen, string destino, Lista<double>* pesos){
+    Vertice* salida = vertices->consultar(origen);
+    if(salida == NULL){
+        agregar_vertice(origen);
+        salida = vertices->consultar(origen);
     }
-    aux->agregar_arista(arista);
+    Vertice* llegada = vertices->consultar(destino);
+    if(llegada == NULL){
+        agregar_vertice(destino);
+        llegada = vertices->consultar(origen);
+    }
+    Arista* arista = new Arista(salida, llegada, pesos);
+    salida->agregar_arista(arista);
 }
 
 //Agrega un vertice vacio al grafo.
@@ -52,6 +53,8 @@ void Grafo::imprimir_camino_minimo(Vertice origen, Vertice destino){
     buscar_camino_min(vertices->consultar(origen), vertices->consultar(destino));//falta verificar que no son NULL
 }
 */
+
+
 void Grafo::buscar_camino_min(Vertice* origen, Vertice* destino, int posicion_peso){
     Vertice* vector_vertices[cantidad_vertices - 1];
     double distancia[cantidad_vertices -1];

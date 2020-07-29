@@ -20,11 +20,10 @@ class Grafo {
         // POST: Elimina la memoria a la que apunta vertices.
         ~Grafo();
 
-        // PRE: arista apunta a una Arista que tiene correctamente instanciados su origen y destino y la lista de pesos. La cantidad de elementos
-        //      de la lista de pesos debe ser la misma que la de las demas aristas del grafo.
+        // PRE: La cantidad de elementos de la lista de pesos debe ser la misma que la de las demas aristas del grafo.
         // POST: Si alguno de los vertices que conectan a la arista no pertenecen al ABB de vertices, se agregan; y se agrega la arista en el
         //       conjunto de aristas adyacentes del vertice de partida.
-        void agregar_arista(Arista* arista);
+        void agregar_arista(std::string origen, std::string destino, Lista<double>* pesos);
 
 
         void imprimir_camino_minimo(Vertice origen, Vertice destino); // hay que ver bien desps que es lo que devolveria

@@ -2,9 +2,9 @@
 
 using namespace std;
 
-Arista::Arista(std::string cod_partida, std::string cod_destino, Lista<double>* pesos){
-    this->cod_partida = cod_partida;
-    this->cod_destino = cod_destino;
+Arista::Arista(Vertice* origen, Vertice* destino, Lista<double>* pesos){
+    this->origen = origen;
+    this->destino = destino;
     this->pesos = pesos;
 }
 
