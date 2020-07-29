@@ -30,7 +30,7 @@ public:
     //Destructor
     //PRE: Objeto archivo creado.
     //POST: -.
-    ~Carga();
+    ~Carga(){};
 	
     
     //PRE: -.

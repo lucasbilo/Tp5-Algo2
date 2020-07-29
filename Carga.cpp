@@ -41,7 +41,7 @@ bool Carga::cargar_diccionario_aeropuerto(Diccionario<Aeropuerto>* diccionario_a
             diccionario_aeropuertos -> insertar(codigo_IATA, aeropuerto);
         }
 		
-		archivo_aeropuertos.close();
+	archivo_aeropuerto.close();
         return true;
 		
     }
