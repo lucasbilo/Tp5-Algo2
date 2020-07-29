@@ -39,7 +39,7 @@ Vertice* Grafo::agregar_vertice(string clave_vertice){
 
 
 void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* ultimo_visitado[], int tope){
-    //que se impriman los caminos que guarda ultimo_visitado.
+
 }
 
 void Grafo::liberar_memoria_visitados(Lista<Arista*>* ultimo_visitado[], int tope){
@@ -80,16 +80,17 @@ void Grafo::buscar_camino_min(Vertice* origen, Vertice* destino, int posicion_pe
     }
 
     int pos_minima_distancia = buscar_pos_min(distancia, vistos, tope);
+    int i = 0;
     while(!todos_visitados(vistos, tope) && (camino_min_encontrado > distancia[pos_minima_distancia]) ){
+        cout<<i<<" ";i++; //no me estaria funcando bien
         vistos[pos_minima_distancia] = true;
         vertice_actual = vector_vertices[pos_minima_distancia];
         arista_actual = vertice_actual->encontrar_min(destino_actual);
         int posicion_actual = encontrar_posicion(arista_actual->obtener_destino(), vector_vertices, tope);
-        if(posicion_actual == POSICION_INVALIDA)
+        if(posicion_actual == POSICION_INVALIDA) {
             posicion_actual = generar_posicion(arista_actual, vector_vertices, distancia, posicion_peso, ultimo_visitado, vistos, tope);
-        int i = 0;
+        }
         while(arista_actual != NULL){
-            cout<<i<<" "<<endl;i++; //no me estaria funcando bien
             if(distancia[posicion_actual] > distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso)){
                 distancia[posicion_actual] = distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso);
                 if(ultimo_visitado[posicion_actual] != NULL)

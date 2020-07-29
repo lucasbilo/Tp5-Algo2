@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const string NOMBRE_ARCHIVO_VUELOS = "vuelos.txt";
+const string NOMBRE_ARCHIVO_VUELOS = "vuelos2.txt";
 const string NOMBRE_ARCHIVO_AEROPUERTOS = "aeropuertos.txt";
 
 //ESTO ES UNA PRUEBA
