@@ -24,13 +24,11 @@ Arista* Vertice::consultar_arista(std::string destino){
 }
 
 Arista* Vertice::encontrar_min(string &min){
-    Arista* auxiliar;
-    min = aristas_adyacentes->encontrar_min(auxiliar);
-    return auxiliar;
+    min = aristas_adyacentes->encontrar_min();
+    return aristas_adyacentes->consultar(min);
 }
 
 Arista* Vertice::siguiente_arista(string &codigo){
-    Arista* auxiliar;
-    codigo = aristas_adyacentes->sucesor(codigo, auxiliar);
-    return auxiliar;
+    codigo = aristas_adyacentes->sucesor(codigo);
+    return aristas_adyacentes->consultar(codigo);
 }

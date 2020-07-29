@@ -87,8 +87,9 @@ void Grafo::buscar_camino_min(Vertice* origen, Vertice* destino, int posicion_pe
         int posicion_actual = encontrar_posicion(arista_actual->obtener_destino(), vector_vertices, tope);
         if(posicion_actual == POSICION_INVALIDA)
             posicion_actual = generar_posicion(arista_actual, vector_vertices, distancia, posicion_peso, ultimo_visitado, vistos, tope);
-
+        int i = 0;
         while(arista_actual != NULL){
+            cout<<i<<" "<<endl;i++; //no me estaria funcando bien
             if(distancia[posicion_actual] > distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso)){
                 distancia[posicion_actual] = distancia[pos_minima_distancia] + arista_actual->obtener_peso(posicion_peso);
                 if(ultimo_visitado[posicion_actual] != NULL)
@@ -148,7 +149,7 @@ int Grafo::encontrar_posicion(Vertice* vertice, Vertice* vector_vertices[], int 
 }
 
 int Grafo::generar_posicion(Arista* arista_actual, Vertice* vector_vertices[], double distancia[], int posicion_peso,
-        Lista<Arista*>* ultimo_visitado[],bool vistos[], int &tope){
+        Lista<Arista*>* ultimo_visitado[], bool vistos[], int &tope){
 
     vector_vertices[tope] = arista_actual->obtener_destino();
     distancia[tope] = arista_actual->obtener_peso(posicion_peso);
