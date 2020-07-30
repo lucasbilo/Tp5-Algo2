@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const string NOMBRE_ARCHIVO_VUELOS = "vuelos2.txt";
+const string NOMBRE_ARCHIVO_VUELOS = "vuelos3.txt";
 const string NOMBRE_ARCHIVO_AEROPUERTOS = "aeropuertos.txt";
 
 //ESTO ES UNA PRUEBA
@@ -19,7 +19,7 @@ int main() {
     if(carga.cargar_grafo_vuelos(vuelos))
     {
         cout << "Se cargo el grafo" << endl;
-        vuelos->imprimir_camino_minimo("CHC", "AUH", 1);
+        vuelos->imprimir_camino_minimo("A", "B", 1);
        // vuelos->obtener_vertices()->imprimir_en_orden();
     }
     delete vuelos;
