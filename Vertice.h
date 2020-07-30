@@ -6,6 +6,7 @@
 #include "Diccionario.h"
 
 class Arista;
+
 class Vertice {
 
     private:

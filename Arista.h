@@ -9,8 +9,8 @@ class Vertice; //agrego la futura declaracion de Vertice, para avisarle al compi
 class Arista{
 
     private:
-        Vertice* destino;
         Vertice* origen;
+        Vertice* destino;
         Lista<double>* pesos;
 
     public:

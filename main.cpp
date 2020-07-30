@@ -19,7 +19,7 @@ int main() {
     if(carga.cargar_grafo_vuelos(vuelos))
     {
         cout << "Se cargo el grafo" << endl;
-        vuelos->imprimir_camino_minimo("ABD", "ACC", 1);
+        vuelos->imprimir_camino_minimo("BUE", "FRA", 2);
        // vuelos->obtener_vertices()->imprimir_en_orden();
     }
     delete vuelos;
