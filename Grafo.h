@@ -49,7 +49,8 @@ class Grafo {
 
         void liberar_memoria_visitados(Lista<Arista*>* ultimo_visitado[], int tope);
 
-        void imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope);
+        void imprimir_caminos(Vertice* salida, Vertice* llegada, Vertice* destino_parcial, Lista<Arista*>* ultimo_visitado[],
+                Vertice* vector_vertices[], int tope, bool &terminado);
 
 
     };

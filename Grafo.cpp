@@ -38,14 +38,32 @@ Vertice* Grafo::agregar_vertice(string clave_vertice){
 
 
 
-void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope){
-    int pos = encontrar_posicion(llegada, vector_vertices, tope);
+void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Vertice* destino_parcial, Lista<Arista*>* ultimo_visitado[],
+        Vertice* vector_vertices[], int tope, bool &terminado){
+
+    int pos = encontrar_posicion(destino_parcial, vector_vertices, tope);
     if(pos > 0) {
-        Arista* actual = (*(ultimo_visitado[pos]->obtener_dato(1)));
-        imprimir_caminos(salida, actual->obtener_origen(), ultimo_visitado, vector_vertices, tope);
-        cout <<  actual->obtener_cod_partida() << " -> " << actual->obtener_cod_destino() << endl;
+        Arista *actual = (*(ultimo_visitado[pos]->obtener_dato(1)));
+        imprimir_caminos(salida, llegada, actual->obtener_origen(), ultimo_visitado, vector_vertices, tope, terminado);
+        cout << actual->obtener_cod_partida() << " -> " << actual->obtener_cod_destino() << endl;
+
+        if (!terminado && (llegada != destino_parcial) && ultimo_visitado[pos]->obtener_tam() > 1) {
+            terminado = true;
+            ultimo_visitado[pos]->eliminar_dato(1);
+        }
     }
 
+    if( llegada == destino_parcial){
+        if(terminado){
+            terminado = false;
+            imprimir_caminos(salida, llegada, llegada, ultimo_visitado, vector_vertices, tope, terminado);
+        }else{
+            if( ultimo_visitado[pos]->obtener_tam() > 1 ){
+                ultimo_visitado[pos]->eliminar_dato(1);
+                imprimir_caminos(salida, llegada, llegada, ultimo_visitado, vector_vertices, tope, terminado);
+            }
+        }
+    }
 }
 
 void Grafo::liberar_memoria_visitados(Lista<Arista*>* ultimo_visitado[], int tope){
@@ -64,7 +82,8 @@ void Grafo::imprimir_camino_minimo(string origen, string destino, int posicion_p
         Vertice* vector_vertices[cantidad_vertices];
         int tope = 0;
         buscar_camino_min(salida, llegada, posicion_peso, ultimo_visitado, vector_vertices, tope);
-        imprimir_caminos(salida, llegada, ultimo_visitado, vector_vertices, tope);
+        bool termino_imprimir;
+        imprimir_caminos(salida, llegada, llegada, ultimo_visitado, vector_vertices, tope, termino_imprimir);
         liberar_memoria_visitados(ultimo_visitado, tope);
     }else{
         cout << "Ocurrio un problema. Los vertices pedidos no se pudieron encontrar" << endl;
