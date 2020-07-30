@@ -40,7 +40,7 @@ Vertice* Grafo::agregar_vertice(string clave_vertice){
 
 void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope){
     int pos = encontrar_posicion(llegada, vector_vertices, tope);
-    if(pos >= 0) {
+    if(pos > 0) {
         Arista* actual = (*(ultimo_visitado[pos]->obtener_dato(1)));
         imprimir_caminos(salida, actual->obtener_origen(), ultimo_visitado, vector_vertices, tope);
         cout <<  actual->obtener_cod_partida() << " -> " << actual->obtener_cod_destino() <<endl;
@@ -49,7 +49,7 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* 
 }
 
 void Grafo::liberar_memoria_visitados(Lista<Arista*>* ultimo_visitado[], int tope){
-    for(int i = 0; i < tope; i++){
+    for(int i = 1; i < tope; i++){
         if(ultimo_visitado[i] != NULL)
             delete ultimo_visitado[i];
     }
@@ -60,8 +60,8 @@ void Grafo::imprimir_camino_minimo(string origen, string destino, int posicion_p
     Vertice* salida = vertices->consultar(origen);
     Vertice* llegada = vertices->consultar(destino);
     if( salida != NULL && llegada != NULL) {
-        Lista<Arista*>* ultimo_visitado[cantidad_vertices -1];
-        Vertice* vector_vertices[cantidad_vertices - 1];
+        Lista<Arista*>* ultimo_visitado[cantidad_vertices];
+        Vertice* vector_vertices[cantidad_vertices];
         int tope = 0;
         buscar_camino_min(salida, llegada, posicion_peso, ultimo_visitado, vector_vertices, tope);
         imprimir_caminos(salida, llegada, ultimo_visitado,vector_vertices, tope);
@@ -73,12 +73,17 @@ void Grafo::imprimir_camino_minimo(string origen, string destino, int posicion_p
 
 
 void Grafo::buscar_camino_min(Vertice* origen, Vertice* destino, int posicion_peso, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int &tope){
-    double distancia[cantidad_vertices -1];
-    bool vistos[cantidad_vertices -1];
+    double distancia[cantidad_vertices];
+    bool vistos[cantidad_vertices];
     double camino_min_encontrado = INFINITO;
     Vertice* vertice_actual;
     string destino_actual;
     Arista* arista_actual = origen->encontrar_min(destino_actual);
+
+    distancia[0] = 0;
+    vistos[0] = true;
+    vector_vertices[0] = origen;
+    tope++;
 
     while(arista_actual != NULL){
         generar_posicion(arista_actual, vector_vertices, distancia, posicion_peso, ultimo_visitado, vistos, tope);
@@ -118,7 +123,7 @@ void Grafo::buscar_camino_min(Vertice* origen, Vertice* destino, int posicion_pe
 int Grafo::buscar_pos_min(double distancia[], bool vistos[], int tope){
     int pos_minimo;
     double minimo = INFINITO;
-    for(int i = 0; i < tope; i++){
+    for(int i = 1; i < tope; i++){
         if(!vistos[i])
             if(distancia[i] < minimo) {
                 pos_minimo = i;
@@ -129,7 +134,7 @@ int Grafo::buscar_pos_min(double distancia[], bool vistos[], int tope){
 }
 
 bool Grafo::todos_visitados(bool vistos[], int tope){
-    int i = 0;
+    int i = 1;
     bool todos_visitados = true;
     while(i < tope && todos_visitados){
         if(!vistos[i])
