@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <string>
 
-template <class T> // T para el dato, C para la clave
+template <class T> // T para el dato
 class Nodo_dic{
 
     private:

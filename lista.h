@@ -5,7 +5,7 @@
 # include <iostream>
 # include "nodo.h"
 
-template < typename Dato >
+template <typename Dato>
 class Lista{
 
     private:

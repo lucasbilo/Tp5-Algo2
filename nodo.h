@@ -1,7 +1,7 @@
 #ifndef TP5_ALGO2_NODO_H
 #define TP5_ALGO2_NODO_H
 
-template < typename Dato >
+template <typename Dato>
 class Nodo{
 
     private:
@@ -28,7 +28,7 @@ class Nodo{
         void modificar_sig(Nodo* ps);
 
         // PRE: nodo creado
-        // POST: devuelve el dato que contiene el nodo(puntero a un dato en en el heap)
+        // POST: devuelve el dato que contiene el nodo (puntero a un dato en en el heap)
         Dato* obtener_dato();
 
         // PRE: nodo creado
