@@ -1,1 +1,3 @@
-/usr/bin/c++  -g   CMakeFiles/Tp5_Algo2.dir/main.cpp.o CMakeFiles/Tp5_Algo2.dir/Arista.cpp.o CMakeFiles/Tp5_Algo2.dir/Carga.cpp.o CMakeFiles/Tp5_Algo2.dir/Grafo.cpp.o CMakeFiles/Tp5_Algo2.dir/Vertice.cpp.o CMakeFiles/Tp5_Algo2.dir/Aeropuertos.cpp.o CMakeFiles/Tp5_Algo2.dir/Menu.cpp.o CMakeFiles/Tp5_Algo2.dir/Validacion.cpp.o  -o Tp5_Algo2 
+"C:\Program Files\JetBrains\CLion 2020.1\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\Tp5_Algo2.dir/objects.a
+C:\MinGW\bin\ar.exe cr CMakeFiles\Tp5_Algo2.dir/objects.a @CMakeFiles\Tp5_Algo2.dir\objects1.rsp
+C:\MinGW\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\Tp5_Algo2.dir/objects.a -Wl,--no-whole-archive  -o Tp5_Algo2.exe -Wl,--out-implib,libTp5_Algo2.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Tp5_Algo2.dir\linklibs.rsp

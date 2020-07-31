@@ -4,14 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/Aeropuertos.cpp" "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Aeropuertos.cpp.o"
-  "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/Arista.cpp" "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Arista.cpp.o"
-  "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/Carga.cpp" "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Carga.cpp.o"
-  "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/Grafo.cpp" "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Grafo.cpp.o"
-  "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/Menu.cpp" "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Menu.cpp.o"
-  "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/Validacion.cpp" "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Validacion.cpp.o"
-  "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/Vertice.cpp" "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Vertice.cpp.o"
-  "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/main.cpp" "/home/matecapo67/Documents/Facultad/Algo2/TP5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/main.cpp.o"
+  "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/Aeropuertos.cpp" "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Aeropuertos.cpp.obj"
+  "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/Arista.cpp" "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Arista.cpp.obj"
+  "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/Carga.cpp" "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Carga.cpp.obj"
+  "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/Grafo.cpp" "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Grafo.cpp.obj"
+  "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/Menu.cpp" "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Menu.cpp.obj"
+  "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/Validacion.cpp" "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Validacion.cpp.obj"
+  "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/Vertice.cpp" "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/Vertice.cpp.obj"
+  "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/main.cpp" "C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
