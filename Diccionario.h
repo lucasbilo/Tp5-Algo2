@@ -2,6 +2,7 @@
 #define TP5_ALGO2_Diccionario_H
 
 #include "NodoDic.h"
+#include "Cola.h"
 #include<iostream>
 
 template <class T> // T para el dato
@@ -14,6 +15,7 @@ private:
     // metodos
     Nodo_dic<T>* insertar(Nodo_dic<T>* nodo, T* dato, std::string clave);
     void imprimir_en_orden(Nodo_dic<T> * nodo);
+    void imprimir_en_anchura(Nodo_dic<T> * nodo);
     Nodo_dic<T>* buscar(Nodo_dic<T>* nodo, std::string clave);
     std::string encontrar_min(Nodo_dic<T>* nodo);
     std::string encontrar_max(Nodo_dic<T>* nodo);
@@ -35,8 +37,12 @@ public:
     // POST: Agrega un nuevo nodo al Diccionario. Si el árbol está vacío el nodo insertado será la raíz
     void insertar(std::string clave, T* dato);
 
-    // Imprime todas las claves del Diccionario, ordenadas desde el menor al mayor
+    // POST: Imprime todas las claves del Diccionario, ordenadas desde el menor al mayor
     void imprimir_en_orden();
+
+    // PRE: El Diccionario debe estar BALANCEADO
+    // POST: Recorre recursivamente el Diccionario por niveles(anchura) y va imprimiendo las claves del mismo.
+    void imprimir_en_anchura();
 
     // POST: Busca la clave pasado por parametro en el Diccionario. Si la clave esta en el Diccionario devuelve TRUE, en caso contrario FALSE.
     bool buscar(std::string Clave);
@@ -75,7 +81,7 @@ Diccionario<T>::Diccionario(){
 
 template <class T>
 Nodo_dic<T>* Diccionario<T>::insertar(Nodo_dic<T>* nodo, T* dato, std::string clave){
-    if (nodo == NULL){
+    if (nodo == NULL){ //raiz es nula
         nodo = new Nodo_dic<T>(dato, clave);
     }
     else if (clave > nodo->obtener_clave()){
@@ -94,9 +100,9 @@ void Diccionario<T>::insertar(std::string clave, T* dato){
 
 template <class T>
 void Diccionario<T>::imprimir_en_orden(Nodo_dic<T>* nodo){
-    if (nodo != NULL){
+    if(nodo != NULL){
         imprimir_en_orden(nodo->obtener_izquierdo());
-        std::cout << nodo->obtener_clave() <<' ';
+        std::cout << nodo->obtener_clave() << std::endl;
         imprimir_en_orden(nodo->obtener_derecho());
     }
 }
@@ -104,6 +110,27 @@ void Diccionario<T>::imprimir_en_orden(Nodo_dic<T>* nodo){
 template <class T>
 void Diccionario<T>::imprimir_en_orden(){
     this->imprimir_en_orden(this->raiz);
+}
+
+template <class T>
+void Diccionario<T>::imprimir_en_anchura(Nodo_dic<T>* nodo){
+    Cola<std::string>* cola = new Cola<std::string>();
+    std::string* x;
+    cola->encolar(nodo->obtener_clave());
+    while(!cola->cola_vacia()){
+        x = cola->desencolar();
+        std::cout << *x << std::endl;
+        if(nodo->obtener_izquierdo() != NULL)
+            cola->encolar(nodo->obtener_izquierdo()->obtener_clave());
+        if(nodo->obtener_derecho() != NULL)
+            cola->encolar(nodo->obtener_derecho()->obtener_clave());
+    }
+    delete cola;
+}
+
+template <class T>
+void Diccionario<T>::imprimir_en_anchura(){
+    this->imprimir_en_anchura(this->raiz);
 }
 
 template <class T>
