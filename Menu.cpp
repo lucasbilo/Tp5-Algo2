@@ -5,53 +5,59 @@
 using namespace std;
 
 Menu::Menu(Diccionario<Aeropuerto> * ABB){
-    this -> ABB = ABB;
-};
+    this -> ABB =
+            ABB;
+}
 
 void Menu::menu_completo() {
     int opcion, eleccion1, eleccion2;
     do {
         cout << "1. Menu aeropuertos." << endl;
         cout << "2. Menu vuelos." << endl;
+        cout << "3. Salir." << endl;
         opcion = validaciones.opcion_entre_rangos(1, 3);
-        if (opcion == 1) {
-            do {
+        if(opcion == 1){
+            do{
                 menu_abb();
                 int eleccion1 = validaciones.opcion_entre_rangos(1, 6);
                 opcion_abb(eleccion1);
-            } while (eleccion1 != 6);
+            }while(eleccion1 != 6);
         }
         else
             cout << "Falta el menu del codigo de grafo" <<endl;
             //ACA FALTA EL CODIGO DEL MENU_GRAFO.
 
-    }while (opcion != 3);
+    }while(opcion != 3);
 }
 
 
 void Menu::menu_abb() {
+    cout << "\n ---------------------------------------------" << endl;
     cout << "Opciones disponibles: " << endl;
     cout << "1. Consultar por un aeropuerto en particular." << endl;
     cout << "2. Dar de alta un nuevo aeropuerto." << endl;
     cout << "3. Dar de baja un aeropuerto." << endl;
-    cout << "4. Mostrar todos los aeropuertos" <<endl;
-    cout << "5. Mostrar todos los codigos IATA" <<endl;
+    cout << "4. Mostrar todos los aeropuertos (recorrido in orden)" <<endl;
+    cout << "5. Mostrar todos los codigos IATA (recorrido por anchura)" <<endl;
     cout << "6. Salir." << endl;
 };
 
 void Menu::opcion_abb(int opcion) {
     switch (opcion) {
         case 1: {
-            consultar_aeropuerto();
-        };
+            consultar_aeropuerto(); break;
+        }
         case 2: {
-            alta_aeropuerto();
+            alta_aeropuerto(); break;
         }
         case 3:{
-            baja_aeropuerto();
+            baja_aeropuerto(); break;
         }
         case 4:{
-            ABB->imprimir_en_orden();
+            ABB->imprimir_en_orden(); break;
+        }
+        case 5:{
+            ABB->imprimir_en_anchura(); break;
         }
     }
 };

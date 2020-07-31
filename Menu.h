@@ -18,7 +18,7 @@ class Menu{
         Menu(Diccionario<Aeropuerto> * ABB);
 
         //DESTRUCTOR
-        ~Menu();
+        ~Menu() {};
 
         //POST: Muestra el menu del Arbol binario.
         void menu_abb();
