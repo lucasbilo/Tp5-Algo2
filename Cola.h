@@ -1,7 +1,7 @@
 #ifndef TP5_ALGO2_COLA_H
 #define TP5_ALGO2_COLA_H
 
-# include "Nodo.h"
+# include "nodo.h"
 
 template <typename T> // T sera el dato que guarden los nodos dentro de Cola (en nuestro caso seran los codigos IATA)
 class Cola{
@@ -31,7 +31,7 @@ class Cola{
 
         // PRE: Cola creada y no vacía
         // POST: Libera el nodo al que apunta primero
-        T* desencolar();
+        T desencolar();
 };
 
 template <typename T>
@@ -68,8 +68,11 @@ T Cola<T>::desencolar(){
     if(primero == ultimo)
         ultimo = 0;
     Nodo<T>* paux = primero;
+    T aux = *(primero->obtener_dato());
     primero = paux->obtener_sig();
-    return (*paux -> obtener_dato());
+    delete paux;
+    return aux;
+
 }
 
 #endif //TP5_ALGO2_COLA_H
