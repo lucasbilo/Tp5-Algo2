@@ -25,7 +25,7 @@ bool Validacion::es_digito(string palabra)
 }
 
 int Validacion::opcion_entre_rangos(int min, int max) {
-    int numero;
+    string numero;
     cout << "Ingrese la opcion que desee realizar: ";
     cin >> numero;
     
