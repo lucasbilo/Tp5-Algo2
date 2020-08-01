@@ -54,8 +54,7 @@ bool Cola<T>::cola_vacia(){
 
 template <typename T>
 void Cola<T>::encolar(T d){
-    T* dato = new T;
-    dato = &d; //debo cargar el dato a memoria heap para que funcione Nodo
+    T* dato = new T(d);
     Nodo<T>* nodo = new Nodo<T>(dato);
     if(this->cola_vacia())
         primero = nodo;
@@ -63,26 +62,14 @@ void Cola<T>::encolar(T d){
         ultimo->modificar_sig(nodo);
     ultimo = nodo;
 }
-/*template <typename T>
+
+template <typename T>
 T Cola<T>::desencolar(){
     if(primero == ultimo)
         ultimo = 0;
     Nodo<T>* paux = primero;
-    std::string aux = *(primero->obtener_dato());
     primero = paux->obtener_sig();
-    delete paux;
-    return aux;
-}*/
-
-template <typename T>
-T* Cola<T>::desencolar(){
-    if(primero == ultimo)
-        ultimo = 0;
-    Nodo<T>* aux = primero;
-    T* clave = primero->obtener_dato();
-    primero = aux->obtener_sig();
-    delete aux;
-    return clave;
+    return (*paux -> obtener_dato());
 }
 
 #endif //TP5_ALGO2_COLA_H
