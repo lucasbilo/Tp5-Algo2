@@ -63,6 +63,16 @@ void Cola<T>::encolar(T d){
         ultimo->modificar_sig(nodo);
     ultimo = nodo;
 }
+/*template <typename T>
+T Cola<T>::desencolar(){
+    if(primero == ultimo)
+        ultimo = 0;
+    Nodo<T>* paux = primero;
+    std::string aux = *(primero->obtener_dato());
+    primero = paux->obtener_sig();
+    delete paux;
+    return aux;
+}*/
 
 template <typename T>
 T* Cola<T>::desencolar(){
