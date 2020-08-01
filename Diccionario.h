@@ -114,16 +114,17 @@ void Diccionario<T>::imprimir_en_orden(){
 
 template <class T>
 void Diccionario<T>::imprimir_en_anchura(Nodo_dic<T>* nodo){
-    Cola<std::string>* cola = new Cola<std::string>();
-    std::string* x;
-    cola->encolar(nodo->obtener_clave());
+    Cola<Nodo_dic<T>*>* cola = new Cola<Nodo_dic<T>*>;
+    Nodo_dic<T>*  aux;
+    cola->encolar(nodo);
     while(!cola->cola_vacia()){
-        x = cola->desencolar();
-        std::cout << *x << std::endl;
-        if(nodo->obtener_izquierdo() != NULL)
-            cola->encolar(nodo->obtener_izquierdo()->obtener_clave());
-        if(nodo->obtener_derecho() != NULL)
-            cola->encolar(nodo->obtener_derecho()->obtener_clave());
+        aux = cola->desencolar();
+        std::cout << aux->obtener_clave() << " ";
+        if(aux->obtener_izquierdo() != NULL)
+            cola->encolar(aux->obtener_izquierdo());
+        if(aux->obtener_derecho() != NULL)
+            cola->encolar(aux->obtener_derecho());
+        std::cout << std::endl;
     }
     delete cola;
 }
