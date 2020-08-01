@@ -19,7 +19,7 @@ void Menu::menu_completo() {
         if(opcion == 1){
             do{
                 menu_abb();
-                int eleccion1 = validaciones.opcion_entre_rangos(1, 6);
+                eleccion1 = validaciones.opcion_entre_rangos(1, 6);
                 opcion_abb(eleccion1);
             }while(eleccion1 != 6);
         }
