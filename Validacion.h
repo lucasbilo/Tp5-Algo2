@@ -10,6 +10,10 @@ class Validacion{
 
         //DESTRUCTOR
         ~Validacion(){}
+    
+        int string_a_int(std::string palabra);
+    
+        bool es_digito(std::string palabra);
 
         int opcion_entre_rangos(int min, int max);
 
