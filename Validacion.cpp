@@ -7,8 +7,7 @@ using namespace std;
 
 int Validacion::string_a_int(string palabra)
 {
-    int numero = atoi(palabra.c_str());
-    return numero;
+    return atoi(palabra.c_str());
 }
 
 bool Validacion::es_digito(string palabra)
