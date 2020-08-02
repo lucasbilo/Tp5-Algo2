@@ -3,11 +3,14 @@
 #include <cctype>
 #include "Menu.h"
 
+const int PESO_HORAS = 1;
+const int PESO_PRECIO = 2;
+
 using namespace std;
 
-Menu::Menu(Diccionario<Aeropuerto> * ABB){
-    this -> ABB =
-            ABB;
+Menu::Menu(Diccionario<Aeropuerto> * ABB, Grafo* grafo){
+    this -> ABB = ABB;
+    this -> grafo = grafo;
 }
 
 void Menu::menu_completo() {
@@ -24,11 +27,22 @@ void Menu::menu_completo() {
                 opcion_abb(eleccion1);
             }while(eleccion1 != 6);
         }
-        else
-            cout << "Falta el menu del codigo de grafo" <<endl;
-            //ACA FALTA EL CODIGO DEL MENU_GRAFO.
-
+        else if (opcion == 2){
+            do{
+                menu_grafo();
+                eleccion2 = validaciones.opcion_entre_rangos(1,3);
+                opcion_grafo(eleccion2);
+            }while(eleccion2 != 3);
+        }
     }while(opcion != 3);
+}
+
+void Menu::menu_grafo() {
+    cout << "\n ---------------------------------------------" << endl;
+    cout << "Opciones disponibles: " << endl;
+    cout << "1. Consultar vuelo minimo por tiempo." << endl;
+    cout << "2. Consultar vuelo minimo por precio." << endl;
+    cout << "3. Salir." << endl;
 }
 
 
@@ -42,6 +56,23 @@ void Menu::menu_abb() {
     cout << "5. Mostrar todos los codigos IATA (recorrido por anchura)" <<endl;
     cout << "6. Salir." << endl;
 };
+
+void Menu::opcion_grafo(int opcion) {
+    switch (opcion){
+        case 1: {
+            grafo_minimo(PESO_HORAS); break;
+        }
+        case 2: {
+            grafo_minimo(PESO_PRECIO); break;
+        }
+    }
+}
+
+void Menu::grafo_minimo(int tipo_de_peso) {
+    string iata_partida = validaciones.pedir_string("Ingrese el codigo IATA de partida: ");
+    string iata_destino = validaciones.pedir_string("Ingrese el codigo IATA de destino: ");
+    grafo->imprimir_camino_minimo(iata_partida,iata_destino,tipo_de_peso);
+}
 
 void Menu::opcion_abb(int opcion) {
     switch (opcion) {

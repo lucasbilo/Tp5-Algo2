@@ -17,17 +17,10 @@ int main() {
     Carga carga(NOMBRE_ARCHIVO_AEROPUERTOS, NOMBRE_ARCHIVO_VUELOS);
     Diccionario<Aeropuerto>* aeropuerto = new Diccionario<Aeropuerto>;
     carga.cargar_diccionario_aeropuerto(aeropuerto);
-    Menu menu(aeropuerto);
+    Grafo* vuelos = new Grafo();
+    carga.cargar_grafo_vuelos(vuelos);
+    Menu menu(aeropuerto, vuelos);
     menu.menu_completo();
-
+    delete vuelos;
     delete aeropuerto;
-
-    /*Grafo* vuelos = new Grafo();
-    if(carga.cargar_grafo_vuelos(vuelos))
-    {
-        cout << "Se cargo el grafo" << endl;
-        vuelos->imprimir_camino_minimo("BUE", "FRA", 2);
-       // vuelos->obtener_vertices()->imprimir_en_orden();
-    }
-    delete vuelos;*/
 }
