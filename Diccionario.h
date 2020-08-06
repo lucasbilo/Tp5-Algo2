@@ -273,8 +273,10 @@ Nodo_dic<T> * Diccionario<T>::borrar(Nodo_dic<T>* nodo, std::string clave){
         return NULL;
 
     if (nodo->obtener_clave() == clave){
-        if (nodo->es_hoja()) {
-            delete nodo;
+        if (nodo->es_hoja()){
+            Nodo_dic<T>* aux = nodo;
+            nodo = NULL;
+            delete aux;
         }
         else if (nodo->solo_hijo_derecho()){
             nodo->obtener_derecho()->modificar_padre(nodo->obtener_padre());
