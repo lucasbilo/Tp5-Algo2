@@ -53,6 +53,22 @@ class Grafo {
                 Vertice* vector_vertices[], int tope, bool &terminado);
 
 
+        // agregados recieen a ver si funciona.
+
+        void imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, int posicion_peso);
+        void imprimir_camino(Lista<Arista*>* camino, int pos_peso, int &numero_opcion);
+        void desvisitar_aristas(Lista<bool>* aristas_visitadas);
+        void visitar_arista(Lista<bool>* aristas_visitadas);
+        void agregar_arista(Lista<Arista*>* camino, Lista<Arista*>* ultimo_visitado, int pos_lista);
+        bool visitado(Lista<bool>* aristas_visitadas, int &pos_lista);
+        void inicializar_recorridos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], int tope);
+
+
+
+
+
+
+
     };
 
 

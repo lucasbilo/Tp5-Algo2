@@ -4,6 +4,7 @@ using namespace std;
 
 const double INFINITO = 1e100;
 const int POSICION_INVALIDA = -1;
+const int POSICION_SALIDA = 0;
 
 //CONSTRUCTOR
 Grafo::Grafo(){
@@ -38,6 +39,183 @@ Vertice* Grafo::agregar_vertice(string clave_vertice){
 
 
 
+
+
+
+
+
+
+
+
+void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, int posicion_peso){
+    Lista<bool>* recorridos_visitados[tope];
+    inicializar_recorridos(recorridos_visitados, ultimo_visitado, tope);
+    int pos, pos_lista = 1, numero_opcion = 1;
+    int pos_llegada = encontrar_posicion(llegada, vector_vertices, tope);
+    Lista<Arista*>* camino = new Lista<Arista*>;
+
+    Vertice* destino_parcial = llegada;
+
+    bool ultimo_recorrido = false;
+    pos_lista = recorridos_visitados[pos_llegada]->obtener_tam();
+    Vertice* ultimo_vertice = (*(ultimo_visitado[pos_llegada]->obtener_dato(pos_lista)))->obtener_origen();
+    int pos_ultimo_vertice = encontrar_posicion(ultimo_vertice, vector_vertices, tope);
+
+
+    while(!visitado(recorridos_visitados[pos_llegada], pos_lista)){
+        pos = encontrar_posicion(destino_parcial, vector_vertices, tope);
+        if(pos != POSICION_SALIDA && pos != pos_llegada){
+            if(!visitado(recorridos_visitados[pos], pos_lista)){ // avanza en el camino
+                agregar_arista(camino, ultimo_visitado[pos], pos_lista);
+                visitar_arista(recorridos_visitados[pos]);
+                destino_parcial = (*camino->obtener_dato(1))->obtener_origen();
+            }else if (pos!= pos_llegada){ //retrocede en el camino
+                desvisitar_aristas(recorridos_visitados[pos]);
+                destino_parcial = (*camino->obtener_dato(1))->obtener_destino();
+                camino->eliminar_dato(1);
+            }
+        }else if (pos == POSICION_SALIDA){
+            imprimir_camino(camino, posicion_peso, numero_opcion);
+            destino_parcial = (*camino->obtener_dato(1))->obtener_destino();
+            camino->eliminar_dato(1);
+            if(ultimo_recorrido && visitado(recorridos_visitados[pos_ultimo_vertice], pos_lista))
+                visitar_arista(recorridos_visitados[pos_llegada]);
+        }else{
+            visitado(recorridos_visitados[pos_llegada], pos_lista);
+            if( pos_lista == recorridos_visitados[pos_llegada]->obtener_tam()){
+                if( pos_ultimo_vertice == POSICION_SALIDA){
+                    agregar_arista(camino, ultimo_visitado[pos], pos_lista);
+                    imprimir_camino(camino, posicion_peso, numero_opcion);
+                    visitar_arista(recorridos_visitados[pos_llegada]);
+                }else{
+                    ultimo_recorrido = true;
+                }
+            }else{
+                visitar_arista(recorridos_visitados[pos_llegada]);
+            }
+            agregar_arista(camino, ultimo_visitado[pos], pos_lista);
+            destino_parcial = (*camino->obtener_dato(1))->obtener_origen();
+        }
+    }
+    delete camino;
+}
+
+
+void Grafo::imprimir_camino(Lista<Arista*>* camino, int pos_peso, int &numero_opcion){
+    Arista* arista_actual;
+    cout << "\n\nOpcion de camino numero " << numero_opcion << "\n\n";
+    for( int i = 1; i <= camino->obtener_tam(); i++){
+        arista_actual = *camino->obtener_dato(i);
+        cout << arista_actual->obtener_cod_partida() << " -> " << arista_actual->obtener_cod_destino() <<
+        " COSTO: " << arista_actual->obtener_peso(pos_peso) << endl;
+    }
+    cout << "\n\n";
+    numero_opcion++;
+}
+
+
+
+/*
+ * POST: Modifica todos los elementos de la lista a false.
+ * */
+void Grafo::desvisitar_aristas(Lista<bool>* aristas_visitadas){
+    for(int i = 1; i <= aristas_visitadas->obtener_tam() ; i++ )
+        *(aristas_visitadas->obtener_dato(i)) = false;
+}
+
+/*
+ * POST: Modifica el primer elemento de la lista que sea false a true.
+ */
+void Grafo::visitar_arista(Lista<bool>* aristas_visitadas){
+    bool todas_aristas_visitadas = true;
+    int i = 1;
+    while(todas_aristas_visitadas && i <= aristas_visitadas->obtener_tam()){
+        if( ! (*(aristas_visitadas->obtener_dato(i)))){
+            todas_aristas_visitadas = false;
+            *(aristas_visitadas->obtener_dato(i)) = true;
+        }
+        i++;
+    }
+}
+
+
+
+/*
+ * PRE: pos_lista pertenece a los limites de la lista de ultimo_visitado.
+ * POST: Agrega la arista que se encuentra en la posicion de ultimo_visitado en el camino.
+ * */
+void Grafo::agregar_arista(Lista<Arista*>* camino, Lista<Arista*>* ultimo_visitado, int pos_lista){
+    Arista** arista_agregar = new Arista*(*(ultimo_visitado->obtener_dato(pos_lista)));
+    camino->insertar(arista_agregar);
+}
+
+
+/*
+ * PRE: La Lista esta bien inicializada y el puntero no apunta a NULL.
+ * POST: Si todos los elementos de la lista tienen TRUE, devuelve true. Sino, devuelve FALSE.
+ */
+bool Grafo::visitado(Lista<bool>* aristas_visitadas, int &pos_lista){
+    bool todas_aristas_visitadas = true;
+    int i = 1;
+    while(todas_aristas_visitadas && i <= aristas_visitadas->obtener_tam()){
+        if( ! (*(aristas_visitadas->obtener_dato(i)))){
+            todas_aristas_visitadas = false;
+            pos_lista = i;
+        }
+        i++;
+    }
+    return todas_aristas_visitadas;
+}
+
+/*
+ * PRE: ----
+ * POST: Crea una relacion 1 a 1 entre el vector de listas de recorridos_visitados y ultimo_visitado,
+ *       e inicializa cada atributo de las nueva lista de recorridos en false.
+ */
+void Grafo::inicializar_recorridos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], int tope){
+    for(int i = 0; i < tope; i++){
+        if(ultimo_visitado[i] != NULL){
+            recorridos_visitados[i] = new Lista<bool>;
+            for(int j = 1; j <= ultimo_visitado[i]->obtener_tam() ; j++){
+                bool* visitado = new bool(false);
+                recorridos_visitados[i]->insertar(visitado);
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Vertice* destino_parcial, Lista<Arista*>* ultimo_visitado[],
         Vertice* vector_vertices[], int tope, bool &terminado){
 
@@ -66,6 +244,9 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Vertice* destino
     }
 }
 
+
+
+
 void Grafo::liberar_memoria_visitados(Lista<Arista*>* ultimo_visitado[], int tope){
     for(int i = 1; i < tope; i++){
         if(ultimo_visitado[i] != NULL)
@@ -82,8 +263,12 @@ void Grafo::imprimir_camino_minimo(string origen, string destino, int posicion_p
         Vertice* vector_vertices[cantidad_vertices];
         int tope = 0;
         buscar_camino_min(salida, llegada, posicion_peso, ultimo_visitado, vector_vertices, tope);
-        bool termino_imprimir;
-        imprimir_caminos(salida, llegada, llegada, ultimo_visitado, vector_vertices, tope, termino_imprimir);
+
+        imprimir_caminos(salida, llegada, ultimo_visitado, vector_vertices, tope, posicion_peso);
+
+        //bool termino_imprimir;
+        //imprimir_caminos(salida, llegada, llegada, ultimo_visitado, vector_vertices, tope, termino_imprimir);
+
         liberar_memoria_visitados(ultimo_visitado, tope);
     }else{
         cout << "Ocurrio un problema. Los vertices pedidos no se pudieron encontrar" << endl;

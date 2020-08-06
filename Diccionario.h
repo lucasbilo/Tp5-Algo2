@@ -157,6 +157,7 @@ void Diccionario<T>::imprimir_en_anchura(Nodo_dic<T>* nodo){
     delete cola;
 }
 
+
 template <class T>
 void Diccionario<T>::imprimir_en_anchura(){
     this->imprimir_en_anchura(this->raiz);
