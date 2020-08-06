@@ -269,9 +269,11 @@ void Grafo::imprimir_camino_minimo(string origen, string destino, int posicion_p
         Vertice* vector_vertices[cantidad_vertices];
         int tope = 0;
         buscar_camino_min(salida, llegada, posicion_peso, ultimo_visitado, vector_vertices, tope);
-
-        imprimir_caminos(salida, llegada, ultimo_visitado, vector_vertices, tope, posicion_peso);
-
+        int pos_llegada = encontrar_posicion(llegada, vector_vertices, tope);
+        if(pos_llegada != POSICION_INVALIDA)
+            imprimir_caminos(salida, llegada, ultimo_visitado, vector_vertices, tope, posicion_peso);
+        else
+            cout << "No se encontraron caminos que satisfagan los pedido" << endl;
         //bool termino_imprimir;
         //imprimir_caminos(salida, llegada, llegada, ultimo_visitado, vector_vertices, tope, termino_imprimir);
 
