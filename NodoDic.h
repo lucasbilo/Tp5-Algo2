@@ -75,6 +75,9 @@ class Nodo_dic{
         // POST: Unicamente devuelve TRUE si se verifica que:
         // izquierdo != NULL y derecho == NULL
         bool solo_hijo_izquierdo();
+
+        // POST: Unicamente devuelve TRUE si se verifica que el nodo solo tiene un hijo (no importa si es derecho o izquierdo)
+        bool solo_un_hijo();
 };
 
 template <class T>
@@ -166,6 +169,11 @@ bool Nodo_dic<T>::solo_hijo_derecho(){
 template <class T>
 bool Nodo_dic<T>::solo_hijo_izquierdo(){
     return (this->obtener_izquierdo() != NULL && this->obtener_derecho() == NULL);
+}
+
+template <class T>
+bool Nodo_dic<T>::solo_un_hijo(){
+    return (this->solo_hijo_derecho() || this->solo_hijo_izquierdo())
 }
 
 #endif //TP5_ALGO2_NodoDic_H
