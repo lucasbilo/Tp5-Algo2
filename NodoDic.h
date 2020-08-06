@@ -173,7 +173,7 @@ bool Nodo_dic<T>::solo_hijo_izquierdo(){
 
 template <class T>
 bool Nodo_dic<T>::solo_un_hijo(){
-    return (this->solo_hijo_derecho() || this->solo_hijo_izquierdo())
+    return (this->solo_hijo_derecho() || this->solo_hijo_izquierdo());
 }
 
 #endif //TP5_ALGO2_NodoDic_H
