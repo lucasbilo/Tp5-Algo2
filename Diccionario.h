@@ -17,6 +17,7 @@ private:
     // POST: Agrega un nuevo nodo al Diccionario. Si el árbol está vacío el nodo insertado será la raíz
     Nodo_dic<T>* insertar(Nodo_dic<T>* nodo, T* dato, std::string clave);
 
+    // PRE : (MUY IMPORTANTE) El dato que contiene el nodo tiene que tener un metodo llamado mostrar_datos()
     // POST: Imprime todas las claves del Diccionario, ordenadas desde el menor al mayor
     void imprimir_en_orden(Nodo_dic<T> * nodo);
 
@@ -129,7 +130,7 @@ template <class T>
 void Diccionario<T>::imprimir_en_orden(Nodo_dic<T>* nodo){
     if(nodo != NULL){
         imprimir_en_orden(nodo->obtener_izquierdo());
-        std::cout << nodo->obtener_clave() << std::endl;
+        nodo->obtener_dato()->mostrar_datos();
         imprimir_en_orden(nodo->obtener_derecho());
     }
 }
