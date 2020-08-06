@@ -24,35 +24,35 @@ class Nodo_dic{
         //POST: Elimina la memoria a la que apunta dato.
         ~Nodo_dic();
 
-        //POST: Devuelve un dato de tipo C que es el atributo clave
+        //POST: Devuelve un dato de tipo T que es el atributo clave
         std::string obtener_clave();
 
-        //POST: Devuelve un dato de tipo C que es el atributo dato
+        //POST: Devuelve un dato de tipo T que es el atributo dato
         T* obtener_dato();
 
         // POST: Modifica al atributo dato, por el dato que se recibe como parametro
         void modificar_dato(T* dato);
 
         // POST: Modifica 2 atributos, derecho y padre.
-        // derecho = derecho(parametro)
-        // padre = padre(parametro)
+        // this->derecho = derecho
+        // this->padre = padre
         void modificar_derecho(Nodo_dic<T>* derecho, Nodo_dic<T>* padre);
 
         // POST: Modifica 2 atributos, izquierdo y padre.
-        // izquierdo = izquierdo(parametro)
-        // padre = padre(parametro)
+        // this->izquierdo = izquierdo
+        // this->padre = padre
         void modificar_izquierdo(Nodo_dic<T>* izquierdo, Nodo_dic<T>* padre);
 
         // POST: Modifica el atributo derecho:
-        // // derecho = derecho(parametro)
+        // this->derecho = derecho
         void modificar_derecho(Nodo_dic<T>* derecho);
 
         // POST: Modifica el atributo izquierdo:
-        // izquierdo = izquierdo(parametro)
+        // this->izquierdo = izquierdo
         void modificar_izquierdo(Nodo_dic<T>* izquierdo);
 
         // POST: Modifica el atributo padre:
-        // padre = padre(parametro)
+        // this->padre = padre
         void modificar_padre(Nodo_dic<T>* padre);
 
         //POST: Devuelve el atributo derecho
@@ -64,15 +64,15 @@ class Nodo_dic{
         //POST: Devuelve el atributo padre
         Nodo_dic<T>* obtener_padre();
 
-        // POST: Unicamente devuelve true si se verifica:
+        // POST: Unicamente devuelve TRUE si se verifica que:
         // izquierdo == NULL y derecho == NULL
         bool es_hoja();
 
-        // POST: Unicamente devuelve true si se verifica:
+        // POST: Unicamente devuelve TRUE si se verifica que:
         // izquierdo == NULL y derecho != NULL
         bool solo_hijo_derecho();
 
-        // POST: Unicamente devuelve true si se verifica:
+        // POST: Unicamente devuelve TRUE si se verifica que:
         // izquierdo != NULL y derecho == NULL
         bool solo_hijo_izquierdo();
 };
