@@ -47,6 +47,7 @@ Vertice* Grafo::agregar_vertice(string clave_vertice){
 
 
 
+
 void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, int posicion_peso){
     Lista<bool>* recorridos_visitados[tope];
     inicializar_recorridos(recorridos_visitados, ultimo_visitado, tope);
@@ -56,15 +57,9 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* 
 
     Vertice* destino_parcial = llegada;
 
-    bool ultimo_recorrido = false;
-    pos_lista = recorridos_visitados[pos_llegada]->obtener_tam();
-    Vertice* ultimo_vertice = (*(ultimo_visitado[pos_llegada]->obtener_dato(pos_lista)))->obtener_origen();
-    int pos_ultimo_vertice = encontrar_posicion(ultimo_vertice, vector_vertices, tope);
-
-
-    while(!visitado(recorridos_visitados[pos_llegada], pos_lista)){
+    while(!todos_caminos_impresos(recorridos_visitados, ultimo_visitado, vector_vertices, tope, llegada)){
         pos = encontrar_posicion(destino_parcial, vector_vertices, tope);
-        if(pos != POSICION_SALIDA && pos != pos_llegada){
+        if(pos != POSICION_SALIDA){
             if(!visitado(recorridos_visitados[pos], pos_lista)){ // avanza en el camino
                 agregar_arista(camino, ultimo_visitado[pos], pos_lista);
                 visitar_arista(recorridos_visitados[pos]);
@@ -74,32 +69,38 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* 
                 destino_parcial = (*camino->obtener_dato(1))->obtener_destino();
                 camino->eliminar_dato(1);
             }
-        }else if (pos == POSICION_SALIDA){
+        }else{
             imprimir_camino(camino, posicion_peso, numero_opcion);
             destino_parcial = (*camino->obtener_dato(1))->obtener_destino();
             camino->eliminar_dato(1);
-            if(ultimo_recorrido && visitado(recorridos_visitados[pos_ultimo_vertice], pos_lista))
-                visitar_arista(recorridos_visitados[pos_llegada]);
-        }else{
-            visitado(recorridos_visitados[pos_llegada], pos_lista);
-            if( pos_lista == recorridos_visitados[pos_llegada]->obtener_tam()){
-                if( pos_ultimo_vertice == POSICION_SALIDA){
-                    agregar_arista(camino, ultimo_visitado[pos], pos_lista);
-                    imprimir_camino(camino, posicion_peso, numero_opcion);
-                    visitar_arista(recorridos_visitados[pos_llegada]);
-                }else{
-                    ultimo_recorrido = true;
-                }
-            }else{
-                visitar_arista(recorridos_visitados[pos_llegada]);
-            }
-            agregar_arista(camino, ultimo_visitado[pos], pos_lista);
-            destino_parcial = (*camino->obtener_dato(1))->obtener_origen();
         }
     }
     liberar_memoria_visitados(recorridos_visitados, tope);
     delete camino;
 }
+
+
+
+bool Grafo::todos_caminos_impresos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, Vertice* llegada){
+    int pos_actual = encontrar_posicion(llegada, vector_vertices, tope);
+    int pos_lista = recorridos_visitados[pos_actual]->obtener_tam();
+    bool todos_visitados;
+    Arista* arista_actual = *(ultimo_visitado[pos_actual]->obtener_dato(pos_lista));
+    while(todos_visitados && pos_actual != POSICION_SALIDA){
+        if(*recorridos_visitados[pos_actual]->obtener_dato(pos_lista)){
+            pos_actual = encontrar_posicion(arista_actual->obtener_origen(), vector_vertices, tope);
+            if(pos_actual != POSICION_SALIDA){
+                pos_lista = recorridos_visitados[pos_actual]->obtener_tam();
+                arista_actual = *(ultimo_visitado[pos_actual]->obtener_dato(pos_lista));
+            }
+        }else{
+            todos_visitados = false;
+        }
+
+    }
+    return todos_visitados;
+}
+
 
 
 void Grafo::imprimir_camino(Lista<Arista*>* camino, int pos_peso, int &numero_opcion){
@@ -271,9 +272,9 @@ void Grafo::imprimir_camino_minimo(string origen, string destino, int posicion_p
         buscar_camino_min(salida, llegada, posicion_peso, ultimo_visitado, vector_vertices, tope);
         int pos_llegada = encontrar_posicion(llegada, vector_vertices, tope);
         if(pos_llegada != POSICION_INVALIDA) {
-            //bool termino_imprimir;
-            //imprimir_caminos(salida, llegada, llegada, ultimo_visitado, vector_vertices, tope, termino_imprimir);
-            imprimir_caminos(salida, llegada, ultimo_visitado, vector_vertices, tope, posicion_peso);
+            bool termino_imprimir;
+            imprimir_caminos(salida, llegada, llegada, ultimo_visitado, vector_vertices, tope, termino_imprimir);
+            //imprimir_caminos(salida, llegada, ultimo_visitado, vector_vertices, tope, posicion_peso);
         }
         else {
             cout << "No se encontraron caminos que satisfagan los pedido" << endl;
