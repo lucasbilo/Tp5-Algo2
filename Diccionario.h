@@ -9,68 +9,95 @@ template <class T> // T para el dato
 class Diccionario{
 
 private:
-    // atributos
+    // ATRIBUTOS:
     Nodo_dic<T>* raiz;
 
-    // metodos
+    // METODOS:
+
+    // POST: Agrega un nuevo nodo al Diccionario. Si el árbol está vacío el nodo insertado será la raíz
     Nodo_dic<T>* insertar(Nodo_dic<T>* nodo, T* dato, std::string clave);
+
+    // POST: Imprime todas las claves del Diccionario, ordenadas desde el menor al mayor
     void imprimir_en_orden(Nodo_dic<T> * nodo);
+
+    // POST: Recorre recursivamente el Diccionario por niveles(anchura) y va imprimiendo las claves del mismo.
     void imprimir_en_anchura(Nodo_dic<T> * nodo);
+
+    // POST: Busca la clave recibida por parametro en el Diccionario.
+    // Si la clave esta en el Diccionario, devuelve un puntero al Nodo de la clave. En caso de que no este devuelve un nodo a NULL
     Nodo_dic<T>* buscar(Nodo_dic<T>* nodo, std::string clave);
+
+    // POST: Devuelve la clave minima que existe en el Diccionario
     std::string encontrar_min(Nodo_dic<T>* nodo);
+
+    // POST: Devuelve la clave maxima que existe en el Diccionario
     std::string encontrar_max(Nodo_dic<T>* nodo);
+
+    // POST: Devuelve una clave de tipo string que es el sucesor del nodo recibido por parametro
     std::string sucesor(Nodo_dic<T>* nodo);
+
+    // POST: Devuelve una clave de tipo string que es el predecesor del nodo recibido por parametro
     std::string predecesor(Nodo_dic<T>* nodo);
+
+    /* POST: Devuelve un nodo, este puede ser:
+    1) Si el nodo recibido por parametro apunta a NULL, se devuelve NULL
+    2) Si el nodo recibido por parametro solo tiene hijo derecho, elimina al nodo y  devuelve al hijo derecho
+    3) Si el nodo recibido por parametro solo tiene hijo izquierdo, elimina al nodo y devuelve al hijo izquierdo
+    4) Si el nodo recibido por parametro tiene 2 hijos (izquierdo y derecho), se elimina al nodo y se devuelve el sucesor */
     Nodo_dic<T>* borrar(Nodo_dic<T>* nodo, std::string clave);
+
+    // POST: Borra todos los nodos del Diccionario
     void borrar_todo(Nodo_dic<T>* nodo);
 
 public:
 
     //CONSTRUCTOR
-    // POST: Inicializa un Diccionario vacio
+    // POST: Inicializa un Diccionario. Raiz apunta a NULL
     Diccionario();
 
     //DESTRUCTOR
     //POST: Elimina la memoria pedida para cada nodo.
     ~Diccionario<T>();
 
-    // POST: Agrega un nuevo nodo al Diccionario. Si el árbol está vacío el nodo insertado será la raíz
+    //POST: Llama al metodo privado insertar(), le pasa como parametros los parametros que este metodo recibio
     void insertar(std::string clave, T* dato);
 
-    // POST: Imprime todas las claves del Diccionario, ordenadas desde el menor al mayor
+    // POST: Llama al metodo privado imprimir_en_orden(), le pasa como parametro la raiz
     void imprimir_en_orden();
 
-    // PRE: El Diccionario debe estar BALANCEADO
-    // POST: Recorre recursivamente el Diccionario por niveles(anchura) y va imprimiendo las claves del mismo.
+    // POST: Llama al metodo privado imprimir_en_anchura(), le pasa como parametro la raiz
     void imprimir_en_anchura();
 
-    // POST: Busca la clave pasado por parametro en el Diccionario. Si la clave esta en el Diccionario devuelve TRUE, en caso contrario FALSE.
+    // POST: Busca la clave pasado por parametro en el Diccionario (llama al metodo privado buscar()).
+    // Si la clave esta en el Diccionario devuelve TRUE, en caso contrario FALSE.
     bool buscar(std::string Clave);
 
-    //POST: Si la clave no esta en el Diccionario, devuelve NULL, sino devuelve un puntero al dato almacenado.
-    T* consultar(std::string clave);
-
-    // Devuelve la clave minima que existe en el Diccionario
+    // POST: Devuelve la clave minima que existe en el Diccionario
     std::string encontrar_min();
 
-    // POST: Devuelve la clave maxima que existe en el Diccionario
+    // POST: Devuelve la clave maximaque existe en el Diccionario
     std::string encontrar_max();
 
-    // POST: Devuelve una clave que es el sucesor de la clave pasada por parametro
+    // POST: Devuelve la clave del sucesor de la clave pasada por parametro. En caso de que no se encuentre, se devuelve 'F'
     std::string sucesor(std::string clave);
 
-    // POST: Devuelve una clave que es el predecesor de la clave pasada por parametro
+    // POST: Devuelve la clave del predecesor de la clave pasada por parametro. En caso de que no se encuentre, se devuelve 'F'
     std::string predecesor(std::string clave);
 
     // POST: Borra del Diccionario la clave pasada por parametro y su dato correspondiente
     void borrar(std::string clave);
 
+    //POST: Si la clave no esta en el Diccionario, devuelve NULL, sino devuelve un puntero al dato almacenado.
+    T* consultar(std::string clave);
+
+    // POST: Llama al metodo privado borrar_todo() y le pasa como parametro la raiz
+    void borrar_todo();
+
+    // POST: Devuelve la raiz del Diccionario
     Nodo_dic<T>* obtener_raiz();
 
+    // POST: Si raiz apunta a NULL se devuelve TRUE, en caso contrario se devuelve FALSE
     bool vacio();
-
-    // POST: Borra todos los nodos del Diccionario
-    void borrar_todo();
 
 };
 
@@ -204,12 +231,11 @@ std::string Diccionario<T>::sucesor(Nodo_dic<T>* nodo){
 
 template <class T>
 std::string Diccionario<T>::sucesor(std::string clave){
-    Nodo_dic<T>* clave_nodo = this->buscar(this->raiz, clave);
-    // Devuelve la clave. Si no se encuentra la clave o no se encuentra el sucesor, devuelva -1
-    if(clave_nodo == NULL)
+    Nodo_dic<T>* nodo_clave = this->buscar(this->raiz, clave);
+    if(nodo_clave == NULL)
         return "F";
     else
-        return sucesor(clave_nodo);
+        return sucesor(nodo_clave);
 }
 
 template <class T>
@@ -217,7 +243,6 @@ std::string Diccionario<T>::predecesor(Nodo_dic<T> * nodo){
     if (nodo->obtener_izquierdo() != NULL){
         return encontrar_max(nodo->obtener_izquierdo());
     }
-
     Nodo_dic<T>* sucesor = NULL;
     Nodo_dic<T>* ancestro = this->raiz;
     while(ancestro != nodo){
@@ -235,7 +260,7 @@ template <class T>
 std::string Diccionario<T>::predecesor(std::string clave){
     Nodo_dic<T> * clave_nodo = this->buscar(this->raiz, clave);
     if(clave_nodo == NULL)
-        return "\0";
+        return "F";
     else
         return predecesor(clave_nodo);
 }
