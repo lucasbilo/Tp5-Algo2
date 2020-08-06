@@ -62,6 +62,7 @@ class Grafo {
         void agregar_arista(Lista<Arista*>* camino, Lista<Arista*>* ultimo_visitado, int pos_lista);
         bool visitado(Lista<bool>* aristas_visitadas, int &pos_lista);
         void inicializar_recorridos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], int tope);
+        void liberar_memoria_visitados(Lista<bool>* ultimo_visitado[], int tope);
 
 
 

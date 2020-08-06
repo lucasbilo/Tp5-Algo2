@@ -97,6 +97,7 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* 
             destino_parcial = (*camino->obtener_dato(1))->obtener_origen();
         }
     }
+    liberar_memoria_visitados(recorridos_visitados, tope);
     delete camino;
 }
 
@@ -245,7 +246,12 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Vertice* destino
 }
 
 
-
+void Grafo::liberar_memoria_visitados(Lista<bool>* ultimo_visitado[], int tope){
+    for(int i = 1; i < tope; i++){
+        if(ultimo_visitado[i] != NULL)
+            delete ultimo_visitado[i];
+    }
+}
 
 void Grafo::liberar_memoria_visitados(Lista<Arista*>* ultimo_visitado[], int tope){
     for(int i = 1; i < tope; i++){
