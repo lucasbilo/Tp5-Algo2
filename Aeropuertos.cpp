@@ -46,9 +46,6 @@ unsigned int Aeropuerto::obtener_d_internacionales(){
 }
 
 void Aeropuerto::mostrar_datos(){
-    cout << "Codigo iata: " << iata << endl;
-    cout << "Nombre del aeropuerto: " << aeropuerto << endl;
-    cout << "Nombre de la ciudad: "  << ciudad << endl;
-    cout << "Nombre del pais: " << pais << endl;
+    cout << "Codigo iata: " << iata << " || Nombre: " << aeropuerto << " || Ciudad: " << ciudad << " || Pais: "<< pais << endl;
     cout << "------------------------------------------------------" << endl;
 }
