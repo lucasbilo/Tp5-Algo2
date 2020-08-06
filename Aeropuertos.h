@@ -54,7 +54,8 @@ class Aeropuerto{
         //POST: Devuelve la cantidad de destinos internacionales
         unsigned int obtener_d_internacionales();
 
-        //POST: Muestra los datos de un aeropuerto.
+        //POST: Imprime los siguientes atributos del Aeropuerto:
+        // iata - aeropuerto - ciudad - pais
         void mostrar_datos();
 };
 

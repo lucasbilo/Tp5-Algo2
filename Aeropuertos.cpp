@@ -50,9 +50,5 @@ void Aeropuerto::mostrar_datos(){
     cout << "Nombre del aeropuerto: " << aeropuerto << endl;
     cout << "Nombre de la ciudad: "  << ciudad << endl;
     cout << "Nombre del pais: " << pais << endl;
-    cout << "Superficie del aeropuerto: " << superficie << endl;
-    cout << "Cantidad de terminales: " << cant_terminales << endl;
-    cout << "Cantidad de destinos NACIONALES: " << d_nacionales << endl;
-    cout << "Cantidad de destinos INTERNACIONALES: " << d_internacionales << endl;
     cout << "------------------------------------------------------" << endl;
 }
