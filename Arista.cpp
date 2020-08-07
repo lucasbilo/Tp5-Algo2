@@ -2,12 +2,14 @@
 
 using namespace std;
 
+//CONSTRUCTOR
 Arista::Arista(Vertice* origen, Vertice* destino, Lista<double>* pesos){
     this->origen = origen;
     this->destino = destino;
     this->pesos = pesos;
 }
 
+//DESTRUCTOR
 Arista::~Arista() {
     delete pesos;
 }
