@@ -55,7 +55,6 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* 
     Lista<Arista*>* camino = new Lista<Arista*>;
 
     Vertice* destino_parcial = llegada;
-    
 
     while(!todos_caminos_impresos(recorridos_visitados, ultimo_visitado, vector_vertices, tope, llegada)){
         
@@ -63,7 +62,7 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* 
         if(pos != POSICION_SALIDA){
             if(!visitado(recorridos_visitados[pos], pos_lista)){ // avanza en el camino
                 agregar_arista(camino, ultimo_visitado[pos], pos_lista);
-                visitar_arista(recorridos_visitados[pos]);
+                visitar_arista(recorridos_visitados[pos],pos_lista);
                 destino_parcial = (*camino->obtener_dato(1))->obtener_origen();
             }else{ //retrocede en el camino
                 desvisitar_aristas(recorridos_visitados[pos]);
@@ -75,7 +74,8 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* 
             destino_parcial = (*camino->obtener_dato(1))->obtener_destino();
             camino->eliminar_dato(1);
         }
-    }    
+    }
+    imprimir_camino(camino, posicion_peso, numero_opcion);
     liberar_memoria_visitados(recorridos_visitados, tope);
     delete camino;
 }
