@@ -35,7 +35,7 @@ private:
     std::string encontrar_max(Nodo_dic<T>* nodo);
 
     // POST: Devuelve una clave de tipo string que es el sucesor del nodo recibido por parametro
-    std::string sucesor(Nodo_dic<T>* nodo);
+    Nodo_dic<T>* sucesor(Nodo_dic<T>* nodo);
 
     // POST: Devuelve una clave de tipo string que es el predecesor del nodo recibido por parametro
     std::string predecesor(Nodo_dic<T>* nodo);
@@ -160,7 +160,10 @@ void Diccionario<T>::imprimir_en_anchura(Nodo_dic<T>* nodo){
 
 template <class T>
 void Diccionario<T>::imprimir_en_anchura(){
-    this->imprimir_en_anchura(this->raiz);
+    if(this->raiz)
+        this->imprimir_en_anchura(this->raiz);
+    else
+        std::cout << "No hay datos en el diccionario. " << std::endl;
 }
 
 template <class T>
@@ -212,9 +215,9 @@ std::string Diccionario<T>::encontrar_max(){
 }
 
 template <class T>
-std::string Diccionario<T>::sucesor(Nodo_dic<T>* nodo){
+Nodo_dic<T>* Diccionario<T>::sucesor(Nodo_dic<T>* nodo){
     if (nodo->obtener_derecho() != NULL){
-        return encontrar_min(nodo->obtener_derecho());
+        return buscar(nodo, encontrar_min(nodo->obtener_derecho()));
     }
     Nodo_dic<T>* sucesor = NULL;
     Nodo_dic<T>* ancestro = this->raiz;
@@ -226,9 +229,7 @@ std::string Diccionario<T>::sucesor(Nodo_dic<T>* nodo){
         else
             ancestro = ancestro->obtener_derecho();
     }
-    if(sucesor != NULL)
-        return sucesor->obtener_clave();
-    return "\0";
+    return sucesor;
 }
 
 template <class T>
@@ -237,7 +238,7 @@ std::string Diccionario<T>::sucesor(std::string clave){
     if(nodo_clave == NULL)
         return "F";
     else
-        return sucesor(nodo_clave);
+        return sucesor(nodo_clave)->obtener_clave();
 }
 
 template <class T>
@@ -292,14 +293,30 @@ Nodo_dic<T> * Diccionario<T>::borrar(Nodo_dic<T>* nodo, std::string clave){
         }
             //El nodo tiene dos hijos (izquierdo y derecho)
         else{
+            Nodo_dic<T>* aux = nodo;
             // Encuentra sucesora o predecesora para evitar disputas
-            std::string sucesor_clave = this->sucesor(clave);
+            Nodo_dic<T>* sucesor = this->sucesor(nodo);
 
             //Copiar los datos del nodo sucesor a los del nodo actual
-            nodo = buscar(nodo, sucesor_clave);
+            nodo = sucesor;
+            nodo->modificar_izquierdo(aux->obtener_izquierdo());
 
             //Elimina el antiguo nodo del sucesor
-            nodo->modificar_derecho(borrar(nodo->obtener_derecho(), sucesor_clave));
+            if(!sucesor->solo_un_hijo()){ //solo puede tener hijo derecho
+                Nodo_dic<T>* aux2 = sucesor;
+                sucesor = NULL;
+                delete aux2;
+            }
+            else{
+                sucesor->obtener_derecho()->modificar_padre(sucesor->obtener_padre());
+                Nodo_dic<T>* aux3 = sucesor;
+                sucesor = sucesor->obtener_derecho();
+                delete aux3;
+            }
+            //Elimina el antiguo nodo del sucesor
+            //nodo->modificar_derecho(borrar(nodo->obtener_derecho(), sucesor->obtener_clave()));
+
+            delete aux;
         }
     }
 
