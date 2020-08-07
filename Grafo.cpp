@@ -57,7 +57,7 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* 
     Vertice* destino_parcial = llegada;
 
     while(!todos_caminos_impresos(recorridos_visitados, ultimo_visitado, vector_vertices, tope, llegada)){
-        
+
         pos = encontrar_posicion(destino_parcial, vector_vertices, tope);
         if(pos != POSICION_SALIDA){
             if(!visitado(recorridos_visitados[pos], pos_lista)){ // avanza en el camino
@@ -83,11 +83,11 @@ void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Lista<Arista*>* 
 
 
 bool Grafo::todos_caminos_impresos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, Vertice* llegada){
-    
+
     int pos_actual = encontrar_posicion(llegada, vector_vertices, tope);
     int pos_lista = recorridos_visitados[pos_actual]->obtener_tam();
     Arista* arista_actual = *(ultimo_visitado[pos_actual]->obtener_dato(pos_lista));
-    
+
     bool todos_visitados = true;
 
     while(todos_visitados && pos_actual != POSICION_SALIDA){
@@ -99,7 +99,7 @@ bool Grafo::todos_caminos_impresos(Lista<bool>* recorridos_visitados[], Lista<Ar
             }
         }
         else
-            todos_visitados = false;      
+            todos_visitados = false;
     }
 
     return todos_visitados;
@@ -113,7 +113,7 @@ void Grafo::imprimir_camino(Lista<Arista*>* camino, int pos_peso, int &numero_op
     for( int i = 1; i <= camino->obtener_tam(); i++){
         arista_actual = *camino->obtener_dato(i);
         cout << arista_actual->obtener_cod_partida() << " -> " << arista_actual->obtener_cod_destino() <<
-        " COSTO: " << arista_actual->obtener_peso(pos_peso) << endl;
+             " COSTO: " << arista_actual->obtener_peso(pos_peso) << endl;
     }
     cout << "\n\n";
     numero_opcion++;
@@ -171,7 +171,7 @@ bool Grafo::visitado(Lista<bool>* aristas_visitadas, int &pos_lista){
  *       e inicializa cada atributo de las nueva lista de recorridos en false.
  */
 void Grafo::inicializar_recorridos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], int tope){
-    for(int i = 0; i < tope; i++){
+    for(int i = 1; i < tope; i++){
         if(ultimo_visitado[i] != NULL){
             recorridos_visitados[i] = new Lista<bool>;
             for(int j = 1; j <= ultimo_visitado[i]->obtener_tam() ; j++){
@@ -215,7 +215,7 @@ void Grafo::inicializar_recorridos(Lista<bool>* recorridos_visitados[], Lista<Ar
 
 
 void Grafo::imprimir_caminos(Vertice* salida, Vertice* llegada, Vertice* destino_parcial, Lista<Arista*>* ultimo_visitado[],
-        Vertice* vector_vertices[], int tope, bool &terminado){
+                             Vertice* vector_vertices[], int tope, bool &terminado){
 
     int pos = encontrar_posicion(destino_parcial, vector_vertices, tope);
     if(pos > 0) {
@@ -372,7 +372,7 @@ int Grafo::encontrar_posicion(Vertice* vertice, Vertice* vector_vertices[], int 
 }
 
 int Grafo::generar_posicion(Arista* arista_actual, Vertice* vector_vertices[], double distancia[], int posicion_peso,
-        Lista<Arista*>* ultimo_visitado[], bool vistos[], int &tope){
+                            Lista<Arista*>* ultimo_visitado[], bool vistos[], int &tope){
 
     vector_vertices[tope] = arista_actual->obtener_destino();
     distancia[tope] = arista_actual->obtener_peso(posicion_peso);
@@ -383,4 +383,3 @@ int Grafo::generar_posicion(Arista* arista_actual, Vertice* vector_vertices[], d
     tope++;
     return (tope - 1);
 }
-
