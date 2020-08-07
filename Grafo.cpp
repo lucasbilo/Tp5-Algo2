@@ -170,16 +170,12 @@ int Grafo::encontrar_posicion(Vertice* vertice, Vertice* vector_vertices[], int 
 }
 
 
-
-
-
-
+//Imprime por pantalla todos los caminos minimos entre la salida y la llegada.
 void Grafo::imprimir_caminos( Vertice* llegada, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, int posicion_peso){
     Lista<bool>* recorridos_visitados[tope];
     inicializar_recorridos(recorridos_visitados, ultimo_visitado, tope);
     int pos, pos_lista = 1, numero_opcion = 1;
     Lista<Arista*>* camino = new Lista<Arista*>;
-
     Vertice* destino_parcial = llegada;
 
     while(!todos_caminos_impresos(recorridos_visitados, ultimo_visitado, vector_vertices, tope, llegada)){
@@ -207,95 +203,8 @@ void Grafo::imprimir_caminos( Vertice* llegada, Lista<Arista*>* ultimo_visitado[
 }
 
 
-
-bool Grafo::todos_caminos_impresos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, Vertice* llegada){
-
-    int pos_actual = encontrar_posicion(llegada, vector_vertices, tope);
-    int pos_lista = recorridos_visitados[pos_actual]->obtener_tam();
-    Arista* arista_actual = *(ultimo_visitado[pos_actual]->obtener_dato(pos_lista));
-
-    bool todos_visitados = true;
-
-    while(todos_visitados && pos_actual != POSICION_SALIDA){
-        if(*(recorridos_visitados[pos_actual]->obtener_dato(pos_lista))){
-            pos_actual = encontrar_posicion(arista_actual->obtener_origen(), vector_vertices, tope);
-            if(pos_actual != POSICION_SALIDA){
-                pos_lista = recorridos_visitados[pos_actual]->obtener_tam();
-                arista_actual = *(ultimo_visitado[pos_actual]->obtener_dato(pos_lista));
-            }
-        }
-        else
-            todos_visitados = false;
-    }
-
-    return todos_visitados;
-}
-
-
-
-void Grafo::imprimir_camino(Lista<Arista*>* camino, int pos_peso, int &numero_opcion){
-    Arista* arista_actual;
-    cout << "\n\nOpcion de camino numero " << numero_opcion << "\n\n";
-    for( int i = 1; i <= camino->obtener_tam(); i++){
-        arista_actual = *camino->obtener_dato(i);
-        cout << arista_actual->obtener_cod_partida() << " -> " << arista_actual->obtener_cod_destino() <<
-             " COSTO: " << arista_actual->obtener_peso(pos_peso) << endl;
-    }
-    cout << "\n\n";
-    numero_opcion++;
-}
-
-
-
-/*
- * POST: Modifica todos los elementos de la lista a false.
- * */
-void Grafo::desvisitar_aristas(Lista<bool>* aristas_visitadas){
-    for(int i = 1; i <= aristas_visitadas->obtener_tam() ; i++ )
-        *(aristas_visitadas->obtener_dato(i)) = false;
-}
-
-/*
- * POST: Modifica el primer elemento de la lista que sea false a true.
- */
-void Grafo::visitar_arista(Lista<bool>* aristas_visitadas, int pos_lista){
-    *(aristas_visitadas->obtener_dato(pos_lista)) = true;
-}
-
-
-
-/*
- * PRE: pos_lista pertenece a los limites de la lista de ultimo_visitado.
- * POST: Agrega la arista que se encuentra en la posicion de ultimo_visitado en el camino.
- * */
-void Grafo::agregar_arista(Lista<Arista*>* camino, Lista<Arista*>* ultimo_visitado, int pos_lista){
-    Arista** arista_agregar = new Arista*(*(ultimo_visitado->obtener_dato(pos_lista)));
-    camino->insertar(arista_agregar);
-}
-
-
-/*
- * PRE: La Lista esta bien inicializada y el puntero no apunta a NULL.
- * POST: Si todos los elementos de la lista tienen TRUE, devuelve true. Sino, devuelve FALSE.
- */
-bool Grafo::visitado(Lista<bool>* aristas_visitadas, int &pos_lista){
-    bool todas_aristas_visitadas = true;
-    int i = 1;
-    while(todas_aristas_visitadas && i <= aristas_visitadas->obtener_tam()){
-        if( ! (*(aristas_visitadas->obtener_dato(i)))){
-            todas_aristas_visitadas = false;
-            pos_lista = i;
-        }
-        i++;
-    }
-    return todas_aristas_visitadas;
-}
-
-/*
- * PRE: ----
- * POST: Crea una relacion 1 a 1 entre el vector de listas de recorridos_visitados y ultimo_visitado,
- *       e inicializa cada atributo de las nueva lista de recorridos en false.
- */
+// POST: Crea una relacion 1 a 1 entre el vector de listas de recorridos_visitados y ultimo_visitado,
+//       e inicializa cada atributo de las nueva lista de recorridos en false.
 void Grafo::inicializar_recorridos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], int tope){
     for(int i = 1; i < tope; i++){
         if(ultimo_visitado[i] != NULL){
@@ -309,20 +218,88 @@ void Grafo::inicializar_recorridos(Lista<bool>* recorridos_visitados[], Lista<Ar
 }
 
 
+// Devuelve true si todos los caminos fueron impresos por pantalla o lo que es equivalente, si el ultimo camino inducido por el orden
+// de imprimir_caminos fue impreso.
+bool Grafo::todos_caminos_impresos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, Vertice* llegada){
+
+    int pos_actual = encontrar_posicion(llegada, vector_vertices, tope);
+    int pos_lista = recorridos_visitados[pos_actual]->obtener_tam();
+    Arista* arista_actual = *(ultimo_visitado[pos_actual]->obtener_dato(pos_lista));
+    bool todos_visitados = true;
+
+    while(todos_visitados && pos_actual != POSICION_SALIDA){
+        if(*(recorridos_visitados[pos_actual]->obtener_dato(pos_lista))){
+            pos_actual = encontrar_posicion(arista_actual->obtener_origen(), vector_vertices, tope);
+            if(pos_actual != POSICION_SALIDA){
+                pos_lista = recorridos_visitados[pos_actual]->obtener_tam();
+                arista_actual = *(ultimo_visitado[pos_actual]->obtener_dato(pos_lista));
+            }
+        }
+        else
+            todos_visitados = false;
+    }
+    return todos_visitados;
+}
 
 
+// PRE: La Lista esta bien inicializada y el puntero no apunta a NULL.
+// POST: Si todos los elementos de la lista tienen TRUE, devuelve true. Sino, devuelve FALSE.
+bool Grafo::visitado(Lista<bool>* aristas_visitadas, int &pos_lista){
+    bool todas_aristas_visitadas = true;
+    int i = 1;
+    while(todas_aristas_visitadas && i <= aristas_visitadas->obtener_tam()){
+        if( ! (*(aristas_visitadas->obtener_dato(i)))){
+            todas_aristas_visitadas = false;
+            pos_lista = i;
+        }
+        i++;
+    }
+    return todas_aristas_visitadas;
+}
+
+// PRE: pos_lista pertenece a los limites de la lista de ultimo_visitado.
+// POST: Agrega la arista que se encuentra en la posicion de ultimo_visitado en el camino.
+void Grafo::agregar_arista(Lista<Arista*>* camino, Lista<Arista*>* ultimo_visitado, int pos_lista){
+    Arista** arista_agregar = new Arista*(*(ultimo_visitado->obtener_dato(pos_lista)));
+    camino->insertar(arista_agregar);
+}
 
 
+// POST: Modifica el primer elemento de la lista que sea false a true.
+void Grafo::visitar_arista(Lista<bool>* aristas_visitadas, int pos_lista){
+    *(aristas_visitadas->obtener_dato(pos_lista)) = true;
+}
 
 
+// POST: Modifica todos los elementos de la lista a false.
+void Grafo::desvisitar_aristas(Lista<bool>* aristas_visitadas){
+    for(int i = 1; i <= aristas_visitadas->obtener_tam() ; i++ )
+        *(aristas_visitadas->obtener_dato(i)) = false;
+}
 
+
+// PRE: La lista del camino contiene un camino de aristas valido ordenado desde la salida hasta la llegada.
+// POST: Se imprime este camino
+void Grafo::imprimir_camino(Lista<Arista*>* camino, int pos_peso, int &numero_opcion){
+    Arista* arista_actual;
+    cout << "\n\nOpcion de camino numero " << numero_opcion << "\n\n";
+    for( int i = 1; i <= camino->obtener_tam(); i++){
+        arista_actual = *camino->obtener_dato(i);
+        cout << arista_actual->obtener_cod_partida() << " -> " << arista_actual->obtener_cod_destino() <<
+             " COSTO: " << arista_actual->obtener_peso(pos_peso) << endl;
+    }
+    cout << "\n\n";
+    numero_opcion++;
+}
+
+//Elimina la memoria que almacena ultimo_visitado.
 void Grafo::liberar_memoria_visitados(Lista<bool>* ultimo_visitado[], int tope){
     for(int i = 1; i < tope; i++){
         if(ultimo_visitado[i] != NULL)
             delete ultimo_visitado[i];
     }
 }
-
+// Elimina la memoria que almacena ultimo_visitado.
 void Grafo::liberar_memoria_visitados(Lista<Arista*>* ultimo_visitado[], int tope){
     for(int i = 1; i < tope; i++){
         if(ultimo_visitado[i] != NULL)

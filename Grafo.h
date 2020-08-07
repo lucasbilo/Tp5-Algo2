@@ -70,20 +70,43 @@ class Grafo {
         // PRE: Para cada Vertice necesario del grafo que puede estar en el camino minimo entre el origen y el destino:
         //      Las listas de ultimo_visitado contienen la ultima arista por la que hay que pasa en funcion de generar un camino minimo
         //      entre origen y cada vertice.
+        //      tope se corresponde al tope de los vectores. Cada vertice de vector_vectices se corresponde a los de ultimo visitado.
+        //      Existe al menos un camino entre la salida y la llegada.
+        // POST: Imprime por pantalla todos los caminos minimos entre la salida y la llegada.
         void imprimir_caminos(Vertice* llegada, Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, int posicion_peso);
 
+        // POST: Crea una relacion 1 a 1 entre el vector de listas de recorridos_visitados y ultimo_visitado,
+        //       e inicializa cada atributo de las nueva lista de recorridos en false.
+        void inicializar_recorridos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], int tope);
+
+        // PRE: tope se corresponde a los topes de los tres vectores. Los tres vectores estan instanciados correctamente.
+        // POST: Devuelve true si todos los caminos fueron impresos por pantalla o lo que es equivalente, si el ultimo camino inducido por el orden
+        //       de imprimir_caminos fue impreso.
+        bool todos_caminos_impresos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, Vertice* llegada);
+
+        // PRE: La Lista esta bien inicializada y el puntero no apunta a NULL.
+        // POST: Si todos los elementos de la lista tienen TRUE, devuelve true. Sino, devuelve FALSE.
+        bool visitado(Lista<bool>* aristas_visitadas, int &pos_lista);
+
+        // PRE: pos_lista pertenece a los limites de la lista de ultimo_visitado.
+        // POST: Agrega la arista que se encuentra en la posicion de ultimo_visitado en el camino.
+       void agregar_arista(Lista<Arista*>* camino, Lista<Arista*>* ultimo_visitado, int pos_lista);
+
+        // POST: Modifica el primer elemento de la lista que sea false a true.
+        void visitar_arista(Lista<bool>* aristas_visitadas, int);
+
+        // POST: Modifica todos los elementos de la lista a false.
+        void desvisitar_aristas(Lista<bool>* aristas_visitadas);
+
+        // PRE: La lista del camino contiene un camino de aristas valido ordenado desde la salida hasta la llegada.
+        // POST: Se imprime este camino
+        void imprimir_camino(Lista<Arista*>* camino, int pos_peso, int &numero_opcion);
+
+        // Elimina la memoria que almacena ultimo_visitado.
         void liberar_memoria_visitados(Lista<Arista*>* ultimo_visitado[], int tope);
 
-        // agregados recieen a ver si funciona.
-
-        void imprimir_camino(Lista<Arista*>* camino, int pos_peso, int &numero_opcion);
-        void desvisitar_aristas(Lista<bool>* aristas_visitadas);
-        void visitar_arista(Lista<bool>* aristas_visitadas, int);
-        void agregar_arista(Lista<Arista*>* camino, Lista<Arista*>* ultimo_visitado, int pos_lista);
-        bool visitado(Lista<bool>* aristas_visitadas, int &pos_lista);
-        void inicializar_recorridos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], int tope);
+        // Elimina la memoria que almacena ultimo_visitado.
         void liberar_memoria_visitados(Lista<bool>* ultimo_visitado[], int tope);
-        bool todos_caminos_impresos(Lista<bool>* recorridos_visitados[], Lista<Arista*>* ultimo_visitado[], Vertice* vector_vertices[], int tope, Vertice* llegada);
 
 
 
