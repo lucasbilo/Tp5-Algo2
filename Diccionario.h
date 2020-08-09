@@ -305,22 +305,22 @@ std::string Diccionario<T>::predecesor(std::string clave){
 
 template <class T>
 Nodo_dic<T> * Diccionario<T>::borrar(Nodo_dic<T>* nodo, std::string clave){
-    if (nodo == NULL) // El nodo no se encuentra en el Diccionario
+    if(nodo == NULL) // El nodo no se encuentra en el Diccionario
         return NULL;
 
-    if (nodo->obtener_clave() == clave){
-        if (nodo->es_hoja()){
+    if(nodo->obtener_clave() == clave){
+        if(nodo->es_hoja()){
             Nodo_dic<T>* aux = nodo;
             nodo = NULL;
             delete aux;
         }
-        else if (nodo->solo_hijo_derecho()){
+        else if(nodo->solo_hijo_derecho()){
             nodo->obtener_derecho()->modificar_padre(nodo->obtener_padre());
             Nodo_dic<T>* aux = nodo;
             nodo = nodo->obtener_derecho();
             delete aux;
         }
-        else if (nodo->solo_hijo_izquierdo()){
+        else if(nodo->solo_hijo_izquierdo()){
             nodo->obtener_izquierdo()->modificar_padre(nodo->obtener_padre());
             Nodo_dic<T>* aux = nodo;
             nodo = nodo->obtener_izquierdo();
@@ -334,14 +334,15 @@ Nodo_dic<T> * Diccionario<T>::borrar(Nodo_dic<T>* nodo, std::string clave){
 
             //Copiar los datos del nodo sucesor a los del nodo actual
             nodo->modificar_clave(sucesor->obtener_clave());
+            delete nodo->obtener_dato();
             nodo->modificar_dato(sucesor->obtener_dato());
 
             // Borro el nodo viejo del sucesor
-            borrar(nodo->obtener_derecho(), sucesor_clave);
+            nodo->modificar_derecho(borrar(nodo->obtener_derecho(), sucesor_clave));
         }
     }
 
-    else if (nodo->obtener_clave() < clave)
+    else if(nodo->obtener_clave() < clave)
         nodo->modificar_derecho(borrar(nodo->obtener_derecho(), clave));
     else
         nodo->modificar_izquierdo(borrar(nodo->obtener_izquierdo(), clave));
