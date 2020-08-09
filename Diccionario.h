@@ -162,6 +162,7 @@ void Diccionario<T>::imprimir_en_anchura(Nodo_dic<T>* nodo){
     int nivel_actual;
     int nivel_anterior = 1;
     setear_niveles(nodo, 1); //setea los niveles de cada nodo
+    std::cout << "Nivel " << nivel_anterior << ": ";
     while(!cola->cola_vacia()){
         aux = cola->desencolar();
         nivel_actual = aux -> obtener_nivel();
@@ -169,12 +170,11 @@ void Diccionario<T>::imprimir_en_anchura(Nodo_dic<T>* nodo){
         if (nivel_anterior != nivel_actual)
         {
             std::cout << std::endl;
+            std::cout << "Nivel " << nivel_actual << ": ";
             nivel_anterior = nivel_actual;
         }
         
-        std::cout << aux->obtener_clave() << ":";
-        std::cout << aux->obtener_nivel();
-        std::cout << " ";
+        std::cout << aux->obtener_clave() << " ";
         
         if(aux->obtener_izquierdo() != NULL)
         {
