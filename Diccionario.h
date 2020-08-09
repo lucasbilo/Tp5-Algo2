@@ -269,7 +269,7 @@ template <class T>
 std::string Diccionario<T>::sucesor(std::string clave){
     Nodo_dic<T>* nodo_clave = this->buscar(this->raiz, clave);
     if(nodo_clave == NULL)
-        return "F";
+        return "\0";
     else
         return sucesor(nodo_clave)->obtener_clave();
 }
