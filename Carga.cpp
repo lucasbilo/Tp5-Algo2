@@ -1,14 +1,8 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 
 //Archivos.h
-
 #include "Carga.h"
-#include "Grafo.h"
-#include "Diccionario.h"
-#include "NodoDic.h"
-#include "Aeropuertos.h"
 #include "Excepcion.h"
 
 using namespace std;

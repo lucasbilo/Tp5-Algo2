@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <cctype>
 #include "Menu.h"
 
 const int PESO_HORAS = 1;
@@ -70,10 +69,8 @@ void Menu::opcion_grafo(int opcion) {
 }
 
 void Menu::grafo_minimo(int tipo_de_peso) {
-    string iata_partida = validaciones.pedir_string("Ingrese el codigo IATA de partida: ");
-    string iata_destino = validaciones.pedir_string("Ingrese el codigo IATA de destino: ");
-    iata_partida = validaciones.pasar_a_mayuscula(iata_partida);
-    iata_destino = validaciones.pasar_a_mayuscula(iata_destino);
+    string iata_partida = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA de partida: "));
+    string iata_destino = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA de destino: "));
     grafo->imprimir_camino_minimo(iata_partida,iata_destino,tipo_de_peso);
 }
 
@@ -104,11 +101,10 @@ void Menu::opcion_abb(int opcion) {
 
 void Menu::alta_aeropuerto()
 {
-    string iata = validaciones.pedir_string("Ingrese el codigo IATA: ");
+    string iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA: "));
     while (ABB -> buscar(iata)){
         cout << "El código IATA ingresado ya pertenece a un aeropuerto." << endl;
-        iata = validaciones.pedir_string("Ingrese el codigo IATA: ");
-        iata = validaciones.pasar_a_mayuscula(iata);
+        iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA: "));
     }
     string n_aeropuerto = validaciones.pedir_string("Ingrese el nombre del aeropuerto: ");
     string ciudad = validaciones.pedir_string("Ingrese el nombre de la ciudad: ");
@@ -124,8 +120,7 @@ void Menu::alta_aeropuerto()
 
 void Menu::baja_aeropuerto()
 {
-    string iata = validaciones.pedir_string("Ingrese el codigo IATA: ");
-    iata = validaciones.pasar_a_mayuscula(iata);
+    string iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA: "));
     if(ABB->buscar(iata))
     {
         ABB->borrar(iata);
@@ -137,8 +132,7 @@ void Menu::baja_aeropuerto()
 
 void Menu::consultar_aeropuerto()
 {
-    string iata = validaciones.pedir_string("Ingrese el codigo IATA: ");
-    iata = validaciones.pasar_a_mayuscula(iata);
+    string iata = validaciones.pasar_a_mayuscula((validaciones.pedir_string("Ingrese el codigo IATA: "));
     
     if(ABB->buscar(iata))
         ABB -> consultar(iata) -> mostrar_datos();
