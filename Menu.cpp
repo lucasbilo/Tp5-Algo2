@@ -132,7 +132,7 @@ void Menu::baja_aeropuerto()
 
 void Menu::consultar_aeropuerto()
 {
-    string iata = validaciones.pasar_a_mayuscula((validaciones.pedir_string("Ingrese el codigo IATA: "));
+    string iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA: "));
     
     if(ABB->buscar(iata))
         ABB -> consultar(iata) -> mostrar_datos();

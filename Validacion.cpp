@@ -42,16 +42,24 @@ int Validacion::opcion_entre_rangos(int min, int max) {
 }
 
 int Validacion::pedir_entero(std::string mensaje) {
+    string numero_string;
     int numero;
     cout << mensaje;
-    cin >> numero;
+    cin >> numero_string;
+    if(!es_digito(numero_string))
+    {
+        cout << "El numero ingresado es invalido, vuelva a ingresar un numero: ";
+        cin >> numero_string;
+    }
+    numero = string_a_int(numero_string);
     return numero;
 }
 
 string Validacion::pedir_string(std::string mensaje) {
     string palabra;
     cout << mensaje;
-    cin >> palabra;
+    cin.ignore();
+    getline(cin,palabra);
     for (unsigned int i = 0; i <= palabra.length(); i++)
     {
         if (palabra[i] == ' ')
