@@ -38,6 +38,8 @@ class Nodo_dic{
         // POST: Modifica al atributo dato, por el dato que se recibe como parametro
         void modificar_dato(T* dato);
 
+        void modificar_clave(std::string clave);
+
         // POST: Modifica 2 atributos, derecho y padre.
         // this->derecho = derecho
         // this->padre = padre
@@ -154,6 +156,10 @@ void Nodo_dic<T>::modificar_dato(T* dato) {
     this->dato = dato;
 }
 
+template <class T>
+void Nodo_dic<T>::modificar_clave(std::string clave) {
+    this->clave = clave;
+}
 
 template <class T>
 void Nodo_dic<T>::modificar_izquierdo(Nodo_dic<T>* izquierdo){
