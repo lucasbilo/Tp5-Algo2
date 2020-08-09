@@ -62,3 +62,12 @@ string Validacion::pedir_string(std::string mensaje) {
     }
     return palabra;
 }
+
+string Validacion::pasar_a_mayuscula(string iata)
+{
+    for (unsigned i = 0; i <= iata.length(); i++)
+    {
+        iata[i] = toupper(iata[i]);
+    }
+    return iata;
+}
