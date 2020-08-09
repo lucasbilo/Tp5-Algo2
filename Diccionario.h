@@ -298,7 +298,7 @@ template <class T>
 std::string Diccionario<T>::predecesor(std::string clave){
     Nodo_dic<T> * clave_nodo = this->buscar(this->raiz, clave);
     if(clave_nodo == NULL)
-        return "F";
+        return "\0";
     else
         return predecesor(clave_nodo);
 }
@@ -330,7 +330,9 @@ Nodo_dic<T> * Diccionario<T>::borrar(Nodo_dic<T>* nodo, std::string clave){
         else{
             Nodo_dic<T>* aux = nodo;
             // Encuentra sucesora o predecesora para evitar disputas
-            Nodo_dic<T>* sucesor = this->sucesor(nodo);
+            std::string sucesor_clave = this->sucesor(nodo);
+            Nodo_dic<T>* sucesor = buscar(nodo, sucesor_clave);
+
 
             //Copiar los datos del nodo sucesor a los del nodo actual
             nodo = sucesor;
