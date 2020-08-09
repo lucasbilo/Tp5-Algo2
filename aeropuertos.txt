@@ -9,6 +9,7 @@ AEP Aeroparque-Jorge-Newbery Buenos-Aires Argentina 32.62 3 5 5
 CVI Aerodromo-Caleta-Olivia Caleta-Olivia Argentina 43.4 6 7 9
 IYK Aeropuerto-de-Inyokern Inyokern EEUU 48 12 21 40
 ILD Aerodromo-Casilda Casilda Argentina 23.4 2 12 33
+ILF Aerodromo-Casilda Casilda Argentina 23.4 2 12 33
 CCT Aeropuerto-Colonia-Catriel Catriel Argentina 22.4 5 10 62
 CVH Aeropuerto-de-Caviahue Caviahue Argentina 32.4 8 24 14
 SFO Aeropuerto-Internacional-de-San-Francisco San-Francisco EEUU 54.3 10 32 54
