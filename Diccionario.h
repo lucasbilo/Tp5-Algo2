@@ -16,6 +16,8 @@ private:
 
     // POST: Agrega un nuevo nodo al Diccionario. Si el árbol está vacío el nodo insertado será la raíz
     Nodo_dic<T>* insertar(Nodo_dic<T>* nodo, T* dato, std::string clave);
+    
+    void setear_niveles(Nodo_dic<T>* nodo, int nivel);
 
     // PRE : (MUY IMPORTANTE) El dato que contiene el nodo tiene que tener un metodo llamado mostrar_datos()
     // POST: Imprime todas las claves del Diccionario, ordenadas desde el menor al mayor
@@ -62,6 +64,7 @@ public:
 
     //POST: Llama al metodo privado insertar(), le pasa como parametros los parametros que este metodo recibio
     void insertar(std::string clave, T* dato);
+    
 
     // POST: Llama al metodo privado imprimir_en_orden(), le pasa como parametro la raiz
     void imprimir_en_orden();
@@ -127,6 +130,17 @@ void Diccionario<T>::insertar(std::string clave, T* dato){
 }
 
 template <class T>
+void Diccionario<T>::setear_niveles(Nodo_dic<T>* nodo, int nivel)
+{
+    if (nodo != NULL)
+    {
+        setear_niveles(nodo -> obtener_izquierdo(), nivel + 1);
+        nodo -> setear_nivel(nivel);
+        setear_niveles(nodo -> obtener_derecho(), nivel + 1);
+    }
+}
+
+template <class T>
 void Diccionario<T>::imprimir_en_orden(Nodo_dic<T>* nodo){
     if(nodo != NULL){
         imprimir_en_orden(nodo->obtener_izquierdo());
@@ -145,16 +159,35 @@ void Diccionario<T>::imprimir_en_anchura(Nodo_dic<T>* nodo){
     Cola<Nodo_dic<T>*>* cola = new Cola<Nodo_dic<T>*>;
     Nodo_dic<T>*  aux;
     cola->encolar(nodo);
+    int nivel_actual;
+    int nivel_anterior = 1;
+    setear_niveles(nodo, 1); //setea los niveles de cada nodo
     while(!cola->cola_vacia()){
         aux = cola->desencolar();
-        std::cout << aux->obtener_clave() << " ";
+        nivel_actual = aux -> obtener_nivel();
+        
+        if (nivel_anterior != nivel_actual)
+        {
+            std::cout << std::endl;
+            nivel_anterior = nivel_actual;
+        }
+        
+        std::cout << aux->obtener_clave() << ":";
+        std::cout << aux->obtener_nivel();
+        std::cout << " ";
+        
         if(aux->obtener_izquierdo() != NULL)
+        {
             cola->encolar(aux->obtener_izquierdo());
+        }
         if(aux->obtener_derecho() != NULL)
+        {
             cola->encolar(aux->obtener_derecho());
-        std::cout << std::endl;
+        }
+
     }
     delete cola;
+
 }
 
 

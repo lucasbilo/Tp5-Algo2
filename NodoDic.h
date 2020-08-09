@@ -10,6 +10,7 @@ class Nodo_dic{
     private:
         T* dato;
         std::string clave;
+        int nivel;
         Nodo_dic<T>* izquierdo; // Hijo izquierdo
         Nodo_dic<T>* derecho; //Hijo derecho
         Nodo_dic<T>* padre;
@@ -23,6 +24,10 @@ class Nodo_dic{
         //Destructor
         //POST: Elimina la memoria a la que apunta dato.
         ~Nodo_dic();
+    
+        void setear_nivel(int nivel);
+    
+        int obtener_nivel();
 
         //POST: Devuelve un dato de tipo T que es el atributo clave
         std::string obtener_clave();
@@ -83,6 +88,7 @@ class Nodo_dic{
 template <class T>
 Nodo_dic<T>::Nodo_dic(T* dato, std::string clave){
     this->clave = clave;
+    this -> nivel = 0;
     this->dato = dato;
     this->izquierdo = NULL;
     this->derecho = NULL;
@@ -95,6 +101,19 @@ Nodo_dic<T>::~Nodo_dic(){
     if( dato != NULL)
         delete dato;
 }
+
+template <class T>
+void Nodo_dic<T>::setear_nivel(int nivel)
+{
+    this -> nivel = nivel;
+}
+
+template <class T>
+int Nodo_dic<T>::obtener_nivel()
+{
+    return this -> nivel;
+}
+
 
 template <class T>
 std::string Nodo_dic<T>::obtener_clave(){
