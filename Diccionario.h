@@ -37,7 +37,7 @@ private:
     std::string encontrar_max(Nodo_dic<T>* nodo);
 
     // POST: Devuelve una clave de tipo string que es el sucesor del nodo recibido por parametro
-    Nodo_dic<T>* sucesor(Nodo_dic<T>* nodo);
+    std::string sucesor(Nodo_dic<T>* nodo);
 
     // POST: Devuelve una clave de tipo string que es el predecesor del nodo recibido por parametro
     std::string predecesor(Nodo_dic<T>* nodo);
@@ -248,10 +248,10 @@ std::string Diccionario<T>::encontrar_max(){
 }
 
 template <class T>
-Nodo_dic<T>* Diccionario<T>::sucesor(Nodo_dic<T>* nodo){
-    if (nodo->obtener_derecho() != NULL){
-        return buscar(nodo, encontrar_min(nodo->obtener_derecho()));
-    }
+std::string Diccionario<T>::sucesor(Nodo_dic<T>* nodo){
+    if (nodo->obtener_derecho() != NULL)
+        return encontrar_min(nodo->obtener_derecho());
+
     Nodo_dic<T>* sucesor = NULL;
     Nodo_dic<T>* ancestro = this->raiz;
     while(ancestro != nodo){
@@ -262,7 +262,9 @@ Nodo_dic<T>* Diccionario<T>::sucesor(Nodo_dic<T>* nodo){
         else
             ancestro = ancestro->obtener_derecho();
     }
-    return sucesor;
+    if(sucesor != NULL)
+        return sucesor->obtener_clave();
+    return "\0";
 }
 
 template <class T>
@@ -271,7 +273,7 @@ std::string Diccionario<T>::sucesor(std::string clave){
     if(nodo_clave == NULL)
         return "\0";
     else
-        return sucesor(nodo_clave)->obtener_clave();
+        return sucesor(nodo_clave);
 }
 
 template <class T>
