@@ -328,32 +328,16 @@ Nodo_dic<T> * Diccionario<T>::borrar(Nodo_dic<T>* nodo, std::string clave){
         }
             //El nodo tiene dos hijos (izquierdo y derecho)
         else{
-            Nodo_dic<T>* aux = nodo;
             // Encuentra sucesora o predecesora para evitar disputas
             std::string sucesor_clave = this->sucesor(nodo);
             Nodo_dic<T>* sucesor = buscar(nodo, sucesor_clave);
 
-
             //Copiar los datos del nodo sucesor a los del nodo actual
-            nodo = sucesor;
-            nodo->modificar_izquierdo(aux->obtener_izquierdo());
+            nodo->modificar_clave(sucesor->obtener_clave());
+            nodo->modificar_dato(sucesor->obtener_dato());
 
-            //Elimina el antiguo nodo del sucesor
-            if(!sucesor->solo_un_hijo()){ //solo puede tener hijo derecho
-                Nodo_dic<T>* aux2 = sucesor;
-                sucesor = NULL;
-                delete aux2;
-            }
-            else{
-                sucesor->obtener_derecho()->modificar_padre(sucesor->obtener_padre());
-                Nodo_dic<T>* aux3 = sucesor;
-                sucesor = sucesor->obtener_derecho();
-                delete aux3;
-            }
-            //Elimina el antiguo nodo del sucesor
-            //nodo->modificar_derecho(borrar(nodo->obtener_derecho(), sucesor->obtener_clave()));
-
-            delete aux;
+            // Borro el nodo viejo del sucesor
+            borrar(nodo->obtener_derecho(), sucesor_clave);
         }
     }
 
