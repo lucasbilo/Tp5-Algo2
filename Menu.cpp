@@ -15,7 +15,8 @@ Menu::Menu(Diccionario<Aeropuerto> * ABB, Grafo* grafo){
 void Menu::menu_completo() {
     int opcion, eleccion1, eleccion2;
     do {
-        cout << endl << endl << "---------------------MENU COMPLETO------------------------" << endl;
+        cout << endl << endl << "\n---------------------MENU COMPLETO------------------------" << endl;
+        cout << "\nOpciones disponibles: \n" << endl;
         cout << "1. Menu aeropuertos." << endl;
         cout << "2. Menu vuelos." << endl;
         cout << "3. Salir." << endl;
@@ -38,8 +39,8 @@ void Menu::menu_completo() {
 }
 
 void Menu::menu_grafo() {
-    cout << endl << endl << "---------------------MENU GRAFO------------------------" << endl;
-    cout << "Opciones disponibles: " << endl;
+    cout << endl << endl << "\n---------------------MENU GRAFO------------------------" << endl;
+    cout << "\nOpciones disponibles: \n" << endl;
     cout << "1. Consultar vuelo minimo por tiempo." << endl;
     cout << "2. Consultar vuelo minimo por precio." << endl;
     cout << "3. Salir." << endl;
@@ -47,8 +48,8 @@ void Menu::menu_grafo() {
 
 
 void Menu::menu_abb() {
-    cout << endl << endl << "----------------------MENU ABB-------------------------" << endl;
-    cout << "Opciones disponibles: " << endl;
+    cout << endl << endl << "\n----------------------MENU ABB-------------------------" << endl;
+    cout << "\nOpciones disponibles: \n" << endl;
     cout << "1. Consultar por un aeropuerto en particular." << endl;
     cout << "2. Dar de alta un nuevo aeropuerto." << endl;
     cout << "3. Dar de baja un aeropuerto." << endl;
@@ -69,31 +70,36 @@ void Menu::opcion_grafo(int opcion) {
 }
 
 void Menu::grafo_minimo(int tipo_de_peso) {
-    string iata_partida = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA de partida: "));
-    string iata_destino = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA de destino: "));
+    string iata_partida = validaciones.pasar_a_mayuscula(validaciones.pedir_string("\nIngrese el codigo IATA de partida: "));
+    string iata_destino = validaciones.pasar_a_mayuscula(validaciones.pedir_string("\nIngrese el codigo IATA de destino: "));
+    while (iata_partida == iata_destino){
+        cout << "Los codigos IATA ingresados son iguales. Por favor, introduzca codigos IATA distintos. " <<endl;
+        iata_partida = validaciones.pasar_a_mayuscula(validaciones.pedir_string("\nIngrese el codigo IATA de partida: "));
+        iata_destino = validaciones.pasar_a_mayuscula(validaciones.pedir_string("\nIngrese el codigo IATA de destino: "));
+    }
     grafo->imprimir_camino_minimo(iata_partida,iata_destino,tipo_de_peso);
 }
 
 void Menu::opcion_abb(int opcion) {
     switch (opcion) {
         case 1: {
-            cout << "---CONSULTAR AEROPUERTO---" << endl;
+            cout << "\n---CONSULTAR AEROPUERTO---\n" << endl;
             consultar_aeropuerto(); break;
         }
         case 2: {
-            cout << "---ALTA DE UN AEROPUERTO---" << endl;
+            cout << "\n---ALTA DE UN AEROPUERTO---\n" << endl;
             alta_aeropuerto(); break;
         }
         case 3:{
-            cout << "---BAJA DE UN AEROPUERTO---" << endl;
+            cout << "\n---BAJA DE UN AEROPUERTO---\n" << endl;
             baja_aeropuerto(); break;
         }
         case 4:{
-            cout << "---IMPRESION EN ORDEN---" << endl;
+            cout << "\n---IMPRESION EN ORDEN---\n" << endl;
             ABB->imprimir_en_orden(); break;
         }
         case 5:{
-            cout << "---IMPRESION EN ANCHURA---" << endl;
+            cout << "\n---IMPRESION EN ANCHURA---\n" << endl;
             ABB->imprimir_en_anchura(); break;
         }
     }
@@ -101,18 +107,18 @@ void Menu::opcion_abb(int opcion) {
 
 void Menu::alta_aeropuerto()
 {
-    string iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA: "));
+    string iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("\nIngrese el codigo IATA: "));
     while (ABB -> buscar(iata)){
         cout << "El código IATA ingresado ya pertenece a un aeropuerto." << endl;
-        iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA: "));
+        iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("\nIngrese el codigo IATA: "));
     }
-    string n_aeropuerto = validaciones.pedir_string("Ingrese el nombre del aeropuerto: ");
-    string ciudad = validaciones.pedir_string("Ingrese el nombre de la ciudad: ");
-    string pais = validaciones.pedir_string("Ingrese el nombre del país: ");
-    int superficie = validaciones.pedir_entero("Ingrese la superficie: ");
-    int cant_terminales = validaciones.pedir_entero("Ingrese la cantidad de terminales: ");
-    int d_nacionales = validaciones.pedir_entero("Ingrese la cantidad de destinos nacionales: ");
-    int d_internacionales = validaciones.pedir_entero("Ingrese la cantidad de destinos internacionales: ");
+    string n_aeropuerto = validaciones.pedir_string("\nIngrese el nombre del aeropuerto: ");
+    string ciudad = validaciones.pedir_string("\nIngrese el nombre de la ciudad: ");
+    string pais = validaciones.pedir_string("\nIngrese el nombre del país: ");
+    int superficie = validaciones.pedir_entero("\nIngrese la superficie: ");
+    int cant_terminales = validaciones.pedir_entero("\nIngrese la cantidad de terminales: ");
+    int d_nacionales = validaciones.pedir_entero("\nIngrese la cantidad de destinos nacionales: ");
+    int d_internacionales = validaciones.pedir_entero("\nIngrese la cantidad de destinos internacionales: ");
     Aeropuerto *aeropuerto = new Aeropuerto(iata, n_aeropuerto, ciudad, pais, superficie, cant_terminales,
                                                 d_nacionales, d_internacionales);
     ABB->insertar(iata, aeropuerto);
@@ -120,14 +126,14 @@ void Menu::alta_aeropuerto()
 
 void Menu::baja_aeropuerto()
 {
-    string iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("Ingrese el codigo IATA: "));
+    string iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("\nIngrese el codigo IATA: "));
     if(ABB->buscar(iata))
     {
         ABB->borrar(iata);
-        cout << "El aeropuerto" << iata << " fue borrado exitosamente" << endl;
+        cout << "\nEl aeropuerto " << iata << " fue borrado exitosamente" << endl;
     }
     else
-        cout << "El codigo IATA ingresado no es correcto." << endl;
+        cout << "\nEl codigo IATA ingresado no es correcto." << endl;
 }
 
 void Menu::consultar_aeropuerto()
@@ -137,7 +143,7 @@ void Menu::consultar_aeropuerto()
     if(ABB->buscar(iata))
         ABB -> consultar(iata) -> mostrar_datos();
     else
-        cout << "El código IATA ingresado no es correcto." << endl;
+        cout << "\nEl código IATA ingresado no es correcto." << endl;
 }
 
 

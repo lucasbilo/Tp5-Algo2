@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const string NOMBRE_ARCHIVO_VUELOS = "vuelos_pre_intermedio.txt";
+const string NOMBRE_ARCHIVO_VUELOS = "vuelos_principiante.txt";
 const string NOMBRE_ARCHIVO_AEROPUERTOS = "aeropuertos.txt";
 
 int main() {

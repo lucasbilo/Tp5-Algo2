@@ -56,10 +56,10 @@ void Grafo::imprimir_camino_minimo(string origen, string destino, int posicion_p
         if(pos_llegada != POSICION_INVALIDA)
             imprimir_caminos(llegada, ultimo_visitado, vector_vertices, tope, posicion_peso);
         else
-            cout << "No se encontraron caminos que satisfagan los pedido" << endl;
+            cout << "\nNo se encontraron caminos que satisfagan los pedido" << endl;
         liberar_memoria_visitados(ultimo_visitado, tope);
     }else{
-        cout << "Ocurrio un problema. Los vertices pedidos no se pudieron encontrar" << endl;
+        cout << "\nOcurrio un problema. Los vertices pedidos no se pudieron encontrar" << endl;
     }
 }
 
@@ -282,13 +282,13 @@ void Grafo::desvisitar_aristas(Lista<bool>* aristas_visitadas){
 // POST: Se imprime este camino
 void Grafo::imprimir_camino(Lista<Arista*>* camino, int pos_peso, int &numero_opcion){
     Arista* arista_actual;
-    cout << "\n\nOpcion de camino numero " << numero_opcion << "\n\n";
+    cout << "\n\nOpcion de camino numero " << numero_opcion << "\n";
     for( int i = 1; i <= camino->obtener_tam(); i++){
         arista_actual = *camino->obtener_dato(i);
         cout << arista_actual->obtener_cod_partida() << " -> " << arista_actual->obtener_cod_destino() <<
              " COSTO: " << arista_actual->obtener_peso(pos_peso) << endl;
     }
-    cout << "\n\n";
+    cout << "\n";
     numero_opcion++;
 }
 

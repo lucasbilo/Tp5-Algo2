@@ -24,7 +24,7 @@ bool Validacion::es_digito(string palabra)
 
 int Validacion::opcion_entre_rangos(int min, int max) {
     string numero;
-    cout << "Ingrese la opcion que desee realizar: ";
+    cout << "\nIngrese la opcion que desee realizar: ";
     cin >> numero;
     
     bool digito = es_digito(numero);
@@ -33,7 +33,7 @@ int Validacion::opcion_entre_rangos(int min, int max) {
     
     while (numero_int < min || numero_int > max || (!digito))
     {
-        cout << "El numero ingresado esta fuera de rango o es invalido, vuelva a ingresar un numero: ";
+        cout << "\nEl numero ingresado esta fuera de rango o es invalido, vuelva a ingresar un numero: ";
         cin >> numero;
         digito = es_digito(numero);
         numero_int = string_a_int(numero);
@@ -48,7 +48,7 @@ int Validacion::pedir_entero(std::string mensaje) {
     cin >> numero_string;
     if(!es_digito(numero_string))
     {
-        cout << "El numero ingresado es invalido, vuelva a ingresar un numero: ";
+        cout << "\nEl numero ingresado es invalido, vuelva a ingresar un numero: ";
         cin >> numero_string;
     }
     numero = string_a_int(numero_string);
