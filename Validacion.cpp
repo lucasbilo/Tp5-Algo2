@@ -58,9 +58,8 @@ int Validacion::pedir_entero(std::string mensaje) {
 string Validacion::pedir_string(std::string mensaje) {
     string palabra;
     cout << mensaje;
-    cin.ignore();
-    getline(cin,palabra);
-    for (unsigned int i = 0; i <= palabra.length(); i++)
+    cin >> palabra;
+    for (unsigned int i = 0; i < palabra.length(); i++)
     {
         if (palabra[i] == ' ')
         {
@@ -72,7 +71,7 @@ string Validacion::pedir_string(std::string mensaje) {
 
 string Validacion::pasar_a_mayuscula(string iata)
 {
-    for (unsigned i = 0; i <= iata.length(); i++)
+    for (unsigned i = 0; i < iata.length(); i++)
     {
         iata[i] = toupper(iata[i]);
     }

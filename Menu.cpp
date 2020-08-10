@@ -109,12 +109,12 @@ void Menu::alta_aeropuerto()
 {
     string iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("\nIngrese el codigo IATA: "));
     while (ABB -> buscar(iata)){
-        cout << "El código IATA ingresado ya pertenece a un aeropuerto." << endl;
+        cout << "El codigo IATA ingresado ya pertenece a un aeropuerto." << endl;
         iata = validaciones.pasar_a_mayuscula(validaciones.pedir_string("\nIngrese el codigo IATA: "));
     }
     string n_aeropuerto = validaciones.pedir_string("\nIngrese el nombre del aeropuerto: ");
     string ciudad = validaciones.pedir_string("\nIngrese el nombre de la ciudad: ");
-    string pais = validaciones.pedir_string("\nIngrese el nombre del país: ");
+    string pais = validaciones.pedir_string("\nIngrese el nombre del pais: ");
     int superficie = validaciones.pedir_entero("\nIngrese la superficie: ");
     int cant_terminales = validaciones.pedir_entero("\nIngrese la cantidad de terminales: ");
     int d_nacionales = validaciones.pedir_entero("\nIngrese la cantidad de destinos nacionales: ");
@@ -143,7 +143,7 @@ void Menu::consultar_aeropuerto()
     if(ABB->buscar(iata))
         ABB -> consultar(iata) -> mostrar_datos();
     else
-        cout << "\nEl código IATA ingresado no es correcto." << endl;
+        cout << "\nEl codigo IATA ingresado no es correcto." << endl;
 }
 
 
