@@ -1,3 +1,0 @@
-C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/Tp5_Algo2.dir
-C:/Users/lucas/OneDrive/Escritorio/Tp5-Algo2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
