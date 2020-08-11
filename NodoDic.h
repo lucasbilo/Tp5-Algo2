@@ -151,8 +151,6 @@ void Nodo_dic<T>::modificar_padre(Nodo_dic<T> *padre) {
 
 template <class T>
 void Nodo_dic<T>::modificar_dato(T* dato) {
-    if(dato != NULL)
-        delete dato;
     this->dato = dato;
 }
 
