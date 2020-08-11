@@ -331,12 +331,17 @@ Nodo_dic<T> * Diccionario<T>::borrar(Nodo_dic<T>* nodo, std::string clave){
             // Encuentra sucesora o predecesora para evitar disputas
             std::string sucesor_clave = this->sucesor(nodo);
             Nodo_dic<T>* sucesor = buscar(nodo, sucesor_clave);
-
+            T* aux = nodo->obtener_dato();
+            nodo->modificar_clave(sucesor->obtener_clave());
+            nodo->modificar_dato(sucesor->obtener_dato());
+            sucesor->modificar_dato(aux);
+            
+/*
             //Copiar los datos del nodo sucesor a los del nodo actual
             nodo->modificar_clave(sucesor->obtener_clave());
             delete nodo->obtener_dato();
             nodo->modificar_dato(sucesor->obtener_dato());
-
+*/
             // Borro el nodo viejo del sucesor
             nodo->modificar_derecho(borrar(nodo->obtener_derecho(), sucesor_clave));
         }
